@@ -127,9 +127,13 @@ svg{display:block;width:100%;height:auto}
 .srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px 18px;margin:0 0 14px}
 .srcgrid dt{font:600 11.5px var(--f-body);color:var(--ink);margin-bottom:2px}
 .srcgrid dd{margin:0;line-height:1.45;color:var(--muted)}
-.charts2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
-@media (max-width:820px){.charts2{grid-template-columns:minmax(0,1fr)}}
-.hleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--muted);margin-top:4px}
+.charts2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"cl cr" "tl tr" "hl hr" "ll lr";gap:0 24px;align-items:start;margin-top:14px}
+.charts2 .cctl{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:11px;color:var(--dim)}
+.charts2 .cctl>span{white-space:nowrap}
+.charts2 .sect{margin:0 0 4px}
+@media (max-width:820px){.charts2{grid-template-columns:minmax(0,1fr);grid-template-areas:"cl" "tl" "hl" "ll" "cr" "tr" "hr" "lr"}.charts2 #hleg{margin-bottom:16px}}
+.hleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--muted);margin-top:6px}
+.hleg .me{color:var(--ink);font-weight:600}
 .hleg i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
 /* ranking chart inside the ficha */
 .rk{display:grid;grid-template-columns:minmax(0,10.5em) minmax(0,1fr) auto auto;gap:4px 10px;align-items:center;font-size:12px}
@@ -156,12 +160,14 @@ svg{display:block;width:100%;height:auto}
 .mc[data-click]:hover{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
 .mc.on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
 @media (max-width:480px){.rk{grid-template-columns:minmax(0,8.5em) minmax(0,1fr) auto auto;gap:4px 6px}}
-.rksum{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
-.rksum span{font-size:11.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:3px 8px}
+.rksum{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:0}
+@media (max-width:640px){.rksum{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.rksum button{display:flex;flex-direction:column;align-items:flex-start;gap:1px;background:var(--bg);border:0;border-radius:7px;padding:6px 9px;cursor:pointer;text-align:left;font:inherit;min-width:0}
+.rksum button:hover{box-shadow:inset 0 0 0 1px #3A3F6A}
+.rksum button span{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.rksum b small{font-size:10.5px;color:var(--dim);font-weight:500}
 .rksum b{color:var(--ink);font:600 12px var(--f-mono)}
-.rksum .on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
-.ctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:2px 0 10px}
-.ctl .rksum{margin:0}
+.rksum .on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)!important}
 .seg.sm button{font-size:11.5px;padding:3px 9px}
 .hleg .lg{background:none;border:0;padding:0;font:inherit;color:var(--muted);cursor:pointer}
 .hleg .lg:hover{color:var(--ink)}
@@ -880,17 +886,22 @@ function ficha(){
      <div class="box" style="margin-top:12px">
       <div class="sect" style="align-items:center;flex-wrap:wrap;gap:8px"><span>Gráficos</span>
        <div class="seg" id="rkseg">${F.eco.map(f=>`<button type="button" data-f="${f.k}" aria-pressed="${f.k===rkField}">${RKLBL[f.k]||f.l}</button>`).join("")}</div></div>
-      <div class="ctl"><div class="seg sm" id="spanseg" aria-label="Período">${SPANS.map(([y,l])=>`<button type="button" data-y="${y}" aria-pressed="${y===hFrom}">${l}</button>`).join("")}</div>
-       <div class="rksum" id="rksum"></div></div>
+      <p class="sect" style="margin-top:6px"><span>Puesto entre los 18</span><em>de mayor a menor, último dato</em></p>
+      <div class="rksum" id="rksum"></div>
       <div class="charts2">
-       <div><p class="sect"><span>Evolución de ${c.name}</span><em id="hnote"></em></p><div id="hchart"></div></div>
-       <div><div class="sect" style="align-items:center"><span>Frente a otros países</span><div class="seg sm" id="peerseg">${Object.entries(PEERS).map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===peerSet}">${l}</button>`).join("")}</div></div><p class="sect" style="margin-top:-4px"><span></span><em id="pnote"></em></p><div id="pchart"></div></div>
+       <div class="cctl" style="grid-area:cl"><span>Período</span><div class="seg sm" id="spanseg">${SPANS.map(([y,l])=>`<button type="button" data-y="${y}" aria-pressed="${y===hFrom}">${l}</button>`).join("")}</div></div>
+       <div class="cctl" style="grid-area:cr"><span>Comparar con</span><div class="seg sm" id="peerseg">${Object.entries(PEERS).map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===peerSet}">${l}</button>`).join("")}</div></div>
+       <p class="sect" style="grid-area:tl"><span>Evolución de ${c.name}</span><em id="hnote"></em></p>
+       <p class="sect" style="grid-area:tr"><span id="ptitle"></span><em id="pnote"></em></p>
+       <div id="hchart" style="grid-area:hl"></div><div id="pchart" style="grid-area:hr"></div>
+       <div class="hleg" id="hleg" style="grid-area:ll"></div><div class="hleg" id="pleg" style="grid-area:lr"></div>
       </div>
+      <p class="cnote" id="cfoot" style="border-top:1px solid var(--line);padding-top:8px;margin-top:10px"></p>
      </div>`;
     const setF=fk=>{rkField=fk;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f===fk));body.querySelectorAll(".mc[data-click]").forEach(x=>x.classList.toggle("on",x.dataset.click===fk));ecoCharts()};
     body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>setF(b.dataset.f));
     body.querySelectorAll("#spanseg button").forEach(b=>b.onclick=()=>{hFrom=+b.dataset.y;body.querySelectorAll("#spanseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));ecoCharts()});
-    body.querySelectorAll("#peerseg button").forEach(b=>b.onclick=()=>{peerSet=b.dataset.p;body.querySelectorAll("#peerseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));peerChart()});
+    body.querySelectorAll("#peerseg button").forEach(b=>b.onclick=()=>{peerSet=b.dataset.p;body.querySelectorAll("#peerseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));ecoCharts()});
     body.querySelectorAll(".mc[data-click]").forEach(t=>{const go=()=>{setF(t.dataset.click);document.getElementById("hchart").closest(".box").scrollIntoView({behavior:"smooth",block:"nearest"})};t.onclick=go;t.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
     ecoCharts();
   } else if(tab==="pol"){
@@ -959,15 +970,19 @@ function rankOf(fk,k){
 }
 function rankSum(){
   const el=document.getElementById("rksum"); if(!el) return;
-  el.innerHTML=`<span style="background:none;padding-left:0;color:var(--dim)">Puesto entre los 18 (último dato):</span>`+F.eco.map(g=>{const r=rankOf(g.k,sel);
-    return `<span${g.k===rkField?' class="on"':""}>${RKLBL[g.k]} <b>${r?`${r[0]}.º/${r[1]}`:"s/d"}</b></span>`}).join("");
+  el.innerHTML=F.eco.map(g=>{const r=rankOf(g.k,sel);
+    return `<button type="button" data-f="${g.k}"${g.k===rkField?' class="on"':""} title="Ver ${RKLBL[g.k]}"><span>${RKLBL[g.k]}</span><b>${r?`${r[0]}.º<small>/${r[1]}</small>`:"s/d"}</b></button>`}).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>document.querySelector(`#rkseg button[data-f="${b.dataset.f}"]`).click());
 }
 /* shared svg line chart. series: [{k,vals,col,w,dash,main}] over years i0..n-1 of HIST */
-function lineSVG({series,i0,fmt,fmtT,label,base0=true,proj=true}){
-  const n=HIST.pib.us.length, cnt=n-i0, ip=HYP-HY0;
+function chartDom(series,i0,base0=true){
   const all=[]; series.forEach(s=>s.vals.forEach((v,i)=>{if(i>=i0&&v!=null) all.push(v)}));
-  if(!all.length) return "";
-  let lo=base0?Math.min(0,...all):Math.min(...all),hi=Math.max(...all); const pad=(hi-lo)*.08||1; hi+=pad; if(lo<0||!base0) lo-=pad;
+  if(!all.length) return null;
+  let lo=base0?Math.min(0,...all):Math.min(...all),hi=Math.max(...all); const pad=(hi-lo)*.08||1; hi+=pad; if(lo<0||!base0) lo-=pad; return [lo,hi];
+}
+function lineSVG({series,i0,fmt,fmtT,label,base0=true,proj=true,dom}){
+  const n=HIST.pib.us.length, cnt=n-i0, ip=HYP-HY0;
+  dom=dom||chartDom(series,i0,base0); if(!dom) return ""; const [lo,hi]=dom;
   const step=niceStep((hi-lo)/4), tl=[];for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step) tl.push(fmtT(t,step));
   const W=420,H=260,L=Math.max(30,8+6.4*Math.max(...tl.map(x=>x.length))),R=14,T=12,B=24, X=i=>L+(W-L-R)*(i-i0)/(cnt-1), Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
   let g=""; for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step) g+=`<line x1="${L}" x2="${W-R}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}" stroke="${Math.abs(t)<1e-9&&lo<0?"#5A5F8C":"#262A4D"}"/><text x="${L-6}" y="${(Y(t)+4).toFixed(1)}" font-size="10.5" text-anchor="end" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${fmtT(t,step)}</text>`;
@@ -987,32 +1002,40 @@ function lineSVG({series,i0,fmt,fmtT,label,base0=true,proj=true}){
     <text x="${(X(ip-.5)-4).toFixed(1)}" y="${T+11}" font-size="10" text-anchor="end" fill="#8E93BE" font-family="Public Sans,sans-serif">proyección →</text>
     ${g}${lines}${xl}</svg>`;
 }
-const tickFmt=f=>(t,step)=>f.u==="bn"?(t>=1000?fmtN(t/1000,step<1000?1:0)+" bill.":fmtN(t,0)):f.u==="usd"?(t>=1000?fmtN(t/1000,0)+" mil":fmtN(t,0)):fmtN(t,step<1?1:0);
-function histChart(){
-  const el=document.getElementById("hchart"); if(!el) return;
-  const f=F.eco.find(x=>x.k===rkField), ser=(HIST[f.k]||{})[sel]||[], col=COL[sel], i0=hFrom-HY0;
-  document.getElementById("hnote").textContent=`${hFrom}–2027`;
-  if(ser.slice(i0).filter(v=>v!=null).length<2){el.innerHTML=`<p class="empty"><span class="pill">Sin dato</span>El FMI no publica esta serie para ${C[sel].name}.</p>`;return}
+const tickFmt=f=>(t,step)=>(t=Math.abs(t)<1e-9?0:t,f.u==="bn"?(t>=1000?fmtN(t/1000,step<1000?1:0)+" bill.":fmtN(t,0)):f.u==="usd"?(t>=1000?fmtN(t/1000,0)+" mil":fmtN(t,0)):fmtN(t,step<1?1:0));
+function histSeries(f){
+  const ser=(HIST[f.k]||{})[sel]||[];
   const med=f.k==="pib"?null:ser.map((_,i)=>{const xs=ORDER.map(k=>(HIST[f.k][k]||[])[i]).filter(v=>v!=null).sort((a,b)=>a-b);if(!xs.length)return null;const m=xs.length>>1;return xs.length%2?xs[m]:(xs[m-1]+xs[m])/2});
-  const series=[]; if(med) series.push({k:"md",vals:med,col:"#8E93BE",w:1.4,dash:"3 4"}); series.push({k:sel,vals:ser,col,w:2.4,main:true});
-  // Argentina's inflation explodes the scale when the whole span is shown; keep the axis honest but readable
-  el.innerHTML=lineSVG({series,i0,fmt:U[f.u],fmtT:tickFmt(f),label:`${f.l} de ${C[sel].name}, ${hFrom} a 2027`})+
-   `<div class="hleg"><span><i style="border-color:${col}"></i>${SHORT[sel]}</span>${med?`<span><i style="border-color:#8E93BE;border-top-style:dashed"></i>mediana de los 18</span>`:""}<span>Datos anuales del FMI (WEO oct-2026); 2026-27 proyectados.${f.k==="inf"?" Inflación promedio del año.":""}${f.k==="inf"&&sel==="ar"&&hFrom<2016?" 2007-2015: IPC oficial cuestionado; el FMI no publica 2014-2016.":""}</span></div>`;
+  const out=[]; if(med) out.push({k:"md",vals:med,col:"#8E93BE",w:1.4,dash:"3 4"}); out.push({k:sel,vals:ser,col:COL[sel],w:2.6,main:true}); return out;
 }
-function peerChart(){
-  const el=document.getElementById("pchart"); if(!el) return;
-  const f=F.eco.find(x=>x.k===rkField), i0=hFrom-HY0, idx=f.k==="pib"||f.k==="pibpc";
-  const ks=peersOf(sel).filter(k=>(HIST[f.k][k]||[]).slice(i0).some(v=>v!=null));
+const isIdx=f=>f.k==="pib"||f.k==="pibpc";
+function peerSeries(f,i0){
+  const idx=isIdx(f), ks=peersOf(sel).filter(k=>(HIST[f.k][k]||[]).slice(i0).some(v=>v!=null));
   // levels in dollars differ by orders of magnitude, so GDP is shown as an index (first year of the span = 100)
   const prep=k=>{const v=HIST[f.k][k]; if(!idx) return v; const b=v.slice(i0).find(x=>x!=null); return v.map(x=>x==null||b==null?null:x/b*100)};
-  const series=ks.filter(k=>k!==sel).map(k=>({k,vals:prep(k),col:COL[k],w:1.5,op:.7})).concat([{k:sel,vals:prep(sel),col:COL[sel],w:2.8,main:true}]);
-  const fmt=idx?v=>fmtN(v,0):U[f.u];
-  document.getElementById("pnote").textContent=idx?`índice, ${hFrom} = 100`:"";
-  el.innerHTML=lineSVG({series,i0,fmt,fmtT:idx?(t=>fmtN(t,0)):tickFmt(f),base0:!idx,label:`${f.l}: ${C[sel].name} frente a ${PEERS[peerSet].toLowerCase()}`})+
-   `<div class="hleg">${ks.map(k=>`<button type="button" class="lg${k===sel?" me":""}" data-k="${k}" title="Ver ${C[k].name}"><i style="border-color:${COL[k]}"></i>${SHORT[k]}</button>`).join("")}<span>${idx?`Crecimiento acumulado en dólares corrientes desde ${hFrom}.`:"FMI, anual."}</span></div>`;
-  el.querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>select(b.dataset.k,true));
+  return ks.filter(k=>k!==sel).map(k=>({k,vals:prep(k),col:COL[k],w:1.5,op:.7})).concat([{k:sel,vals:prep(sel),col:COL[sel],w:2.6,main:true}]);
 }
-function ecoCharts(){histChart();peerChart();rankSum()}
+function ecoCharts(){
+  const f=F.eco.find(x=>x.k===rkField), i0=hFrom-HY0, idx=isIdx(f), span=`${hFrom}–2027`;
+  const hs=histSeries(f), ps=peerSeries(f,i0);
+  // both charts share the y scale unless the right one is an index, so lines can be read side by side
+  const dom=idx?null:chartDom(hs.concat(ps),i0);
+  const hel=document.getElementById("hchart"), pel=document.getElementById("pchart");
+  document.getElementById("hnote").textContent=span;
+  document.getElementById("pnote").textContent=idx?`índice, ${hFrom} = 100`:span;
+  document.getElementById("ptitle").textContent=`Frente a ${{reg:"su región",des:"los desarrollados",eme:"los emergentes"}[peerSet]}`;
+  if(hs[hs.length-1].vals.slice(i0).filter(v=>v!=null).length<2){
+    hel.innerHTML=`<p class="empty"><span class="pill">Sin dato</span>El FMI no publica esta serie para ${C[sel].name}.</p>`; document.getElementById("hleg").innerHTML="";
+  } else {
+    hel.innerHTML=lineSVG({series:hs,i0,fmt:U[f.u],fmtT:tickFmt(f),dom,label:`${f.l} de ${C[sel].name}, ${span}`});
+    document.getElementById("hleg").innerHTML=`<span class="me"><i style="border-color:${COL[sel]}"></i>${SHORT[sel]}</span>${hs.length>1?`<span><i style="border-color:#8E93BE;border-top-style:dashed"></i>Mediana de los 18</span>`:""}`;
+  }
+  pel.innerHTML=lineSVG({series:ps,i0,fmt:idx?v=>fmtN(v,0):U[f.u],fmtT:idx?(t=>fmtN(t,0)):tickFmt(f),base0:!idx,dom,label:`${f.l}: ${C[sel].name} ${document.getElementById("ptitle").textContent.toLowerCase()}`});
+  document.getElementById("pleg").innerHTML=ps.slice().reverse().map(x=>`<button type="button" class="lg${x.k===sel?" me":""}" data-k="${x.k}" title="Ver ${C[x.k].name}"><i style="border-color:${x.col}"></i>${SHORT[x.k]}</button>`).join("");
+  document.getElementById("pleg").querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>select(b.dataset.k,true));
+  document.getElementById("cfoot").textContent=`Datos anuales del FMI (WEO oct-2026); 2026 y 2027 son proyecciones.${f.k==="inf"?" Inflación promedio del año.":""}${idx?` A la derecha, crecimiento acumulado en dólares corrientes desde ${hFrom} (${hFrom} = 100).`:" Ambos gráficos usan la misma escala."}${f.k==="inf"&&sel==="ar"&&hFrom<2016?" Argentina 2007-2015: IPC oficial cuestionado; el FMI no publica 2014-2016.":""}`;
+  rankSum();
+}
 
 /* ---------- trade treemap ---------- */
 let flow="x";
