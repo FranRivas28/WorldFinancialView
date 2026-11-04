@@ -104,6 +104,90 @@ svg{display:block;width:100%;height:auto}
 .news a{color:var(--muted);font-size:11.5px}
 footer{color:var(--dim);font-size:11.5px;max-width:110ch}
 footer a{color:inherit}
+/* ---- views, ficha tabs, gaps, treemap, comparator ---- */
+.hright{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.views{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px}
+.views button{font:600 12.5px var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:7px;padding:6px 12px;cursor:pointer}
+.views button[aria-pressed="true"]{background:var(--ink);color:#0A0B1A}
+[hidden]{display:none!important}
+.ficha{grid-column:6/13;grid-row:1/3;display:flex;flex-direction:column;gap:12px}
+.newsc{grid-column:1/-1}
+@media (max-width:1100px){.ficha{grid-column:1/-1;grid-row:auto}}
+.fhead{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:10px}
+.fname{font:700 26px var(--f-display);font-stretch:85%;margin:0;display:flex;align-items:center;gap:10px}
+.fname i{width:10px;height:10px;border-radius:50%}
+.fsub{margin:2px 0 0;color:var(--muted);font-size:12px}
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:none}
+.tabs button{font:600 13px var(--f-body);color:var(--muted);background:transparent;border:0;border-bottom:2px solid transparent;padding:8px 12px 9px;cursor:pointer;white-space:nowrap}
+.tabs button:hover{color:var(--ink)}
+.tabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--c,var(--accent))}
+.sect{font:600 10.5px var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:4px 0 8px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}
+.sect em{font-style:normal;text-transform:none;letter-spacing:0;color:var(--dim);font-weight:500}
+.mc.gap{background:transparent;border:1px dashed #3A3F6A}
+.mc.isna{background:transparent;border:1px solid var(--line)}
+.pill{display:inline-block;font:600 10.5px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:#FFB84D;background:#3A2A12;border-radius:4px;padding:2px 6px;font-style:normal}
+.pill.na{color:var(--muted);background:var(--panel2)}
+.pill{margin-right:6px}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.two{grid-template-columns:minmax(0,1fr)}}
+.box{background:var(--panel2);border-radius:10px;padding:12px;min-width:0}
+.dl{display:grid;grid-template-columns:minmax(0,11em) minmax(0,1fr);gap:7px 14px;margin:0;font-size:13px}
+.dl dt{color:var(--muted);font-size:12px}
+.dl dd{margin:0}
+@media (max-width:480px){.dl{grid-template-columns:minmax(0,1fr)}.dl dd{margin-bottom:6px}}
+.plist{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:p}
+.plist li{display:flex;gap:8px;align-items:center;font-size:13px}
+.plist li::before{counter-increment:p;content:counter(p);font:500 11px var(--f-mono);color:var(--dim);width:14px}
+.seg{display:inline-flex;gap:2px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:3px;flex-wrap:wrap}
+.seg button{font:500 12px var(--f-body);color:var(--muted);background:transparent;border:0;border-radius:6px;padding:5px 10px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:#221F4A;color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.tm{position:relative;width:100%;border-radius:8px;overflow:hidden;background:var(--bg)}
+.tm .t{position:absolute;overflow:hidden;padding:5px 6px;color:#0A0B1A;display:flex;flex-direction:column;justify-content:space-between;line-height:1.15;cursor:default}
+.tm .t.lt{color:#F6F7FF}
+.tm .t b{font-weight:600;display:block;overflow:hidden;overflow-wrap:anywhere;hyphens:auto}
+.tm .t span{font-family:var(--f-mono);opacity:.9}
+.tm .t:hover{filter:brightness(1.12)}
+.tmtotal{font:600 15px var(--f-display);font-stretch:90%;margin:0 0 6px}
+.tmlegend{display:flex;flex-wrap:wrap;gap:4px 12px;margin-top:8px;font-size:11.5px;color:var(--muted)}
+.tmlegend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px;vertical-align:-1px}
+.note{font-size:11.5px;color:var(--dim);margin:8px 0 0}
+.flist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.flist li{font-size:12.5px;display:grid;gap:2px}
+.flist .meta{font:500 11px var(--f-mono);color:var(--dim)}
+/* comparator */
+.cmpctl{display:grid;gap:10px}
+.ctlrow{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center}
+.ctlrow > span{font:600 10.5px var(--f-body);letter-spacing:.09em;text-transform:uppercase;color:var(--muted);min-width:6.5em}
+.cchips{display:flex;flex-wrap:wrap;gap:6px}
+.cchips button{font:500 12.5px var(--f-body);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:99px;padding:5px 11px;cursor:pointer;display:flex;gap:6px;align-items:center}
+.cchips button i{width:8px;height:8px;border-radius:50%}
+.cchips button[aria-pressed="true"]{color:var(--ink);background:var(--panel2);border-color:var(--c)}
+.cchips button[aria-pressed="false"] i{opacity:.35}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.cbar{display:grid;grid-template-columns:minmax(0,6.5em) minmax(0,1fr) auto;gap:6px 10px;align-items:center;font-size:12.5px;margin-bottom:7px}
+.cbar .nm{display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden}
+.cbar .nm i{width:7px;height:7px;border-radius:50%;flex:none}
+.cbar .tr{position:relative;height:10px;background:var(--panel2);border-radius:3px}
+.cbar .tr span{position:absolute;top:0;bottom:0;border-radius:3px}
+.cbar .tr .z{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--dim)}
+.cbar .tr.gap{background:transparent;border:1px dashed #3A3F6A}
+.cbar .vl{font:500 12px var(--f-mono);text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.cbar .vl.na{font:italic 500 11.5px var(--f-body);color:var(--dim)}
+.cnote{font-size:11px;color:var(--dim);margin:6px 0 0;line-height:1.35}
+.tblwrap{overflow-x:auto}
+table.ct{border-collapse:collapse;width:100%;font-size:12.5px;min-width:560px}
+table.ct th,table.ct td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}
+table.ct th:first-child,table.ct td:first-child{text-align:left;color:var(--muted);font-family:var(--f-body)}
+table.ct thead th{font:600 11.5px var(--f-body);color:var(--ink);white-space:nowrap}
+table.ct thead th i{width:7px;height:7px;border-radius:50%;display:inline-block;margin-right:5px}
+table.ct td{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+table.ct td.txt{font-family:var(--f-body);text-align:left}
+table.ct td.gap{color:#FFB84D;font:italic 500 11.5px var(--f-body)}
+table.ct td.na{color:var(--dim);font:italic 500 11.5px var(--f-body)}
+table.ct td.hi{color:var(--up)} table.ct td.lo{color:var(--down)}
+.stack{display:grid;grid-template-columns:minmax(0,6.5em) minmax(0,1fr);gap:8px 10px;align-items:center;font-size:12.5px}
+.stack .bar{display:flex;height:22px;border-radius:4px;overflow:hidden;background:var(--panel2)}
+.stack .bar span{height:100%;border-right:1px solid var(--panel)}
 </style>
 </head><body>
 
@@ -113,12 +197,16 @@ footer a{color:inherit}
     <div class="logo" aria-hidden="true"><svg viewBox="0 0 20 20" width="18" height="18"><circle cx="10" cy="10" r="7.5" fill="none" stroke="#0A0B1A" stroke-width="2"/><path d="M2.5 10h15M10 2.5c-3 3.5-3 11.5 0 15M10 2.5c3 3.5 3 11.5 0 15" fill="none" stroke="#0A0B1A" stroke-width="1.6"/></svg></div>
     <div><h1>Atlas de Mercados</h1><p>Prototipo · 6 países · foto al 3 de noviembre de 2026</p></div>
   </div>
-  <div class="chips" id="countries" role="group" aria-label="País"></div>
+  <div class="hright">
+    <div class="views" role="group" aria-label="Vista"><button type="button" id="v-atlas">Atlas</button><button type="button" id="v-cmp">Comparar países</button></div>
+    <div class="chips" id="countries" role="group" aria-label="País"></div>
+  </div>
 </header>
 
+<div id="view-atlas">
 <section class="kpis" id="kpis" aria-label="Indicadores del país"></section>
 
-<section class="board">
+<section class="board" style="margin-top:12px">
   <div class="card globe">
     <div class="metricbar" id="metrics" role="group" aria-label="Métrica de las barras"></div>
     <p class="gtitle" id="gtitle"></p>
@@ -129,14 +217,27 @@ footer a{color:inherit}
     </div>
     <div class="legend" id="glegend"></div>
   </div>
-  <div class="card trend"><h3><span>Bolsa · <em id="tname"></em></span><b id="tval"></b></h3><div id="tchart"></div></div>
-  <div class="card stocks"><h3><span>Acciones · <em>distancia al máximo de 52 sem.</em></span></h3><div id="slist"></div></div>
-  <div class="card compare"><h3><span>Seis bolsas comparadas · <em>base 100 = 5 de junio, en dólares</em></span></h3><div id="cchart"></div></div>
-  <div class="card macro"><h3><span>Macro · <em id="mname"></em></span></h3><div class="mgrid" id="mgrid"></div><div class="gaps" id="gaps"></div></div>
+  <div class="card ficha" id="ficha">
+    <div class="fhead">
+      <div><p class="fname" id="fname"></p><p class="fsub" id="fsub"></p></div>
+    </div>
+    <div class="tabs" role="tablist" id="tabs" aria-label="Sección de la ficha"></div>
+    <div id="fbody" role="tabpanel"></div>
+  </div>
   <div class="card newsc"><h3><span>Noticias recientes · <em id="nname"></em></span></h3><ul class="news" id="news"></ul></div>
 </section>
+</div>
 
-<footer>Fuentes: precios de ETF y acciones de Equibles (cierres diarios); tasas, inflación de EE. UU. y tipos de cambio de la Fed de St. Louis (FRED) vía Equibles; USD/ARS de Alpha Vantage; el resto de los indicadores y las noticias, de los organismos y medios enlazados en cada nota. La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares, porque las fuentes conectadas no traen índices locales. Es una foto fija, no se actualiza sola.</footer>
+<div id="view-cmp" hidden>
+  <section class="card cmpctl" aria-label="Filtros de la comparación">
+    <div class="ctlrow"><span>Países</span><div class="cchips" id="cmp-countries"></div></div>
+    <div class="ctlrow"><span>Tema</span><div class="seg" id="cmp-cat"></div></div>
+    <div class="ctlrow"><span>Orden</span><div class="seg" id="cmp-order"></div><span style="min-width:0">Ver como</span><div class="seg" id="cmp-mode"></div></div>
+  </section>
+  <section id="cmp-out" style="display:grid;gap:12px;margin-top:12px"></section>
+</div>
+
+<footer>Fuentes: precios de ETF y acciones de Equibles (cierres diarios); tasas, inflación de EE. UU. y tipos de cambio de la Fed de St. Louis (FRED) vía Equibles; USD/ARS de Alpha Vantage; Argentina, de las API del BCRA y del INDEC. PIB nominal, PIB per cápita y deuda pública: estimaciones 2025 del FMI (WEO, oct-2025), redondeadas. Demografía: ONU (World Population Prospects 2024), estimaciones 2025. Comercio de bienes 2025: INDEC, Secex/MDIC, Aduanas de China, Destatis, Ministerio de Finanzas de Japón y BEA/Census; Alemania y Japón convertidos a dólares con el tipo de cambio promedio de 2025. La composición del comercio por producto es una aproximación a partir de la estructura que publica el OEC, aplicada al total 2025: sirve para ver el peso relativo, no como cifra exacta. La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares. Es una foto fija, no se actualiza sola.</footer>
 </div>
 
 <script>
@@ -149,108 +250,60 @@ const C = {
   closes:[737.55,741.75,746.74,728.99,744.78,754.95,743.29,738.93,747.03,773.26,776.34,765.72,769.35,770.19,764.29,761.69,771.35,769.64,778.57,763.25,759.97,755.72,754.35],
   m:{inflation:3.7,gdp:3.4,rate:4.0,ret:-2.0},
   fx:{label:"Dólar amplio (índice Fed)",val:"121,67",chg:null,d:"30 oct · índice nominal amplio, ene-2006 = 100"},
-  macro:[
-   ["Inflación","3,7%","IPC sep, interanual (calculado de CPIAUCSL)"],
-   ["Tasa de política","3,75–4,00%","Fed, sin cambios el 28 oct"],
-   ["PIB","3,4%","3T, trimestral anualizado"],
-   ["Desempleo","4,2%","Septiembre"],
-   ["Bono 10 años","4,91%","Treasury, 2 nov"],
-   ["VIX","21,2","2 nov"]],
   stocks:[["NVDA","Nvidia",206.69,"USD",2.29,-13.61],["AAPL","Apple",331.90,"USD",-1.90,-4.88],["MSFT","Microsoft",520.99,"USD",2.74,-4.13],["AMZN","Amazon",250.69,"USD",2.06,-11.74],["JPM","JPMorgan",337.98,"USD",-0.76,-7.45]],
   news:[
    ["28 oct","eco","La Fed dejó la tasa en 3,75–4,00% con una votación 10-2: dos miembros pedían subirla. Los futuros asignan cerca de 85% de probabilidad a una suba en diciembre.","https://admiralmarkets.com/analytics/traders-blog/fomc-october-2026-fed-holds-rates","Admiral Markets"],
    ["27 oct","mkt","El Brent cerró en US$123,1 por barril, cinco dólares menos que la sesión previa, en medio del conflicto en Medio Oriente.","https://equibles.com/economicdata","FRED vía Equibles"],
-   ["sep","eco","La confianza del consumidor de la Universidad de Michigan cayó a 48,1 y las expectativas de inflación subieron a 4,6%.","https://equibles.com/economicdata","FRED vía Equibles"]],
-  gaps:"Cobertura completa en las fuentes conectadas."},
+   ["sep","eco","La confianza del consumidor de la Universidad de Michigan cayó a 48,1 y las expectativas de inflación subieron a 4,6%.","https://equibles.com/economicdata","FRED vía Equibles"]]},
  br:{id:"076",name:"Brasil",cov:"part",etf:"EWZ",etfName:"Brasil (ETF EWZ, en USD)",
   closes:[34.01,35.10,33.73,34.67,34.43,35.93,35.23,35.73,36.65,35.34,33.93,35.06,35.55,37.86,38.19,37.52,36.82,38.19,43.54,41.83,42.59,32.46,31.73],
   m:{inflation:4.62,gdp:2.0,rate:13.75,ret:-16.9},
   fx:{label:"USD/BRL",val:"5,4252",chg:3.7,chgNote:"el real se debilitó",d:"30 oct · cambio en un mes"},
-  macro:[
-   ["Inflación","4,62%","IPCA-15 oct, acumulado 12 meses"],
-   ["Selic","13,75%","Vigente al 3 nov; el Copom decide el 4 nov"],
-   ["PIB","2,0%","2T, interanual"],
-   ["Desempleo",null,"Sin dato en las fuentes consultadas"],
-   ["Bono 10 años",null,"Sin dato. Referencia: DI ene-2028 en 12,88% (22 oct)"],
-   ["Ibovespa","167.922","Cierre 30 oct, peor semana desde mar-2020"]],
   stocks:[["PBR","Petrobras (ADR)",21.08,"USD",-0.38,-19.42],["VALE","Vale (ADR)",10.98,"USD",-3.17,-38.38],["ITUB","Itaú Unibanco (ADR)",7.05,"USD",-1.67,-30.61],["NU","Nu Holdings",11.61,"USD",-0.09,-38.11]],
   news:[
    ["30 oct","mkt","El Ibovespa cerró su peor semana desde marzo de 2020. La reelección de Lula deshizo las apuestas a un cambio de gobierno.","https://tradingeconomics.com/brazil/stock-market/news/594765","Trading Economics"],
    ["29 oct","pol","Mínimo de tres meses por la incertidumbre fiscal, a la espera de los nombramientos del gabinete, incluido el ministro de Hacienda.","https://tradingeconomics.com/brazil/stock-market/news/594765","Trading Economics"],
    ["23 oct","pol","Antes del balotaje, Datafolha mostraba un empate 50-50 en votos válidos entre Lula y Flávio Bolsonaro.","https://tradingeconomics.com/brazil/stock-market/news/594765","Trading Economics"],
-   ["22 oct","eco","La inflación de mitad de mes (IPCA-15) subió 0,32% en octubre, por debajo de lo esperado.","https://static.poder360.com.br/uploads/2026/10/ipca_15_2026_out.pdf","IBGE"]],
-  gaps:"<b>Faltan:</b> índice local (se usa el ETF EWZ en dólares), desempleo y bono a 10 años. Acciones vía ADR en Nueva York."},
+   ["22 oct","eco","La inflación de mitad de mes (IPCA-15) subió 0,32% en octubre, por debajo de lo esperado.","https://static.poder360.com.br/uploads/2026/10/ipca_15_2026_out.pdf","IBGE"]]},
  cn:{id:"156",name:"China",cov:"part",etf:"MCHI",etfName:"China (ETF MCHI, en USD)",
   closes:[54.44,54.83,52.77,50.48,50.91,53.13,52.95,53.33,55.80,56.57,54.63,55.66,55.23,54.91,52.96,53.07,52.62,51.24,52.55,51.20,49.00,49.07,49.40],
   m:{inflation:0.9,gdp:4.5,rate:3.0,ret:-3.6},
   fx:{label:"USD/CNY",val:"6,6538",chg:-0.7,chgNote:"el yuan se fortaleció",d:"30 oct · cambio en un mes"},
-  macro:[
-   ["Inflación","0,9%","IPC sep, interanual"],
-   ["Tasa LPR 1 año","3,0%","Sin cambios por 17.º mes (20 oct)"],
-   ["PIB","4,5%","3T, interanual"],
-   ["Desempleo","5,2%","Septiembre, urbano"],
-   ["Bono 10 años","1,63%","3 nov, mínimo desde feb-2025"],
-   ["LPR 5 años","3,5%","Referencia hipotecaria"]],
   stocks:[["BABA","Alibaba (ADR)",100.36,"USD",-1.12,-43.36],["PDD","PDD Holdings",80.17,"USD",-1.85,-41.96],["JD","JD.com (ADR)",26.91,"USD",2.32,-20.31],["BIDU","Baidu (ADR)",76.97,"USD",0.09,-52.64]],
   news:[
    ["2 nov","eco","El banco central subió el encaje sobre depósitos en moneda extranjera de 4% a 6% desde el 15 de noviembre. El bono a 10 años tocó su mínimo desde febrero de 2025.","https://tradingeconomics.com/china/government-bond-yield?AccountID=13354688","Trading Economics"],
    ["20 oct","eco","El PIB del tercer trimestre creció 4,5%, más de lo esperado, y las tasas de referencia quedaron sin cambios por 17.º mes.","https://tradingeconomics.com/china/interest-rate/news/593249","Trading Economics"],
-   ["15 oct","eco","Los precios al consumidor subieron 0,9% interanual en septiembre; los alimentos bajaron 1,7%.","https://www.stats.gov.cn/english/PressRelease/202610/t20261015_1965500.html","NBS China"]],
-  gaps:"<b>Faltan:</b> índice local (CSI 300 o Shanghai; se usa el ETF MCHI en dólares). Acciones vía ADR."},
+   ["15 oct","eco","Los precios al consumidor subieron 0,9% interanual en septiembre; los alimentos bajaron 1,7%.","https://www.stats.gov.cn/english/PressRelease/202610/t20261015_1965500.html","NBS China"]]},
  de:{id:"276",name:"Alemania",cov:"part",etf:"EWG",etfName:"Alemania (ETF EWG, en USD)",
   closes:[42.11,42.31,41.52,40.63,42.31,41.49,41.16,41.12,42.85,44.02,44.16,44.20,44.59,43.89,42.87,42.15,42.26,41.30,40.96,41.57,40.94,41.88,42.06],
   m:{inflation:2.8,gdp:1.2,rate:2.5,ret:1.8},
   fx:{label:"EUR/USD",val:"1,1163",chg:-0.6,chgNote:"el euro se debilitó",d:"30 oct · cambio en un mes"},
-  macro:[
-   ["Inflación","2,8%","IPC oct (preliminar), interanual"],
-   ["Tasa BCE","2,50%","Depósito; sin cambios el 29 oct"],
-   ["PIB","1,2%","3T, interanual (+0,2% trimestral)"],
-   ["Desempleo",null,"Sin dato en las fuentes consultadas"],
-   ["Bund 10 años","3,31%","30 oct, mínimo desde agosto"],
-   ["Inflación núcleo","2,1%","Oct, sin alimentos ni energía"]],
   stocks:[["SAP","SAP (ADR)",230.31,"USD",-1.42,-12.75],["XETR:SIE","Siemens",265.65,"EUR",-2.96,-8.35],["XETR:ALV","Allianz",440.90,"EUR",0.11,-2.74],["DB","Deutsche Bank",34.03,"USD",-0.18,-18.12]],
   news:[
    ["2 nov","mkt","El Bund a 10 años bajó a cerca de 3,3%, su mínimo desde agosto. Ayudó la baja del petróleo; preocupa la situación fiscal de Francia tras el cambio de perspectiva de Fitch.","https://tradingeconomics.com/germany/government-bond-yield/news/596897","Trading Economics"],
    ["30 oct","eco","La inflación de octubre bajó a 2,8% desde 3,3%; la energía sigue 12,2% arriba en el año.","https://www.destatis.de/EN/Press/2026/10/PE26_382_611.html","Destatis"],
    ["30 oct","eco","El PIB creció 0,2% en el tercer trimestre, algo mejor que lo esperado.","https://www.borsaitaliana.it/borsa/notizie/teleborsa/economia/germania-l-economia-cresce-sopra-le-attese-nel-terzo-trimestre-65_2026-10-30_TLB.html?lang=it","Teleborsa"],
-   ["29 oct","eco","El BCE mantuvo las tasas. Lagarde dijo que se discutió una suba, pero la decisión de esperar fue unánime.","https://tradingeconomics.com/germany/government-bond-yield/news/596897","Trading Economics"]],
-  gaps:"<b>Faltan:</b> DAX (se usa el ETF EWG en dólares) y desempleo. Siemens y Allianz cotizan en Xetra en euros."},
+   ["29 oct","eco","El BCE mantuvo las tasas. Lagarde dijo que se discutió una suba, pero la decisión de esperar fue unánime.","https://tradingeconomics.com/germany/government-bond-yield/news/596897","Trading Economics"]]},
  jp:{id:"392",name:"Japón",cov:"part",etf:"EWJ",etfName:"Japón (ETF EWJ, en USD)",
   closes:[90.72,92.71,96.26,92.80,93.14,94.55,90.49,91.21,92.39,96.90,98.21,95.18,95.87,98.28,98.56,97.00,97.93,98.92,97.86,94.88,94.10,92.91,92.59],
   m:{inflation:2.1,gdp:1.4,rate:1.25,ret:-6.4},
   fx:{label:"USD/JPY",val:"157,47",chg:-0.1,chgNote:"yen casi sin cambios",d:"30 oct · cambio en un mes"},
-  macro:[
-   ["Inflación","2,1%","IPC sep, interanual"],
-   ["Tasa BoJ","1,25%","Sin cambios el 30 oct (8-1)"],
-   ["PIB","1,4%","2T, trimestral anualizado"],
-   ["Desempleo","2,4%","Septiembre"],
-   ["Bono 10 años","2,77%","JGB, 4 nov"],
-   ["Inflación servicios","3,7%","Sep, interanual"]],
   stocks:[["TM","Toyota (ADR)",193.00,"USD",-1.45,-22.27],["SONY","Sony (ADR)",25.39,"USD",-0.47,-16.09],["MUFG","Mitsubishi UFJ (ADR)",21.27,"USD",-0.84,-11.85]],
   news:[
    ["30 oct","eco","El Banco de Japón dejó la tasa en 1,25% con un voto en contra que pedía 1,5%. Dijo que la inflación subyacente llegó a la meta de 2%, lo que abre la puerta a una suba en diciembre.","https://tradingeconomics.com/JAPAN/government-bond-yield","Trading Economics"],
    ["22 oct","eco","La inflación de septiembre subió a 2,1% interanual, desde 1,9% en agosto.","https://forexfundamentals.com/economic-calendar/jp-cpi/2026-10-22","Forex Fundamentals"],
-   ["30 oct","mkt","El bono a 10 años cayó debajo de 2,8%, su nivel más bajo en casi tres meses.","https://tradingeconomics.com/JAPAN/government-bond-yield","Trading Economics"]],
-  gaps:"<b>Faltan:</b> Nikkei o Topix (se usa el ETF EWJ en dólares). El PIB es trimestral anualizado, no interanual. Acciones vía ADR."},
+   ["30 oct","mkt","El bono a 10 años cayó debajo de 2,8%, su nivel más bajo en casi tres meses.","https://tradingeconomics.com/JAPAN/government-bond-yield","Trading Economics"]]},
  ar:{id:"032",name:"Argentina",cov:"part",etf:"ARGT",etfName:"Argentina (ETF ARGT, en USD)",
   closes:[91.59,97.91,97.10,91.30,91.45,95.07,92.03,93.14,95.15,92.96,90.97,92.81,93.80,96.41,95.40,92.43,88.60,84.52,88.56,88.00,87.08,79.18,78.29],
   m:{inflation:33.4,gdp:-1.7,rate:23.94,ret:-7.4},
   fx:{label:"USD/ARS oficial",val:"1.550,50",chg:1.7,chgNote:"el peso se debilitó",d:"3 nov · cambio en un mes"},
-  macro:[
-   ["Inflación","33,4%","Sep, interanual (1,9% mensual). API INDEC"],
-   ["Tasa TAMAR","23,94%","Bancos privados, 2 nov (API BCRA). Tasa de mercado: el BCRA ya no fija tasa de política"],
-   ["Actividad (EMAE)","-1,7%","Ago, interanual; +0,1% vs. julio desestacionalizado (API INDEC)"],
-   ["Desempleo","7,9%","2T 2026, API INDEC (EPH)"],
-   ["Reservas BCRA","US$ 48.565 M","30 oct (API BCRA)"],
-   ["Riesgo país","753 pb","27 oct; máximo del año 765 pb el 26 oct"]],
   stocks:[["YPF","YPF (ADR)",44.81,"USD",2.19,-22.22],["GGAL","Grupo Galicia (ADR)",31.48,"USD",0.00,-48.22],["PAM","Pampa Energía (ADR)",68.51,"USD",-1.82,-25.75],["VIST","Vista Energy",67.92,"USD",1.54,-14.30],["MELI","MercadoLibre*",1662.16,"USD",-0.87,-28.24]],
   news:[
    ["27 oct","mkt","El Merval cayó 2,6% después de perder casi 3% el lunes, arrastrado por el resultado electoral en Brasil, destino de cerca del 13% de las exportaciones argentinas.","https://www.riotimesonline.com/argentina-markets-merval-peso-tuesday-october-27-2026/","The Rio Times"],
    ["26 oct","mkt","El riesgo país tocó 765 puntos, el máximo del año, y bajó a 753 al día siguiente.","https://www.riotimesonline.com/argentina-markets-merval-peso-tuesday-october-27-2026/","The Rio Times"],
    ["14 oct","eco","La inflación de septiembre fue 1,9% mensual y 33,4% interanual, la segunda más alta de América Latina.","https://www.bloomberglinea.com/latinoamerica/argentina-quedo-con-la-segunda-inflacion-mensual-mas-alta-de-america-latina-en-septiembre-detras-de-venezuela/","Bloomberg Línea"],
    ["7 oct","mkt","Las tasas locales se mantienen estables: TAMAR de bancos privados en 23,75% y BADLAR en 21,63% anual.","https://www.forbesargentina.com/money/las-tasas-locales-mantienen-estables-pese-volatilidad-mercados-n99697","Forbes Argentina"],
-   ["14 oct","eco","El FMI recortó su proyección de crecimiento para 2026 a 2,1% desde 3,5%.","https://www.bloomberglinea.com/latinoamerica/argentina-quedo-con-la-segunda-inflacion-mensual-mas-alta-de-america-latina-en-septiembre-detras-de-venezuela/","Bloomberg Línea"]],
-  gaps:"<b>Es el país con menos cobertura.</b> Faltan Merval (se usa el ETF ARGT en dólares) y bono a 10 años; en lugar del PIB trimestral se usa el EMAE mensual, su indicador adelantado. Tasa y reservas salen de la API del BCRA; inflación, actividad y desempleo, de la API del INDEC. *MercadoLibre es de origen argentino pero cotiza en Nasdaq."}
+   ["14 oct","eco","El FMI recortó su proyección de crecimiento para 2026 a 2,1% desde 3,5%.","https://www.bloomberglinea.com/latinoamerica/argentina-quedo-con-la-segunda-inflacion-mensual-mas-alta-de-america-latina-en-septiembre-detras-de-venezuela/","Bloomberg Línea"]]}
 };
 const ORDER=["us","br","cn","de","jp","ar"];
 
@@ -373,17 +426,240 @@ function renderGlobeText(){
   document.getElementById("glegend").innerHTML=ORDER.map(k=>`<span><i style="background:${COL[k]}"></i>${C[k].name}</span>`).join("")+(metric==="ret"?`<span>○ punta hueca = caída</span>`:"");
 }
 
-/* ---------- panels ---------- */
+/* ---------- homogeneous fields per country ----------
+   Each value is [value, note, display?]. value null = sin dato (gap); "na" = no aplica. */
+const SD="Sin dato en las fuentes consultadas";
+const IMF="FMI, estimación 2025";
+const UN="ONU, estimación 2025";
+const D={
+ us:{
+  eco:{pib:[30616,IMF],pibpc:[89599,IMF],crec:[3.4,"3T, trimestral anualizado"],inf:[3.7,"IPC sep, interanual"],des:[4.2,"Septiembre"],deuda:[125,"Gobierno general, "+IMF]},
+  pol:{forma:"República federal presidencialista",estado:"Donald Trump, presidente",gob:"Donald Trump (en el presidencialismo el presidente encabeza el gobierno)",partido:"Partido Republicano",legis:"Congreso: Senado (100) y Cámara de Representantes (435)",ult:"Legislativas de medio término, 3 nov 2026 (escrutinio en curso)",prox:"Presidenciales, nov 2028",capital:"Washington D. C.",moneda:"Dólar (USD)",bc:"Reserva Federal"},
+  dem:{pob:[347.3,UN],edad:[38.5,UN],vida:[79.4,UN],urb:[83,"ONU"],sup:[9833520,"Total, incluye aguas interiores"]},
+  com:{exp:[2198,"Bienes 2025, base balanza de pagos (BEA)"],imp:[3438,"Bienes 2025 (BEA)"],
+   dest:["Canadá","México","China"],orig:["México","Canadá","China"],
+   x:[["MAQ",22,[["Circuitos integrados",3],["Turbinas de gas",2.5],["Computadoras",2],["Equipos de telecomunicaciones",2]]],["MIN",20,[["Petróleo crudo",6],["Petróleo refinado",5],["Gas natural",4.5],["Carbón",1]]],["QUI",13,[["Vacunas y sangre",3.5],["Medicamentos",3]]],["TRA",11,[["Aviones y partes",4],["Autos",3],["Autopartes",2]]],["INS",6,[["Instrumental médico",2.5]]],["PRE",4,[["Oro",2.5]]],["VEG",4,[["Soja",1.3],["Maíz",1.2]]],["PLA",4,[["Plásticos primarios",2]]],["MET",4],["ALI",3],["ANI",2,[["Carne",1]]],["OTR",7]],
+   m:[["MAQ",31,[["Computadoras",5],["Teléfonos",4],["Equipos de radiodifusión",2],["Circuitos integrados",2]]],["TRA",13,[["Autos",6],["Autopartes",3],["Camiones",1.5]]],["QUI",12,[["Medicamentos",6],["Vacunas y sangre",2]]],["MIN",9,[["Petróleo crudo",5],["Petróleo refinado",2]]],["INS",5,[["Instrumental médico",2]]],["MET",5],["TEX",5,[["Ropa",3]]],["VAR",4,[["Muebles",1.5],["Juguetes",1]]],["PLA",3],["ALI",3],["PRE",3,[["Oro",1.5]]],["OTR",7]]},
+  fin:{tasa:[4.0,"Fed, sin cambios el 28 oct","3,75–4,00%"],bono:[4.91,"Treasury, 2 nov"],dep:["na","Es la moneda de referencia"],res:["na","Emisor de la moneda de reserva; no se compara"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[null,"Sin dato del S&P 500; se usa el ETF SPY"]},
+  nota:"El PIB es trimestral anualizado; los demás países que publican interanual no son directamente comparables."},
+ br:{
+  eco:{pib:[2256,IMF],pibpc:[10578,IMF],crec:[2.0,"2T, interanual"],inf:[4.62,"IPCA-15 oct, 12 meses"],des:[5.2,"Trimestre a sep (PNAD Contínua, IBGE)"],deuda:[91,"Gobierno general (criterio FMI), "+IMF]},
+  pol:{forma:"República federal presidencialista",estado:"Luiz Inácio Lula da Silva, presidente",gob:"Luiz Inácio Lula da Silva (presidencialismo)",partido:"Partido de los Trabajadores (PT), en coalición",legis:"Congreso Nacional: Senado (81) y Cámara de Diputados (513)",ult:"Generales, oct 2026: Lula reelecto en el balotaje",prox:"Asume el nuevo mandato el 1 ene 2027; municipales en 2028",capital:"Brasilia",moneda:"Real (BRL)",bc:"Banco Central do Brasil"},
+  dem:{pob:[212.8,UN],edad:[34.8,UN],vida:[76.4,UN],urb:[88,"ONU"],sup:[8515767,"Total"]},
+  com:{exp:[348.7,"Bienes 2025 (Secex/MDIC), récord"],imp:[280.4,"Bienes 2025 (Secex/MDIC)"],
+   dest:["China","Estados Unidos","Argentina"],orig:["China","Estados Unidos","Argentina"],
+   x:[["MIN",30,[["Petróleo crudo",13],["Mineral de hierro",9]]],["VEG",22,[["Soja",13],["Café",4],["Maíz",3]]],["ALI",13,[["Azúcar",4],["Harina de soja",3]]],["ANI",9,[["Carne bovina",4],["Carne de ave",3]]],["MET",6],["PAP",5,[["Celulosa",3]]],["TRA",3],["QUI",3],["MAQ",3],["PRE",2,[["Oro",1.5]]],["OTR",4]],
+   m:[["MAQ",25,[["Equipos de telecomunicaciones",2],["Circuitos integrados",1.5]]],["QUI",22,[["Fertilizantes",6],["Medicamentos",3]]],["MIN",17,[["Petróleo refinado",7],["Petróleo crudo",3]]],["TRA",9,[["Autopartes",3],["Autos",3]]],["MET",6],["PLA",5],["TEX",3],["INS",3],["OTR",10]]},
+  fin:{tasa:[13.75,"Selic vigente al 3 nov; el Copom decide el 4 nov"],bono:[null,"Sin dato. Referencia: DI ene-2028 en 12,88% (22 oct)"],dep:[3.7,"USD/BRL 5,4252 el 30 oct; el real se debilitó en el mes"],res:[358.2,"Fin de 2025 (BCB, concepto caja)"],riesgo:[null,SD],idx:[167922,"Ibovespa, cierre 30 oct"]},
+  nota:"Bolsa vía ETF EWZ en dólares y acciones vía ADR en Nueva York."},
+ cn:{
+  eco:{pib:[19399,IMF],pibpc:[13806,IMF],crec:[4.5,"3T, interanual"],inf:[0.9,"IPC sep, interanual"],des:[5.2,"Septiembre, urbano"],deuda:[96,"Gobierno general, "+IMF]},
+  pol:{forma:"República socialista de partido único",estado:"Xi Jinping, presidente y secretario general del PCCh",gob:"Li Qiang, primer ministro",partido:"Partido Comunista de China (PCCh)",legis:"Asamblea Popular Nacional, unicameral (cerca de 2.900 diputados)",ult:"XX Congreso del PCCh, oct 2022",prox:"XXI Congreso del PCCh, previsto para 2027",capital:"Pekín",moneda:"Yuan renminbi (CNY)",bc:"Banco Popular de China"},
+  dem:{pob:[1416.1,UN],edad:[40.1,UN],vida:[78.6,UN],urb:[66,"ONU"],sup:[9596961,"Total"]},
+  com:{exp:[3770,"Bienes 2025 (Aduanas de China)"],imp:[2580,"Bienes 2025 (Aduanas de China)"],
+   dest:["Estados Unidos","Hong Kong","Vietnam"],orig:["Taiwán","Corea del Sur","Japón"],
+   x:[["MAQ",43,[["Computadoras",5],["Teléfonos",4],["Circuitos integrados",4],["Baterías",2]]],["TEX",9,[["Ropa",4]]],["MET",8,[["Acero",3]]],["VAR",7,[["Muebles",2],["Juguetes",1.5]]],["TRA",7,[["Autos",3],["Barcos",1]]],["QUI",5],["PLA",5],["INS",3],["MIN",2],["OTR",11]],
+   m:[["MIN",27,[["Petróleo crudo",12],["Mineral de hierro",5],["Gas natural",2.5],["Carbón",1.5]]],["MAQ",27,[["Circuitos integrados",15]]],["QUI",7],["MET",6,[["Cobre refinado",2]]],["VEG",4,[["Soja",2]]],["PRE",4,[["Oro",2.5]]],["INS",4],["TRA",3,[["Autos",1]]],["ALI",3],["PLA",3],["ANI",2],["OTR",10]]},
+  fin:{tasa:[3.0,"LPR 1 año, sin cambios por 17.º mes (20 oct)"],bono:[1.63,"3 nov, mínimo desde feb-2025"],dep:[-0.7,"USD/CNY 6,6538 el 30 oct; el yuan se fortaleció"],res:[3400,"Fin de sep 2026 (SAFE), solo divisas"],riesgo:[null,SD],idx:[null,"Sin dato del CSI 300 ni de Shanghái; se usa el ETF MCHI"]},
+  nota:"Bolsa vía ETF MCHI en dólares y acciones vía ADR."},
+ de:{
+  eco:{pib:[5014,IMF],pibpc:[59925,IMF],crec:[1.2,"3T, interanual (+0,2% trimestral)"],inf:[2.8,"IPC oct (preliminar), interanual"],des:[6.4,"Oct, desestacionalizado (Agencia Federal de Empleo)"],deuda:[64,"Gobierno general, "+IMF]},
+  pol:{forma:"República federal parlamentaria",estado:"Frank-Walter Steinmeier, presidente federal",gob:"Friedrich Merz, canciller",partido:"CDU/CSU en coalición con el SPD",legis:"Bundestag (630) y Bundesrat (69, representa a los estados)",ult:"Federales, feb 2025",prox:"Presidente federal, feb 2027; federales, previstas para 2029",capital:"Berlín",moneda:"Euro (EUR)",bc:"Bundesbank, dentro del BCE"},
+  dem:{pob:[84.1,UN],edad:[45.5,UN],vida:[81.6,UN],urb:[78,"ONU"],sup:[357592,"Total"]},
+  com:{exp:[1774,"Bienes 2025: €1.569,6 mil M (Destatis)"],imp:[1545,"Bienes 2025: €1.366,9 mil M (Destatis)"],
+   dest:["Estados Unidos","Francia","Países Bajos"],orig:["China","Países Bajos","Estados Unidos"],
+   x:[["MAQ",26,[["Equipos eléctricos",3],["Maquinaria industrial",3]]],["TRA",19,[["Autos",10],["Autopartes",4],["Aviones",1.5]]],["QUI",17,[["Medicamentos",5],["Vacunas y sangre",3]]],["MET",7],["INS",6,[["Instrumental médico",1.5]]],["PLA",5],["ALI",3],["MIN",3],["OTR",14]],
+   m:[["MAQ",25,[["Computadoras",2.5],["Teléfonos",1.5],["Circuitos integrados",1.5]]],["QUI",14,[["Medicamentos",4],["Vacunas y sangre",2.5]]],["MIN",12,[["Petróleo crudo",3.5],["Gas natural",3]]],["TRA",12,[["Autos",5],["Autopartes",4]]],["MET",8],["ALI",6],["TEX",5,[["Ropa",3]]],["INS",5],["PLA",4],["OTR",9]]},
+  fin:{tasa:[2.5,"BCE, tasa de depósito; sin cambios el 29 oct"],bono:[3.31,"Bund, 30 oct, mínimo desde agosto"],dep:[0.6,"EUR/USD 1,1163 el 30 oct; el euro se debilitó"],res:["na","Las reservas se gestionan en el Eurosistema"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[null,"Sin dato del DAX; se usa el ETF EWG"]},
+  nota:"Bolsa vía ETF EWG en dólares; Siemens y Allianz cotizan en Xetra en euros. El desempleo es el registrado por la Agencia Federal de Empleo, más alto que la medición OIT."},
+ jp:{
+  eco:{pib:[4280,IMF],pibpc:[34713,IMF],crec:[1.4,"2T, trimestral anualizado"],inf:[2.1,"IPC sep, interanual"],des:[2.4,"Septiembre"],deuda:[230,"Gobierno general, "+IMF]},
+  pol:{forma:"Monarquía constitucional parlamentaria",estado:"Emperador Naruhito",gob:"Sanae Takaichi, primera ministra",partido:"Partido Liberal Democrático (PLD)",legis:"Dieta: Cámara de Representantes (465) y Cámara de Consejeros (248)",ult:"Cámara baja, feb 2026 (anticipada; amplia victoria del PLD)",prox:"Cámara de Consejeros, jul 2028",capital:"Tokio",moneda:"Yen (JPY)",bc:"Banco de Japón"},
+  dem:{pob:[123.1,UN],edad:[49.9,UN],vida:[85.0,UN],urb:[92,"ONU"],sup:[377975,"Total"]},
+  com:{exp:[736,"Bienes 2025: ¥110,4 bill. (Ministerio de Finanzas)"],imp:[754,"Bienes 2025: ¥113,1 bill. (Ministerio de Finanzas)"],
+   dest:["Estados Unidos","China","Corea del Sur"],orig:["China","Estados Unidos","Australia"],
+   x:[["MAQ",34,[["Circuitos integrados",4],["Equipos para semiconductores",3]]],["TRA",23,[["Autos",14],["Autopartes",4]]],["QUI",9],["MET",9,[["Acero",3]]],["INS",6],["PLA",5],["PRE",3],["MIN",3],["OTR",8]],
+   m:[["MIN",25,[["Petróleo crudo",8],["Gas natural (GNL)",6],["Carbón",4]]],["MAQ",25,[["Computadoras",3],["Teléfonos",3],["Circuitos integrados",3]]],["QUI",11,[["Medicamentos",4]]],["MET",5],["TEX",5],["INS",5],["ALI",4],["TRA",4],["ANI",3],["VEG",2],["OTR",11]]},
+  fin:{tasa:[1.25,"Banco de Japón, sin cambios el 30 oct (8-1)"],bono:[2.77,"JGB, 4 nov"],dep:[-0.1,"USD/JPY 157,47 el 30 oct; yen casi sin cambios"],res:[1178.4,"Fin de sep 2026 (Ministerio de Finanzas)"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[null,"Sin dato del Nikkei ni del Topix; se usa el ETF EWJ"]},
+  nota:"El PIB es trimestral anualizado, no interanual. Bolsa vía ETF EWJ en dólares y acciones vía ADR."},
+ ar:{
+  eco:{pib:[683,IMF],pibpc:[14362,IMF],crec:[-1.7,"EMAE ago, interanual (API INDEC); no hay PIB trimestral más reciente"],inf:[33.4,"IPC sep, interanual; 1,9% mensual (API INDEC)"],des:[7.9,"2T 2026, EPH (API INDEC)"],deuda:[75,"Gobierno general, "+IMF]},
+  pol:{forma:"República federal presidencialista",estado:"Javier Milei, presidente",gob:"Javier Milei (presidencialismo)",partido:"La Libertad Avanza",legis:"Congreso: Senado (72) y Cámara de Diputados (257)",ult:"Legislativas, oct 2025",prox:"Generales, oct 2027",capital:"Buenos Aires",moneda:"Peso (ARS)",bc:"Banco Central de la República Argentina"},
+  dem:{pob:[45.9,UN],edad:[32.9,UN],vida:[77.7,UN],urb:[92,"ONU"],sup:[2780400,"Parte continental americana"]},
+  com:{exp:[87.1,"Bienes 2025 (INDEC), +9,3%"],imp:[75.8,"Bienes 2025 (INDEC)"],
+   dest:["Brasil (14,7%)","China (11,3%)","Estados Unidos (9,6%)"],orig:["Brasil","China","Estados Unidos"],
+   x:[["ALI",25,[["Harina de soja",13],["Aceite de soja",6]]],["VEG",24,[["Maíz",8],["Trigo",5],["Soja",3],["Cebada",1.5]]],["MIN",14,[["Petróleo crudo",8],["Gas natural",1]]],["ANI",10,[["Carne bovina",5],["Camarones",1.5]]],["TRA",7,[["Camionetas pick-up",4.5]]],["PRE",6,[["Oro",5]]],["QUI",5,[["Carbonato de litio",1.5],["Biodiésel",1.5]]],["MET",3,[["Aluminio",1.5]]],["MAQ",1],["OTR",5]],
+   m:[["MAQ",28,[["Teléfonos",2],["Computadoras",1.5]]],["QUI",16,[["Medicamentos",3],["Herbicidas y plaguicidas",2]]],["TRA",14,[["Autos",5],["Autopartes",4]]],["MIN",8,[["Combustibles",3],["Gas natural",2]]],["MET",6],["PLA",5],["VEG",4,[["Soja (de Paraguay)",3]]],["TEX",3],["INS",3],["OTR",13]]},
+  fin:{tasa:[23.94,"TAMAR bancos privados, 2 nov (API BCRA). El BCRA ya no fija tasa de política"],bono:[null,"Sin dato del bono a 10 años"],dep:[1.7,"USD/ARS oficial 1.550,50 el 3 nov; el peso se debilitó"],res:[48.6,"30 oct (API BCRA)"],riesgo:[753,"27 oct; máximo del año 765 pb el 26 oct"],idx:[null,"Sin dato del Merval; se usa el ETF ARGT"]},
+  nota:"Es el país con menos cobertura. En lugar del PIB trimestral se usa el EMAE mensual, su indicador adelantado. Tasa y reservas salen de la API del BCRA; inflación, actividad y desempleo, de la API del INDEC."}
+};
+
+/* ---------- schema: the same fields for every country ---------- */
+const fmtBn=v=>{const a=Math.abs(v),s=v<0?"−":"";return a>=1000?`${s}US$ ${fmtN(a/1000,2)} bill.`:`${s}US$ ${fmtN(a,a<100?1:0)} mil M`};
+const U={
+ bn:fmtBn, usd:v=>`US$ ${fmtN(v,0)}`, pct:v=>`${fmtN(v,1)}%`, pct2:v=>`${fmtN(v,2)}%`,
+ spct:v=>`${v>0?"+":""}${fmtN(v,1)}%`, mill:v=>v>=1000?`${fmtN(v,0)} M`:`${fmtN(v,1)} M`,
+ yrs:v=>`${fmtN(v,1)} años`, km2:v=>v>=1e6?`${fmtN(v/1e6,2)} M km²`:`${fmtN(v/1000,0)} mil km²`,
+ dens:v=>`${fmtN(v,0)} hab./km²`, bp:v=>`${fmtN(v,0)} pb`, pts:v=>fmtN(v,0), pctpib:v=>`${fmtN(v,0)}% del PIB`
+};
+const F={
+ eco:[
+  {k:"pib",l:"PIB nominal",u:"bn"},
+  {k:"pibpc",l:"PIB per cápita",u:"usd"},
+  {k:"crec",l:"Crecimiento del PIB",u:"spct",cn:"Ojo: EE. UU. y Japón publican trimestral anualizado; Argentina, el EMAE mensual. No es una comparación exacta."},
+  {k:"inf",l:"Inflación interanual",u:"pct"},
+  {k:"des",l:"Desempleo",u:"pct",cn:"Alemania usa la medición de la Agencia Federal de Empleo, más alta que la OIT."},
+  {k:"deuda",l:"Deuda pública",u:"pctpib"}],
+ dem:[
+  {k:"pob",l:"Población",u:"mill"},
+  {k:"edad",l:"Edad mediana",u:"yrs"},
+  {k:"vida",l:"Esperanza de vida",u:"yrs"},
+  {k:"urb",l:"Población urbana",u:"pct"},
+  {k:"sup",l:"Superficie",u:"km2"},
+  {k:"dens",l:"Densidad",u:"dens"}],
+ com:[
+  {k:"exp",l:"Exportaciones de bienes",u:"bn"},
+  {k:"imp",l:"Importaciones de bienes",u:"bn"},
+  {k:"saldo",l:"Saldo comercial",u:"bn",signed:true},
+  {k:"aper",l:"Apertura comercial",u:"pctpib",cn:"Exportaciones más importaciones de bienes sobre el PIB."}],
+ fin:[
+  {k:"ret",l:"Bolsa en un mes",u:"spct",cn:"ETF del país en dólares, 2 oct → 3 nov."},
+  {k:"tasa",l:"Tasa de referencia",u:"pct2",cn:"EE. UU. con el techo del rango; Argentina con la TAMAR, tasa de mercado."},
+  {k:"bono",l:"Bono a 10 años",u:"pct2"},
+  {k:"dep",l:"Depreciación vs. el dólar (1 mes)",u:"spct",neutral:true,cn:"Positivo = la moneda local perdió valor frente al dólar."},
+  {k:"res",l:"Reservas internacionales",u:"bn"},
+  {k:"riesgo",l:"Riesgo país",u:"bp"},
+  {k:"idx",l:"Índice bursátil local",u:"pts"}]
+};
+const POLF=[["forma","Forma de gobierno"],["estado","Jefe de Estado"],["gob","Jefe de Gobierno"],["partido","Partido o coalición en el poder"],["legis","Poder Legislativo"],["ult","Última elección"],["prox","Próxima elección"],["capital","Capital"],["moneda","Moneda"],["bc","Banco central"]];
+// derived fields, so every country gets them the same way
+ORDER.forEach(k=>{const d=D[k];
+  d.dem.dens=[d.dem.pob[0]*1e6/d.dem.sup[0],"Población sobre superficie"];
+  d.com.saldo=[d.com.exp[0]-d.com.imp[0],"Exportaciones menos importaciones, 2025"];
+  d.com.aper=[(d.com.exp[0]+d.com.imp[0])/d.eco.pib[0]*100,"Comercio de bienes 2025 sobre el PIB"];
+  d.fin.ret=[C[k].m.ret,"ETF "+C[k].etf+" en dólares"];
+});
+const GROUP={eco:"eco",dem:"dem",com:"com",fin:"fin"};
+const val=(k,g,f)=>D[k][g][f]||[null,SD];
+const isNum=v=>typeof v==="number";
+function show(f,x){const [v,,disp]=x; return disp||U[f.u](v)}
+
+/* product sections (OEC-style colors) */
+const CAT={
+ MAQ:["Máquinas y electrónica","#4F8FE8"],MIN:["Minerales y energía","#A14A22"],QUI:["Químicos y farma","#D45BD8"],
+ TRA:["Transporte","#7CC3EA"],INS:["Instrumentos","#8E2A72"],MET:["Metales","#A88446"],VEG:["Productos vegetales","#A9CF4F"],
+ ALI:["Alimentos y bebidas","#E8C64A"],ANI:["Productos animales","#E8A58A"],PRE:["Piedras y metales preciosos","#7B4BE6"],
+ TEX:["Textiles y ropa","#3E9B50"],PLA:["Plásticos y caucho","#9AA0B8"],PAP:["Papel y madera","#E6DD8E"],VAR:["Manufacturas varias","#E07A3E"],OTR:["Otros","#5A5F8C"]};
+function lum(hex){const n=parseInt(hex.slice(1),16),r=(n>>16)/255,g=(n>>8&255)/255,b=(n&255)/255;const f=c=>c<=.03928?c/12.92:Math.pow((c+.055)/1.055,2.4);return .2126*f(r)+.7152*f(g)+.0722*f(b)}
+
+/* ---------- KPI strip ---------- */
 function kpis(){
-  const c=C[sel], n=c.closes.length, last=c.closes[n-1];
-  const inf=c.macro[0], rate=c.macro[1];
-  const tile=(k,v,sm,d,col)=>`<div class="kpi" style="--c:${col}"><div class="k">${k}</div><div class="v${v==null?" na":""}">${v??"sin dato"}${sm?`<small>${sm}</small>`:""}</div><div class="d">${d}</div></div>`;
+  const c=C[sel], n=c.closes.length, last=c.closes[n-1], d=D[sel];
+  const tile=(k,v,sm,dd,col)=>`<div class="kpi" style="--c:${col}"><div class="k">${k}</div><div class="v${v==null?" na":""}">${v??"sin dato"}${sm?`<small>${sm}</small>`:""}</div><div class="d">${dd}</div></div>`;
+  const inf=d.eco.inf, rate=d.fin.tasa;
   document.getElementById("kpis").innerHTML=
     tile(`Bolsa · ${c.etf}`,`US$ ${fmtN(last)}`,pct(c.m.ret)+" 1 mes",`${(last/c.closes[0]-1)*100>=0?"+":""}${fmtN((last/c.closes[0]-1)*100,1)}% desde junio · cierre 3 nov`,COL[sel])+
-    tile(inf[0],inf[1],"",inf[2],"var(--cn)")+
-    tile(rate[0],rate[1],"",rate[2],"var(--de)")+
+    tile("Inflación interanual",U.pct(inf[0]),"",inf[1],"var(--cn)")+
+    tile("Tasa de referencia",show(F.fin[1],rate),"",rate[1],"var(--de)")+
     tile(c.fx.label,c.fx.val,c.fx.chg!=null?`<span style="color:var(--muted)">${c.fx.chg>0?"+":""}${fmtN(c.fx.chg,1)}%</span>`:"",(c.fx.chgNote?c.fx.chgNote+" · ":"")+c.fx.d,"var(--us)");
 }
+
+/* ---------- ficha with tabs ---------- */
+const TABS=[["eco","Economía"],["pol","Política"],["com","Comercio"],["fin","Finanzas"]];
+let tab="eco";
+const tabsEl=document.getElementById("tabs");
+TABS.forEach(([k,l])=>{const b=document.createElement("button");b.type="button";b.setAttribute("role","tab");b.id="t-"+k;b.textContent=l;b.onclick=()=>{tab=k;writeHash();ficha()};tabsEl.appendChild(b)});
+tabsEl.addEventListener("keydown",e=>{const i=TABS.findIndex(t=>t[0]===tab);let j=null;if(e.key==="ArrowRight")j=(i+1)%4;if(e.key==="ArrowLeft")j=(i+3)%4;if(j!=null){tab=TABS[j][0];writeHash();ficha();document.getElementById("t-"+tab).focus()}});
+
+function mtile(f,x){
+  const [v,d]=x;
+  if(v==="na") return `<div class="mc isna"><div class="k">${f.l}</div><div class="v na"><span class="pill na">No aplica</span></div><div class="d">${d}</div></div>`;
+  if(v==null) return `<div class="mc gap"><div class="k">${f.l}</div><div class="v na"><span class="pill">Sin dato</span></div><div class="d">${d}</div></div>`;
+  const s=show(f,x), cls=f.neutral?"":f.signed||f.u==="spct"?(v>0?"up":v<0?"down":""):"";
+  return `<div class="mc"><div class="k">${f.l}</div><div class="v ${cls}">${s}</div><div class="d">${d}</div></div>`;
+}
+function gapsLine(groups){
+  const miss=[], na=[];
+  groups.forEach(g=>F[g].forEach(f=>{const v=val(sel,g,f.k)[0]; if(v==null) miss.push(f.l); else if(v==="na") na.push(f.l)}));
+  let s=miss.length?`<span class="pill">Sin dato</span>${miss.join(", ")}.`:`Todos los campos de esta sección tienen dato.`;
+  if(na.length) s+=` <span class="pill na" style="margin-left:6px">No aplica</span>${na.join(", ")}.`;
+  return s;
+}
+function grid(g){return `<div class="mgrid">${F[g].map(f=>mtile(f,val(sel,g,f.k))).join("")}</div>`}
+
+function ficha(){
+  const c=C[sel], d=D[sel], p=d.pol;
+  document.getElementById("ficha").style.setProperty("--c",COL[sel]);
+  document.getElementById("fname").innerHTML=`<i style="background:${COL[sel]}"></i>${c.name}`;
+  document.getElementById("fsub").textContent=`${p.forma} · capital: ${p.capital} · ${p.moneda}`;
+  tabsEl.querySelectorAll("button").forEach(b=>{const on=b.id==="t-"+tab;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
+  const body=document.getElementById("fbody");
+  if(tab==="eco"){
+    body.innerHTML=`<p class="sect"><span>Indicadores macro</span><em>mismos campos para los seis países</em></p>${grid("eco")}
+     <div class="gaps">${gapsLine(["eco"])}${d.nota?`<br>${d.nota}`:""}</div>`;
+  } else if(tab==="pol"){
+    const pnews=c.news.filter(n=>n[1]==="pol");
+    body.innerHTML=`<div class="two">
+      <div class="box"><p class="sect"><span>Gobierno</span></p><dl class="dl">${POLF.map(([k,l])=>`<dt>${l}</dt><dd>${p[k]}</dd>`).join("")}</dl></div>
+      <div><p class="sect"><span>Demografía</span></p>${grid("dem")}
+       <p class="sect" style="margin-top:12px"><span>Noticias políticas</span></p>
+       ${pnews.length?`<ul class="flist">${pnews.map(([dt,,t,u,src])=>`<li><span class="meta">${dt} · <a href="${u}" target="_blank" rel="noopener" style="color:inherit">${src} ↗</a></span>${t}</li>`).join("")}</ul>`:`<p class="note" style="margin:0"><span class="pill">Sin dato</span>No hay noticias políticas recientes cargadas para este país.</p>`}
+      </div></div>
+     <div class="gaps">${gapsLine(["dem"])} Autoridades al 3 de noviembre de 2026.</div>`;
+  } else if(tab==="com"){
+    body.innerHTML=`${grid("com").replace('class="mgrid"','class="mgrid" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))"')}
+     <div class="two" style="margin-top:12px">
+      <div class="box"><p class="sect"><span>Principales destinos</span><em>exportaciones</em></p><ol class="plist">${d.com.dest.map(x=>`<li>${x}</li>`).join("")}</ol></div>
+      <div class="box"><p class="sect"><span>Principales orígenes</span><em>importaciones</em></p><ol class="plist">${d.com.orig.map(x=>`<li>${x}</li>`).join("")}</ol></div>
+     </div>
+     <div style="margin-top:14px">
+      <div class="sect" style="align-items:center"><span>¿Qué ${flow==="x"?"exporta":"importa"} ${c.name}?</span>
+        <div class="seg" id="flow"><button type="button" data-f="x" aria-pressed="${flow==="x"}">Exportaciones</button><button type="button" data-f="m" aria-pressed="${flow==="m"}">Importaciones</button></div></div>
+      <p class="tmtotal" id="tmtotal"></p>
+      <div class="tm" id="tm"></div>
+      <div class="tmlegend" id="tmlegend"></div>
+      <p class="note">Composición aproximada por producto (estructura del OEC aplicada al total 2025). Pasá el mouse por un bloque para ver su detalle.</p>
+     </div>`;
+    body.querySelectorAll("#flow button").forEach(b=>b.onclick=()=>{flow=b.dataset.f;ficha()});
+    treemap();
+  } else {
+    body.innerHTML=`${grid("fin")}
+     <div class="gaps">${gapsLine(["fin"])}</div>
+     <div class="two" style="margin-top:12px;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)">
+      <div class="box"><p class="sect"><span>Bolsa · <em id="tname"></em></span><b id="tval" style="font:600 13px var(--f-mono);color:var(--ink)"></b></p><div id="tchart"></div></div>
+      <div class="box"><p class="sect"><span>Acciones</span><em>distancia al máximo de 52 sem.</em></p><div id="slist"></div></div>
+     </div>`;
+    trend(); stocks();
+  }
+}
+
+/* ---------- trade treemap ---------- */
+let flow="x";
+function tmData(k,f){
+  const list=D[k].com[f], total=D[k].com[f==="x"?"exp":"imp"][0], sum=d3.sum(list,c=>c[1]);
+  return {total,sum,cats:list.map(([cat,sh,prods])=>{const ps=(prods||[]).map(([n,s])=>({n,s,cat}));const rest=sh-d3.sum(ps,p=>p.s);if(rest>0.05)ps.push({n:ps.length?"Otros":CAT[cat][0],s:rest,cat,other:ps.length>0});return{cat,s:sh,children:ps}})};
+}
+function treemap(){
+  const el=document.getElementById("tm"); if(!el) return;
+  const {total,sum,cats}=tmData(sel,flow);
+  const W=Math.max(260,el.clientWidth), H=Math.round(Math.max(280,Math.min(480,W*0.62)));
+  el.style.height=H+"px";
+  const root=d3.hierarchy({children:cats}).sum(d=>d.children?0:d.s).sort((a,b)=>b.value-a.value);
+  d3.treemap().size([W,H]).paddingInner(n=>n.depth===0?3:1).round(true)(root);
+  document.getElementById("tmtotal").textContent=`Total ${flow==="x"?"exportado":"importado"}: ${fmtBn(total)}`;
+  el.innerHTML=root.leaves().map(l=>{
+    const w=l.x1-l.x0,h=l.y1-l.y0,col=CAT[l.data.cat][1],v=l.data.s/sum*total,share=l.data.s/sum*100;
+    const name=l.data.other?`Otros · ${CAT[l.data.cat][0].toLowerCase()}`:l.data.n;
+    const fs=Math.max(9,Math.min(22,Math.sqrt(w*h)/8.5));
+    const showName=w>48&&h>30, showVal=w>40&&h>(showName?fs*2.6:18);
+    const tip=`${name} — ${CAT[l.data.cat][0]}\n${fmtBn(v)} · ${fmtN(share,1)}% del total`;
+    return `<div class="t${lum(col)<.28?" lt":""}" style="left:${l.x0}px;top:${l.y0}px;width:${w}px;height:${h}px;background:${col}" title="${tip}">
+      ${showName?`<b style="font-size:${fs.toFixed(1)}px">${name}</b>`:"<b></b>"}${showVal?`<span style="font-size:${Math.max(9,fs*.8).toFixed(1)}px">${fmtBn(v).replace("US$ ","$")}</span>`:""}</div>`}).join("");
+  document.getElementById("tmlegend").innerHTML=cats.slice().sort((a,b)=>b.s-a.s).map(c=>`<span><i style="background:${CAT[c.cat][1]}"></i>${CAT[c.cat][0]} ${fmtN(c.s/sum*100,0)}%</span>`).join("");
+}
+new ResizeObserver(()=>{if(view==="atlas"&&tab==="com")treemap()}).observe(document.getElementById("fbody"));
+
+/* ---------- finance charts ---------- */
 function niceStep(r){const p=Math.pow(10,Math.floor(Math.log10(r)));const f=r/p;return (f<1.5?1:f<3?2:f<7?5:10)*p}
 function trend(){
   const c=C[sel], xs=c.closes, n=xs.length, col=COL[sel];
@@ -413,41 +689,130 @@ function stocks(){
    <div class="track"><span style="width:${Math.max(3,Math.abs(h)/mx*100)}%;background:linear-gradient(90deg,${COL[sel]}55,${COL[sel]})"></span></div>
    <div class="sub">${fmtN(h,1)}% vs. máx. · día ${pct(d)}</div></div>`).join("");
 }
-function compare(){
-  const W=900,H=250,L=40,R=96,T=12,B=26;
-  const series=ORDER.map(k=>({k,v:C[k].closes.map(x=>x/C[k].closes[0]*100)}));
+function lines(ks,elId){
+  const W=900,H=260,L=40,R=104,T=12,B=26;
+  const series=ks.map(k=>({k,v:C[k].closes.map(x=>x/C[k].closes[0]*100)}));
   const all=series.flatMap(s=>s.v), lo=Math.min(...all)-2, hi=Math.max(...all)+2, n=DATES.length;
   const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
-  let grid="";for(let t=Math.ceil(lo/10)*10;t<=hi;t+=10)grid+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===100?"#5A5F8C":"#262A4D"}"${t===100?' stroke-dasharray="3 4"':""}/><text x="${L-6}" y="${Y(t)+4}" font-size="11" text-anchor="end" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${t}</text>`;
+  const st=hi-lo>60?20:10;
+  let grid="";for(let t=Math.ceil(lo/st)*st;t<=hi;t+=st)grid+=`<line x1="${L}" x2="${W-R}" y1="${Y(t)}" y2="${Y(t)}" stroke="${t===100?"#5A5F8C":"#262A4D"}"${t===100?' stroke-dasharray="3 4"':""}/><text x="${L-6}" y="${Y(t)+4}" font-size="11" text-anchor="end" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${t}</text>`;
   let months="",lm="";DATES.forEach((d,i)=>{const mm=d.slice(0,2);if(mm!==lm){lm=mm;months+=`<text x="${X(i)}" y="${H-7}" font-size="11" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${MES[mm]}</text>`}});
-  // end labels, nudged apart
   const ends=series.map(s=>({k:s.k,y:Y(s.v[n-1]),v:s.v[n-1]})).sort((a,b)=>a.y-b.y);
   for(let i=1;i<ends.length;i++) if(ends[i].y-ends[i-1].y<14) ends[i].y=ends[i-1].y+14;
-  const lines=series.sort((a,b)=>(a.k===sel)-(b.k===sel)).map(s=>`<path d="${s.v.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ")}" fill="none" stroke="${COL[s.k]}" stroke-width="${s.k===sel?2.6:1.4}" stroke-opacity="${s.k===sel?1:.45}" stroke-linejoin="round" data-k="${s.k}" style="cursor:pointer"/>`).join("");
-  const labels=ends.map(e=>`<text x="${W-R+8}" y="${e.y+4}" font-size="11.5" fill="${COL[e.k]}" font-weight="${e.k===sel?600:400}" font-family="IBM Plex Mono,monospace" data-k="${e.k}" style="cursor:pointer">${SHORT[e.k]} ${Math.round(e.v)}</text>`).join("");
-  document.getElementById("cchart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Seis ETF de país en base 100">${grid}${lines}${labels}${months}</svg>`;
-  document.querySelectorAll("#cchart [data-k]").forEach(el=>el.addEventListener("click",()=>select(el.dataset.k,true)));
-}
-function macro(){
-  const c=C[sel];
-  document.getElementById("mname").textContent=c.name;
-  document.getElementById("mgrid").innerHTML=c.macro.map(([k,v,d])=>`<div class="mc"><div class="k">${k}</div><div class="v${v==null?" na":""}">${v??"sin dato"}</div><div class="d">${d}</div></div>`).join("");
-  document.getElementById("gaps").innerHTML=c.gaps;
+  const ls=series.map(s=>`<path d="${s.v.map((v,i)=>(i?"L":"M")+X(i).toFixed(1)+" "+Y(v).toFixed(1)).join(" ")}" fill="none" stroke="${COL[s.k]}" stroke-width="2" stroke-linejoin="round"/>`).join("");
+  const labels=ends.map(e=>`<text x="${W-R+8}" y="${e.y+4}" font-size="11.5" fill="${COL[e.k]}" font-family="IBM Plex Mono,monospace">${SHORT[e.k]} ${Math.round(e.v)}</text>`).join("");
+  document.getElementById(elId).innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="ETF de país en base 100">${grid}${ls}${labels}${months}</svg>`;
 }
 function news(){
   const c=C[sel],T={pol:"Política",eco:"Economía",mkt:"Mercado"};
   document.getElementById("nname").textContent=c.name;
   document.getElementById("news").innerHTML=c.news.map(([d,t,txt,u,src])=>`<li><div class="meta"><span class="tag ${t}">${T[t]}</span>${d}</div><p>${txt}</p><a href="${u}" target="_blank" rel="noopener">${src} ↗</a></li>`).join("");
 }
+
+/* ---------- comparator ---------- */
+const CMPCAT=[["eco","Economía"],["pol","Política y demografía"],["com","Comercio"],["fin","Finanzas"]];
+const CMPORD=[["desc","Mayor a menor"],["asc","Menor a mayor"],["fix","Fijo"]];
+const CMPMODE=[["chart","Gráficos"],["table","Tabla"]];
+let cmp={ks:["us","br","cn","de","jp","ar"],cat:"eco",order:"desc",mode:"chart"};
+function segment(id,opts,key){
+  document.getElementById(id).innerHTML=opts.map(([k,l])=>`<button type="button" data-v="${k}" aria-pressed="${cmp[key]===k}">${l}</button>`).join("");
+  document.querySelectorAll(`#${id} button`).forEach(b=>b.onclick=()=>{cmp[key]=b.dataset.v;writeHash();renderCmp()});
+}
+function cmpControls(){
+  const el=document.getElementById("cmp-countries");
+  el.innerHTML=ORDER.map(k=>`<button type="button" data-k="${k}" style="--c:${COL[k]}" aria-pressed="${cmp.ks.includes(k)}"><i style="background:${COL[k]}"></i>${SHORT[k]}</button>`).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>{const k=b.dataset.k;
+    if(cmp.ks.includes(k)){if(cmp.ks.length>1)cmp.ks=cmp.ks.filter(x=>x!==k)} else cmp.ks=ORDER.filter(x=>cmp.ks.includes(x)||x===k);
+    writeHash();renderCmp()});
+  segment("cmp-cat",CMPCAT,"cat"); segment("cmp-order",CMPORD,"order"); segment("cmp-mode",CMPMODE,"mode");
+}
+const catGroups=c=>c==="pol"?["dem"]:[c];
+function sorted(g,f){
+  const rows=cmp.ks.map(k=>({k,x:val(k,g,f.k)}));
+  if(cmp.order==="fix") return rows;
+  const s=cmp.order==="desc"?-1:1;
+  return rows.sort((a,b)=>{const av=a.x[0],bv=b.x[0];if(!isNum(av)&&!isNum(bv))return 0;if(!isNum(av))return 1;if(!isNum(bv))return -1;return s*(av-bv)});
+}
+function barCard(g,f){
+  const rows=sorted(g,f), nums=rows.map(r=>r.x[0]).filter(isNum);
+  const mn=Math.min(0,...nums), mx=Math.max(0,...nums), span=(mx-mn)||1, z=-mn/span*100;
+  const body=rows.map(({k,x})=>{const v=x[0];
+    const nm=`<div class="nm"><i style="background:${COL[k]}"></i>${SHORT[k]}</div>`;
+    if(!isNum(v)) return `${nm}<div class="tr gap"></div><div class="vl na">${v==="na"?"no aplica":"sin dato"}</div>`;
+    const w=Math.abs(v)/span*100, left=v<0?z-w:z;
+    return `${nm}<div class="tr" title="${x[1]}"><span style="left:${left}%;width:${Math.max(.6,w)}%;background:${COL[k]}"></span>${mn<0?`<i class="z" style="left:${z}%"></i>`:""}</div><div class="vl">${show(f,x)}</div>`}).join("");
+  const miss=rows.filter(r=>r.x[0]==null).map(r=>SHORT[r.k]);
+  return `<div class="card"><h3><span>${f.l}</span></h3><div class="cbar">${body}</div>${f.cn?`<p class="cnote">${f.cn}</p>`:""}${miss.length?`<p class="cnote"><span class="pill">Sin dato</span>${miss.join(", ")}</p>`:""}</div>`;
+}
+function table(groups){
+  const ks=cmp.ks;
+  const head=`<thead><tr><th>Indicador</th>${ks.map(k=>`<th><i style="background:${COL[k]}"></i>${SHORT[k]}</th>`).join("")}</tr></thead>`;
+  const rows=groups.flatMap(g=>F[g].map(f=>{const xs=ks.map(k=>val(k,g,f.k)), nums=xs.map(x=>x[0]).filter(isNum);
+    const hi=nums.length>1?Math.max(...nums):null, lo=nums.length>1?Math.min(...nums):null;
+    return `<tr><td>${f.l}</td>${xs.map(x=>{const v=x[0];if(v==="na")return `<td class="na" title="${x[1]}">no aplica</td>`;if(v==null)return `<td class="gap" title="${x[1]}">sin dato</td>`;
+      return `<td title="${x[1]}" class="${v===hi?"hi":v===lo?"lo":""}">${show(f,x)}</td>`}).join("")}</tr>`}));
+  return `<div class="card"><h3><span>Tabla · <em>verde = valor más alto, rojo = más bajo entre los elegidos</em></span></h3><div class="tblwrap"><table class="ct">${head}<tbody>${rows.join("")}</tbody></table></div></div>`;
+}
+function polTable(){
+  const ks=cmp.ks;
+  return `<div class="card"><h3><span>Sistema político</span></h3><div class="tblwrap"><table class="ct"><thead><tr><th></th>${ks.map(k=>`<th style="text-align:left"><i style="background:${COL[k]}"></i>${SHORT[k]}</th>`).join("")}</tr></thead><tbody>
+   ${POLF.map(([p,l])=>`<tr><td>${l}</td>${ks.map(k=>`<td class="txt">${D[k].pol[p]}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div>`;
+}
+function stacks(f){
+  const used=new Set();
+  const rows=cmp.ks.map(k=>{const {sum,cats}=tmData(k,f);return `<div class="nm" style="display:flex;gap:6px;align-items:center"><i style="width:7px;height:7px;border-radius:50%;background:${COL[k]}"></i>${SHORT[k]}</div><div class="bar">${cats.slice().sort((a,b)=>(a.cat==="OTR")-(b.cat==="OTR")||b.s-a.s).map(c=>{used.add(c.cat);return `<span style="width:${c.s/sum*100}%;background:${CAT[c.cat][1]}" title="${CAT[c.cat][0]}: ${fmtN(c.s/sum*100,0)}%"></span>`}).join("")}</div>`}).join("");
+  return `<div class="card"><h3><span>¿Qué ${f==="x"?"exporta":"importa"} cada uno? · <em>composición por sector, aproximada</em></span></h3><div class="stack">${rows}</div>
+   <div class="tmlegend">${[...used].map(c=>`<span><i style="background:${CAT[c][1]}"></i>${CAT[c][0]}</span>`).join("")}</div></div>`;
+}
+function renderCmp(){
+  cmpControls();
+  const out=document.getElementById("cmp-out"), g=catGroups(cmp.cat);
+  let html="";
+  if(cmp.cat==="pol") html+=polTable();
+  if(cmp.mode==="table") html+=table(g);
+  else html+=`<div class="cgrid">${g.flatMap(gg=>F[gg].map(f=>barCard(gg,f))).join("")}</div>`;
+  if(cmp.cat==="com") html+=`<div class="two">${stacks("x")}${stacks("m")}</div>`;
+  if(cmp.cat==="fin") html+=`<div class="card"><h3><span>Bolsas comparadas · <em>base 100 = 5 de junio, ETF en dólares</em></span></h3><div id="cmp-lines"></div></div>`;
+  out.innerHTML=html;
+  if(cmp.cat==="fin") lines(cmp.ks,"cmp-lines");
+}
+
+/* ---------- views, selection, hash ---------- */
+let view="atlas";
+function writeHash(){try{history.replaceState(null,"","#"+(view==="cmp"?`comparar/${cmp.cat}/${cmp.ks.join(",")}`:`${sel}/${tab}`))}catch(e){}}
+function setView(v){
+  view=v;
+  document.getElementById("view-atlas").hidden=v!=="atlas";
+  document.getElementById("view-cmp").hidden=v!=="cmp";
+  document.getElementById("countries").hidden=v!=="atlas";
+  document.getElementById("v-atlas").setAttribute("aria-pressed",v==="atlas");
+  document.getElementById("v-cmp").setAttribute("aria-pressed",v==="cmp");
+  writeHash();
+  if(v==="cmp") renderCmp(); else {resize(); ficha()}
+}
+document.getElementById("v-atlas").onclick=()=>setView("atlas");
+document.getElementById("v-cmp").onclick=()=>setView("cmp");
 function select(k,spin){
-  sel=k; try{history.replaceState(null,"","#"+k)}catch(e){}
+  sel=k; writeHash();
   cc.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.id==="c-"+k));
   if(spin) spinTo(k);
-  renderGlobeText(); kpis(); trend(); stocks(); compare(); macro(); news(); draw();
+  renderGlobeText(); kpis(); ficha(); news(); draw();
 }
-window.addEventListener("hashchange",()=>{const h=location.hash.slice(1);if(C[h]&&h!==sel)select(h,true)});
+function readHash(){
+  const h=decodeURIComponent(location.hash.slice(1)).split("/");
+  if(h[0]==="comparar"){
+    if(GROUP[h[1]]||h[1]==="pol") cmp.cat=h[1]==="dem"?"pol":h[1];
+    if(h[2]){const ks=h[2].split(",").filter(k=>C[k]); if(ks.length) cmp.ks=ORDER.filter(k=>ks.includes(k));}
+    return "cmp";
+  }
+  if(C[h[0]]) sel=h[0];
+  if(TABS.some(t=>t[0]===h[1])) tab=h[1];
+  return "atlas";
+}
+window.addEventListener("hashchange",()=>{const prev=sel, v=readHash(); if(v!==view) setView(v); else if(v==="atlas"){ if(prev!==sel) select(sel,true); else ficha()} else renderCmp()});
+const v0=readHash();
 rot=[-CENT[sel][0],-CENT[sel][1]*0.6,0];
-select(sel,false); resize(); requestAnimationFrame(t=>{lastT=t;tick(t)});
+select(sel,false); setView(v0); resize(); requestAnimationFrame(t=>{lastT=t;tick(t)});
 </script>
 
 </body></html>
