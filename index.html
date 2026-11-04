@@ -302,7 +302,7 @@ table.ct td.hi{color:var(--up)} table.ct td.lo{color:var(--down)}
 <details class="sources" id="sources">
   <summary><span>Fuentes y notas</span><em>Foto fija al 3 nov 2026, no se actualiza sola · tocá para ver el detalle</em></summary>
   <dl class="srcgrid">
-    <div><dt>Mercados</dt><dd>Precios de ETF y acciones: Equibles (cierres diarios). La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares. Índices locales: cierres publicados (Rava, Trading Economics, prensa financiera), con su fecha en cada campo.</dd></div>
+    <div><dt>Mercados</dt><dd>Precios de ETF y acciones: Equibles (cierres diarios). La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares; Rusia usa el índice MOEX en rublos (API ISS de la Bolsa de Moscú). Índices locales: cierres publicados (Rava, Trading Economics, prensa financiera), con su fecha en cada campo.</dd></div>
     <div><dt>Tasas y monedas</dt><dd>Tasas, inflación de EE. UU. y tipos de cambio: Fed de St. Louis (FRED) vía Equibles; bono de Canadá, Banco de Canadá; USD/ARS, Alpha Vantage. Riesgo país: EMBI de JP Morgan según Bloomberg Línea.</dd></div>
     <div><dt>Argentina</dt><dd>API del BCRA (tasas, reservas) y API del INDEC (inflación, EMAE, desempleo).</dd></div>
     <div><dt>Macro y demografía</dt><dd>PIB nominal, PIB per cápita y deuda pública: datos 2025 del FMI (WEO, oct-2026). Series 2015–2027 de los gráficos: FMI (WEO, oct-2026). Reservas de Australia y Emiratos y desempleo de Emiratos: Banco Mundial. Demografía: ONU (World Population Prospects 2024), estimaciones 2025. Datos coyunturales de los institutos de estadística y bancos centrales de cada país, citados en cada campo.</dd></div>
@@ -383,7 +383,7 @@ Object.assign(C,{
  in:{id:"356",name:"India",etf:"INDA",etfName:"India (ETF INDA, en USD)",closes:[47.34,48.33,49.58,49.56,49.56,49.30,48.91,48.02,49.80,50.37,49.78,49.64,49.56,49.91,48.57,48.02,47.86,46.52,46.03,47.66,46.46,47.72,48.70],
   m:{inflation:5.54,gdp:7.8,rate:5.5},fx:{label:"USD/INR",val:"94,94",chg:-0.9,chgNote:"la rupia se fortaleció",d:"30 oct · cambio en un mes"},
   stocks:[["XNSE:RELIANCE","Reliance Industries",1307.90,"INR",0.61,-17.86],["HDB","HDFC Bank (ADR)",23.05,"USD",1.54,-37.92],["IBN","ICICI Bank (ADR)",30.13,"USD",0.23,-3.98],["INFY","Infosys (ADR)",11.93,"USD",-4.79,-41.00]],news:[]},
- ru:{id:"643",name:"Rusia",etf:null,etfName:"Rusia (sin ETF operable en EE. UU.)",closes:null,
+ ru:{id:"643",name:"Rusia",etf:"IMOEX",cur:"RUB",etfName:"Índice MOEX (en rublos, no hay ETF de Rusia en EE. UU.)",closes:[2561.04, 2515.33, 2441.24, 2285.61, 2256.06, 2145.65, 1958.43, 2165.54, 2226.36, 2281.31, 2136.35, 2134.97, 2114.93, 2253.41, 2281.04, 2278.06, 2273.87, 2279.75, 2401.8, 2431.07, 2469.36, 2509.26, 2446.64],
   m:{inflation:6.35,gdp:1.3,rate:14.0},fx:{label:"USD/RUB",val:"81,90",chg:-3.1,chgNote:"el rublo se fortaleció",d:"22 oct · cambio en un mes"},
   stocks:[],news:[]},
  ca:{id:"124",name:"Canadá",etf:"EWC",etfName:"Canadá (ETF EWC, en USD)",closes:[58.03,58.76,57.87,57.80,57.77,58.65,59.45,59.07,59.39,61.30,62.23,62.36,61.73,62.04,60.58,60.22,59.59,58.72,59.03,60.58,60.69,60.62,60.21],
@@ -444,7 +444,7 @@ const css=getComputedStyle(document.documentElement);
 const COL={}; ORDER.forEach(k=>COL[k]=css.getPropertyValue("--"+k).trim());
 
 const METRICS={
- ret:{btn:"Bolsa 1 mes",title:"Rendimiento de la bolsa en un mes",def:"ETF del país en dólares, 2 oct → 3 nov",fmt:v=>(v>0?"+":"")+v.toFixed(1).replace(".",",")+"%"},
+ ret:{btn:"Bolsa 1 mes",title:"Rendimiento de la bolsa en un mes",def:"ETF del país en dólares (Rusia: índice MOEX en rublos), 2 oct → 3 nov",fmt:v=>(v>0?"+":"")+v.toFixed(1).replace(".",",")+"%"},
  inflation:{btn:"Inflación",title:"Inflación interanual",def:"Último dato publicado de cada país",fmt:v=>v.toFixed(1).replace(".",",")+"%"},
  rate:{btn:"Tasa de interés",title:"Tasa de política monetaria",def:"Banco central; EE. UU. con el techo del rango; Argentina: TAMAR (tasa de mercado); zona euro: BCE",fmt:v=>v.toFixed(2).replace(".",",")+"%"},
  gdp:{btn:"Crecimiento PIB",title:"Crecimiento del PIB",def:"Último dato interanual; EE. UU. y Japón: trimestral anualizado; Argentina: EMAE mensual",fmt:v=>v.toFixed(1).replace(".",",")+"%"}
@@ -669,7 +669,7 @@ Object.assign(D,{
   com:{exp:[420,"Bienes 2025, aprox. (Banco de Rusia)"],imp:[290,"Bienes 2025, aprox. (Banco de Rusia)"],dest:["China","India","Turquía"],orig:["China","Bielorrusia","Turquía"],
    x:[["MIN",55,[["Petróleo crudo",25],["Petróleo refinado",14],["Gas natural",8],["Carbón",5]]],["MET",12],["QUI",6,[["Fertilizantes",3]]],["VEG",6,[["Trigo",3]]],["PRE",5],["PAP",3],["MAQ",3],["OTR",10]],
    m:[["MAQ",35],["TRA",15,[["Autos",8]]],["QUI",12],["MET",6],["TEX",5],["PLA",5],["ALI",5],["OTR",17]]},
-  fin:{tasa:[14.0,"Banco de Rusia, sin cambios el 23 oct"],bono:[null,"Sin dato reciente; superaba 16% a fines de junio"],dep:[-3.1,"USD/RUB 81,90 el 22 oct; el rublo se fortaleció"],res:[729.6,"23 oct (Banco de Rusia)"],riesgo:["na","Rusia quedó fuera de los índices EMBI por las sanciones"],idx:[null,"Sin dato del índice MOEX; no hay ETF de Rusia operable en EE. UU."]},
+  fin:{tasa:[14.0,"Banco de Rusia, sin cambios el 23 oct"],bono:[16.46,"OFZ, curva cupón cero a 10 años, 3 nov (MOEX ISS)"],dep:[-3.1,"USD/RUB 81,90 el 22 oct; el rublo se fortaleció"],res:[729.6,"23 oct (Banco de Rusia)"],riesgo:["na","Rusia quedó fuera de los índices EMBI por las sanciones"],idx:[2447,"Índice MOEX, cierre 3 nov (MOEX ISS)"]},
   nota:"Es el país con menos datos de mercado: por las sanciones no hay ETF ni ADR operables en EE. UU., así que no tiene gráfico de bolsa ni acciones."},
  ca:{eco:{pib:[2321,IMF],pibpc:[55796,IMF],crec:[3.3,"2T, trimestral anualizado (Statistics Canada)"],inf:[3.1,"IPC sep, interanual (Statistics Canada)"],des:[6.5,"Septiembre (Statistics Canada)"],deuda:[114,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía constitucional parlamentaria (federal)",estado:"Rey Carlos III, representado por la gobernadora general",gob:"Mark Carney, primer ministro",partido:"Partido Liberal",legis:"Parlamento: Cámara de los Comunes (343) y Senado (105)",ult:"Federales, abr 2025",prox:"Federales, a más tardar oct 2029",capital:"Ottawa",moneda:"Dólar canadiense (CAD)",bc:"Banco de Canadá"},
@@ -782,7 +782,7 @@ const F={
   {k:"saldo",l:"Saldo comercial",u:"bn",signed:true},
   {k:"aper",l:"Apertura comercial",u:"pctpib",cn:"Exportaciones más importaciones de bienes sobre el PIB."}],
  fin:[
-  {k:"ret",l:"Bolsa en un mes",u:"spct",cn:"ETF del país en dólares, 2 oct → 3 nov."},
+  {k:"ret",l:"Bolsa en un mes",u:"spct",cn:"ETF del país en dólares, 2 oct → 3 nov. Rusia: índice MOEX en rublos."},
   {k:"tasa",l:"Tasa de referencia",u:"pct2",cn:"EE. UU. con el techo del rango; Argentina con la TAMAR, tasa de mercado."},
   {k:"bono",l:"Bono a 10 años",u:"pct2"},
   {k:"dep",l:"Depreciación vs. el dólar (1 mes)",u:"spct",neutral:true,cn:"Positivo = la moneda local perdió valor frente al dólar."},
@@ -796,7 +796,7 @@ ORDER.forEach(k=>{const d=D[k];
   d.dem.dens=[d.dem.pob[0]*1e6/d.dem.sup[0],"Población sobre superficie"];
   d.com.saldo=[d.com.exp[0]-d.com.imp[0],"Exportaciones menos importaciones, 2025"];
   d.com.aper=[(d.com.exp[0]+d.com.imp[0])/d.eco.pib[0]*100,"Comercio de bienes 2025 sobre el PIB"];
-  d.fin.ret=C[k].etf?[C[k].m.ret,"ETF "+C[k].etf+" en dólares"]:[null,"No hay ETF del país operable en EE. UU."];
+  d.fin.ret=C[k].etf?[C[k].m.ret,C[k].cur==="RUB"?"Índice MOEX en rublos (MOEX ISS)":"ETF "+C[k].etf+" en dólares"]:[null,"No hay ETF del país operable en EE. UU."];
 });
 const GROUP={eco:"eco",dem:"dem",com:"com",fin:"fin"};
 const val=(k,g,f)=>D[k][g][f]||[null,SD];
@@ -818,7 +818,7 @@ function kpis(){
   const inf=d.eco.inf, rate=d.fin.tasa;
   let bolsa;
   if(c.closes){const n=c.closes.length,last=c.closes[n-1],ch=(last/c.closes[0]-1)*100;
-    bolsa=tile(`Bolsa · ${c.etf}`,`US$ ${fmtN(last)}`,pct(c.m.ret)+" 1 mes",`${ch>=0?"+":""}${fmtN(ch,1)}% desde junio · cierre 3 nov`,COL[sel]);}
+    bolsa=tile(`Bolsa · ${c.etf}`,c.cur==="RUB"?`${fmtN(last)} pts`:`US$ ${fmtN(last)}`,pct(c.m.ret)+" 1 mes",`${ch>=0?"+":""}${fmtN(ch,1)}% desde junio · cierre 3 nov`,COL[sel]);}
   else bolsa=tile("Bolsa",null,"","No hay ETF del país operable en EE. UU.",COL[sel]);
   document.getElementById("kpis").innerHTML=bolsa+
     tile("Inflación interanual",isNum(inf[0])?U.pct(inf[0]):null,"",inf[1],"var(--cn)")+
@@ -1000,7 +1000,7 @@ function trend(){
   document.getElementById("tname").textContent=c.etfName;
   if(!xs){document.getElementById("tval").textContent="";document.getElementById("tchart").innerHTML=`<p class="empty"><span class="pill">Sin dato</span>No hay un ETF de este país que cotice en EE. UU., así que no hay serie de precios.</p>`;return}
   const n=xs.length;
-  document.getElementById("tval").innerHTML=`US$ ${fmtN(xs[n-1])} ${pct(c.m.ret)}`;
+  document.getElementById("tval").innerHTML=`${c.cur==="RUB"?"":"US$ "}${fmtN(xs[n-1])}${c.cur==="RUB"?" pts":""} ${pct(c.m.ret)}`;
   const W=520,H=230,L=46,R=14,T=14,B=26;
   const lo=Math.min(...xs),hi=Math.max(...xs),pad=(hi-lo)*.12,y0=lo-pad,y1=hi+pad;
   const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
