@@ -884,9 +884,7 @@ function ficha(){
     body.innerHTML=`<p class="sect"><span>Indicadores macro</span><em>mismos campos para todos los países</em></p>${grid("eco")}
      <div class="gaps">${gapsLine(["eco"])}${d.nota?`<br>${d.nota}`:""}</div>
      <div class="box" style="margin-top:12px">
-      <div class="sect" style="align-items:center;flex-wrap:wrap;gap:8px"><span>Gráficos</span>
-       <div class="seg" id="rkseg">${F.eco.map(f=>`<button type="button" data-f="${f.k}" aria-pressed="${f.k===rkField}">${RKLBL[f.k]||f.l}</button>`).join("")}</div></div>
-      <p class="sect" style="margin-top:6px"><span>Puesto entre los 18</span><em>de mayor a menor, último dato</em></p>
+      <p class="sect"><span>Gráficos</span><em>elegí un dato · puesto de ${c.name} entre los 18, de mayor a menor</em></p>
       <div class="rksum" id="rksum"></div>
       <div class="charts2">
        <div class="cctl" style="grid-area:cl"><span>Período</span><div class="seg sm" id="spanseg">${SPANS.map(([y,l])=>`<button type="button" data-y="${y}" aria-pressed="${y===hFrom}">${l}</button>`).join("")}</div></div>
@@ -898,8 +896,8 @@ function ficha(){
       </div>
       <p class="cnote" id="cfoot" style="border-top:1px solid var(--line);padding-top:8px;margin-top:10px"></p>
      </div>`;
-    const setF=fk=>{rkField=fk;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f===fk));body.querySelectorAll(".mc[data-click]").forEach(x=>x.classList.toggle("on",x.dataset.click===fk));ecoCharts()};
-    body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>setF(b.dataset.f));
+    const setF=fk=>{rkField=fk;body.querySelectorAll(".mc[data-click]").forEach(x=>x.classList.toggle("on",x.dataset.click===fk));ecoCharts()};
+    window.setEcoField=setF;
     body.querySelectorAll("#spanseg button").forEach(b=>b.onclick=()=>{hFrom=+b.dataset.y;body.querySelectorAll("#spanseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));ecoCharts()});
     body.querySelectorAll("#peerseg button").forEach(b=>b.onclick=()=>{peerSet=b.dataset.p;body.querySelectorAll("#peerseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));ecoCharts()});
     body.querySelectorAll(".mc[data-click]").forEach(t=>{const go=()=>{setF(t.dataset.click);document.getElementById("hchart").closest(".box").scrollIntoView({behavior:"smooth",block:"nearest"})};t.onclick=go;t.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
@@ -971,8 +969,8 @@ function rankOf(fk,k){
 function rankSum(){
   const el=document.getElementById("rksum"); if(!el) return;
   el.innerHTML=F.eco.map(g=>{const r=rankOf(g.k,sel);
-    return `<button type="button" data-f="${g.k}"${g.k===rkField?' class="on"':""} title="Ver ${RKLBL[g.k]}"><span>${RKLBL[g.k]}</span><b>${r?`${r[0]}.º<small>/${r[1]}</small>`:"s/d"}</b></button>`}).join("");
-  el.querySelectorAll("button").forEach(b=>b.onclick=()=>document.querySelector(`#rkseg button[data-f="${b.dataset.f}"]`).click());
+    return `<button type="button" data-f="${g.k}"${g.k===rkField?' class="on"':""} aria-pressed="${g.k===rkField}" title="Ver ${RKLBL[g.k]} en los gráficos"><span>${RKLBL[g.k]}</span><b>${r?`${r[0]}.º<small>/${r[1]}</small>`:"s/d"}</b></button>`}).join("");
+  el.querySelectorAll("button").forEach(b=>b.onclick=()=>window.setEcoField(b.dataset.f));
 }
 /* shared svg line chart. series: [{k,vals,col,w,dash,main}] over years i0..n-1 of HIST */
 function chartDom(series,i0,base0=true){
