@@ -132,7 +132,7 @@ svg{display:block;width:100%;height:auto}
 .hleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--muted);margin-top:4px}
 .hleg i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
 /* ranking chart inside the ficha */
-.rk{display:grid;grid-template-columns:minmax(0,10.5em) minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:12px}
+.rk{display:grid;grid-template-columns:minmax(0,10.5em) minmax(0,1fr) auto auto;gap:4px 10px;align-items:center;font-size:12px}
 .rk .nm{display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden;color:var(--muted);background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
 .rk .nm:hover{color:var(--ink)}
 .rk .nm i{width:7px;height:7px;border-radius:50%;flex:none}
@@ -146,6 +146,16 @@ svg{display:block;width:100%;height:auto}
 .rk .me.nm{color:var(--ink)}
 .rk .me span{opacity:1}
 .rk .vl.me{color:var(--ink)}
+.rk .pe{font:500 10.5px var(--f-mono);color:var(--dim);white-space:nowrap}
+.rk .pe.me{color:var(--muted)}
+.rk .pe.old{color:var(--warn,#E0A84A)}
+.rk .hd{font:500 10px var(--f-body);color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.per{display:inline-block;margin-left:4px;padding:0 5px;border-radius:4px;background:#262A4D;font:500 10px var(--f-mono);color:var(--muted);vertical-align:1px}
+.per.old{color:#E0A84A}
+.mc[data-click]{cursor:pointer;transition:box-shadow .15s}
+.mc[data-click]:hover{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
+.mc.on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
+@media (max-width:480px){.rk{grid-template-columns:minmax(0,8.5em) minmax(0,1fr) auto auto;gap:4px 6px}}
 .rksum{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .rksum span{font-size:11.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:3px 8px}
 .rksum b{color:var(--ink);font:600 12px var(--f-mono)}
@@ -838,7 +848,8 @@ function mtile(f,x){
   if(v==="na") return `<div class="mc isna"><div class="k">${f.l}</div><div class="v na"><span class="pill na">No aplica</span></div><div class="d">${d}</div></div>`;
   if(v==null) return `<div class="mc gap"><div class="k">${f.l}</div><div class="v na"><span class="pill">Sin dato</span></div><div class="d">${d}</div></div>`;
   const s=show(f,x), cls=f.neutral?"":f.signed||f.u==="spct"?(v>0?"up":v<0?"down":""):"";
-  return `<div class="mc"><div class="k">${f.l}</div><div class="v ${cls}">${s}</div><div class="d">${d}</div></div>`;
+  const pe=(PER[f.k]||{})[sel], click=HIST[f.k]?` data-click="${f.k}" role="button" tabindex="0" title="Ver la evolución y el ranking de este dato"`:"";
+  return `<div class="mc${click&&f.k===rkField?" on":""}"${click}><div class="k">${f.l}${pe?`<span class="per${perOld(f.k,sel)?" old":""}">${pe}</span>`:""}</div><div class="v ${cls}">${s}</div><div class="d">${d}</div></div>`;
 }
 function gapsLine(groups){
   const miss=[], na=[];
@@ -867,7 +878,9 @@ function ficha(){
        <div><p class="sect"><span>Frente a los otros países</span><em>último dato</em></p><div class="rksum" id="rksum"></div><div id="rkchart"></div></div>
       </div>
      </div>`;
-    body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>{rkField=b.dataset.f;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));rankChart();histChart()});
+    const setF=fk=>{rkField=fk;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f===fk));body.querySelectorAll(".mc[data-click]").forEach(x=>x.classList.toggle("on",x.dataset.click===fk));rankChart();histChart()};
+    body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>setF(b.dataset.f));
+    body.querySelectorAll(".mc[data-click]").forEach(t=>{const go=()=>{setF(t.dataset.click);document.getElementById("hchart").closest(".box").scrollIntoView({behavior:"smooth",block:"nearest"})};t.onclick=go;t.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
     rankChart(); histChart();
   } else if(tab==="pol"){
     const pnews=c.news.filter(n=>n[1]==="pol");
@@ -911,6 +924,15 @@ const HIST={"pib":{"us":[18295,18805.0,19612.0,20657.0,21540.0,21375.0,23746.0,2
 /* ---------- economy: where the country sits among the 18 ---------- */
 let rkField="inf";
 const RKLBL={pib:"PIB",pibpc:"PIB per cápita",crec:"Crecimiento",inf:"Inflación",des:"Desempleo",deuda:"Deuda"};
+/* period each macro value refers to (short label). Growth is year-on-year unless marked "anualiz."; "proy." = IMF projection */
+const Y25=Object.fromEntries(["us","ca","mx","br","ar","gb","de","fr","it","es","ru","sa","ae","za","in","cn","jp","au"].map(k=>[k,"2025"]));
+const PER={pib:Y25,pibpc:Y25,deuda:Y25,
+ crec:{us:"3T-26*",ca:"2T-26*",mx:"3T-26",br:"2T-26",ar:"ago-26",gb:"2T-26",de:"3T-26",fr:"3T-26",it:"3T-26",es:"3T-26",ru:"2T-26",sa:"2T-26",ae:"2026p",za:"2T-26",in:"2T-26",cn:"3T-26",jp:"2T-26*",au:"2T-26"},
+ inf:{us:"sep-26",ca:"sep-26",mx:"sep-26",br:"oct-26",ar:"sep-26",gb:"sep-26",de:"oct-26",fr:"oct-26",it:"oct-26",es:"oct-26",ru:"sep-26",sa:"ago-26",ae:"2026p",za:"ago-26",in:"sep-26",cn:"sep-26",jp:"sep-26",au:"sep-26"},
+ des:{us:"sep-26",ca:"sep-26",mx:"sep-26",br:"3T-26",ar:"2T-26",gb:"ago-26",de:"oct-26",fr:"sep-26",it:"jul-26",es:"sep-26",ru:"ago-26",sa:"2T-26",ae:"2025",za:"2T-26",in:"sep-26",cn:"sep-26",jp:"sep-26",au:"sep-26"}};
+const PERHD={pib:"año",pibpc:"año",deuda:"año",crec:"período",inf:"mes",des:"período"};
+/* a period is "old" when it is a different vintage than most countries (annual stand-ins or lagging months) */
+function perOld(fk,k){const p=(PER[fk]||{})[k]; if(!p) return false; if(/p$|^2025$/.test(p)&&fk!=="pib"&&fk!=="pibpc"&&fk!=="deuda") return true; return /^(jul|ago)-26$/.test(p)&&fk!=="crec"}
 function rankOf(fk,k){
   const rows=ORDER.map(c=>[c,val(c,"eco",fk)[0]]).filter(r=>isNum(r[1])).sort((a,b)=>b[1]-a[1]);
   const i=rows.findIndex(r=>r[0]===k); return i<0?null:[i+1,rows.length];
@@ -923,12 +945,12 @@ function rankChart(){
   const nums=rows.map(r=>r.x[0]), mn=Math.min(0,...nums), mx=Math.max(0,...nums), span=(mx-mn)||1, z=-mn/span*100;
   const sortedV=nums.slice().sort((a,b)=>a-b), med=sortedV.length%2?sortedV[(sortedV.length-1)/2]:(sortedV[sortedV.length/2-1]+sortedV[sortedV.length/2])/2;
   const mdPos=(med-mn)/span*100;
-  el.innerHTML=`<div class="rk">${rows.map(({k,x},i)=>{const v=x[0],me=k===sel?" me":"";
+  el.innerHTML=`<div class="rk"><span></span><span></span><span class="hd" style="text-align:right">dato</span><span class="hd">${PERHD[f.k]||"período"}</span>${rows.map(({k,x},i)=>{const v=x[0],me=k===sel?" me":"",pe=(PER[f.k]||{})[k]||"";
     const w=Math.abs(v)/span*100, left=v<0?z-w:z;
     return `<button type="button" class="nm${me}" data-k="${k}" title="Ver ${C[k].name}"><small>${i+1}.º</small><i style="background:${COL[k]}"></i>${SHORT[k]}</button>
      <div class="tr${me}" title="${C[k].name}: ${x[1]}"><span style="left:${left}%;width:${Math.max(.6,w)}%;background:${COL[k]}${me?";opacity:1;box-shadow:0 0 10px "+COL[k]+"88":""}"></span>${mn<0?`<i class="z" style="left:${z}%"></i>`:""}<i class="md" style="left:${mdPos}%"></i></div>
-     <div class="vl${me}">${show(f,x)}</div>`}).join("")}</div>
-   <p class="cnote">Línea punteada = mediana de los ${rows.length} países con dato (${U[f.u](med)}).${f.cn?" "+f.cn:""}${miss.length?` <span class="pill" style="margin-left:4px">Sin dato</span>${miss.map(k=>SHORT[k]).join(", ")}.`:""}</p>`;
+     <div class="vl${me}">${show(f,x)}</div><div class="pe${me}${perOld(f.k,k)?" old":""}" title="${x[1]}">${pe}</div>`}).join("")}</div>
+   <p class="cnote">Línea punteada = mediana de los ${rows.length} países con dato (${U[f.u](med)}). Cada país publica con su propio calendario: la última columna dice a qué período corresponde el dato (T = trimestre, p = proyección del FMI${f.k==="crec"?", * = trimestral anualizado; el resto es interanual, y Argentina usa el EMAE mensual":""}); en ámbar, los que son de otro año o vienen atrasados.${f.cn&&f.k!=="crec"?" "+f.cn:""}${miss.length?` <span class="pill" style="margin-left:4px">Sin dato</span>${miss.map(k=>SHORT[k]).join(", ")}.`:""}</p>`;
   el.querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>select(b.dataset.k,true));
   // summary chips: rank of the selected country in every macro field
   document.getElementById("rksum").innerHTML=F.eco.map(g=>{const r=rankOf(g.k,sel);
