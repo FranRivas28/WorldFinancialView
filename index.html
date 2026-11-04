@@ -234,13 +234,13 @@ const C = {
   gaps:"<b>Faltan:</b> Nikkei o Topix (se usa el ETF EWJ en dólares). El PIB es trimestral anualizado, no interanual. Acciones vía ADR."},
  ar:{id:"032",name:"Argentina",cov:"part",etf:"ARGT",etfName:"Argentina (ETF ARGT, en USD)",
   closes:[91.59,97.91,97.10,91.30,91.45,95.07,92.03,93.14,95.15,92.96,90.97,92.81,93.80,96.41,95.40,92.43,88.60,84.52,88.56,88.00,87.08,79.18,78.29],
-  m:{inflation:33.4,gdp:-1.4,rate:23.94,ret:-7.4},
+  m:{inflation:33.4,gdp:-1.7,rate:23.94,ret:-7.4},
   fx:{label:"USD/ARS oficial",val:"1.550,50",chg:1.7,chgNote:"el peso se debilitó",d:"3 nov · cambio en un mes"},
   macro:[
-   ["Inflación","33,4%","Sep, interanual (1,9% mensual)"],
+   ["Inflación","33,4%","Sep, interanual (1,9% mensual). API INDEC"],
    ["Tasa TAMAR","23,94%","Bancos privados, 2 nov (API BCRA). Tasa de mercado: el BCRA ya no fija tasa de política"],
-   ["Actividad (EMAE)","-1,4%","Jul, interanual; -2,9% vs. junio desestacionalizado (INDEC vía datos.gob.ar)"],
-   ["Desempleo","7,9%","2T 2026, INDEC (datos.gob.ar)"],
+   ["Actividad (EMAE)","-1,7%","Ago, interanual; +0,1% vs. julio desestacionalizado (API INDEC)"],
+   ["Desempleo","7,9%","2T 2026, API INDEC (EPH)"],
    ["Reservas BCRA","US$ 48.565 M","30 oct (API BCRA)"],
    ["Riesgo país","753 pb","27 oct; máximo del año 765 pb el 26 oct"]],
   stocks:[["YPF","YPF (ADR)",44.81,"USD",2.19,-22.22],["GGAL","Grupo Galicia (ADR)",31.48,"USD",0.00,-48.22],["PAM","Pampa Energía (ADR)",68.51,"USD",-1.82,-25.75],["VIST","Vista Energy",67.92,"USD",1.54,-14.30],["MELI","MercadoLibre*",1662.16,"USD",-0.87,-28.24]],
@@ -250,7 +250,7 @@ const C = {
    ["14 oct","eco","La inflación de septiembre fue 1,9% mensual y 33,4% interanual, la segunda más alta de América Latina.","https://www.bloomberglinea.com/latinoamerica/argentina-quedo-con-la-segunda-inflacion-mensual-mas-alta-de-america-latina-en-septiembre-detras-de-venezuela/","Bloomberg Línea"],
    ["7 oct","mkt","Las tasas locales se mantienen estables: TAMAR de bancos privados en 23,75% y BADLAR en 21,63% anual.","https://www.forbesargentina.com/money/las-tasas-locales-mantienen-estables-pese-volatilidad-mercados-n99697","Forbes Argentina"],
    ["14 oct","eco","El FMI recortó su proyección de crecimiento para 2026 a 2,1% desde 3,5%.","https://www.bloomberglinea.com/latinoamerica/argentina-quedo-con-la-segunda-inflacion-mensual-mas-alta-de-america-latina-en-septiembre-detras-de-venezuela/","Bloomberg Línea"]],
-  gaps:"<b>Es el país con menos cobertura.</b> Faltan Merval (se usa el ETF ARGT en dólares) y bono a 10 años; en lugar del PIB trimestral (que en datos.gob.ar llega a 2025) se usa el EMAE mensual, su indicador adelantado. Tasa, reservas e inflación salen de la API del BCRA; actividad y desempleo, de INDEC vía datos.gob.ar. *MercadoLibre es de origen argentino pero cotiza en Nasdaq."}
+  gaps:"<b>Es el país con menos cobertura.</b> Faltan Merval (se usa el ETF ARGT en dólares) y bono a 10 años; en lugar del PIB trimestral se usa el EMAE mensual, su indicador adelantado. Tasa y reservas salen de la API del BCRA; inflación, actividad y desempleo, de la API del INDEC. *MercadoLibre es de origen argentino pero cotiza en Nasdaq."}
 };
 const ORDER=["us","br","cn","de","jp","ar"];
 
@@ -263,7 +263,7 @@ const METRICS={
  ret:{btn:"Bolsa 1 mes",title:"Rendimiento de la bolsa en un mes",def:"ETF del país en dólares, 2 oct → 3 nov",fmt:v=>(v>0?"+":"")+v.toFixed(1).replace(".",",")+"%"},
  inflation:{btn:"Inflación",title:"Inflación interanual",def:"Último dato publicado de cada país",fmt:v=>v.toFixed(1).replace(".",",")+"%"},
  rate:{btn:"Tasa de interés",title:"Tasa de política monetaria",def:"Banco central; EE. UU. con el techo del rango; Argentina: TAMAR (tasa de mercado)",fmt:v=>v.toFixed(2).replace(".",",")+"%"},
- gdp:{btn:"Crecimiento PIB",title:"Crecimiento del PIB",def:"EE. UU. y Japón: trimestral anualizado; Argentina: EMAE mensual interanual (jul)",fmt:v=>v.toFixed(1).replace(".",",")+"%"}
+ gdp:{btn:"Crecimiento PIB",title:"Crecimiento del PIB",def:"EE. UU. y Japón: trimestral anualizado; Argentina: EMAE mensual interanual (ago)",fmt:v=>v.toFixed(1).replace(".",",")+"%"}
 };
 let metric="ret", sel="br";
 try{const h=location.hash.slice(1); if(C[h]) sel=h;}catch(e){}
