@@ -127,8 +127,12 @@ svg{display:block;width:100%;height:auto}
 .srcgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px 18px;margin:0 0 14px}
 .srcgrid dt{font:600 11.5px var(--f-body);color:var(--ink);margin-bottom:2px}
 .srcgrid dd{margin:0;line-height:1.45;color:var(--muted)}
+.charts2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:820px){.charts2{grid-template-columns:minmax(0,1fr)}}
+.hleg{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:11px;color:var(--muted);margin-top:4px}
+.hleg i{display:inline-block;width:14px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
 /* ranking chart inside the ficha */
-.rk{display:grid;grid-template-columns:minmax(0,10.5em) minmax(0,1fr) auto;gap:4px 10px;align-items:center;font-size:12px}
+.rk{display:grid;grid-template-columns:minmax(0,10.5em) minmax(0,1fr) auto auto;gap:4px 10px;align-items:center;font-size:12px}
 .rk .nm{display:flex;gap:6px;align-items:center;white-space:nowrap;overflow:hidden;color:var(--muted);background:none;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
 .rk .nm:hover{color:var(--ink)}
 .rk .nm i{width:7px;height:7px;border-radius:50%;flex:none}
@@ -142,9 +146,26 @@ svg{display:block;width:100%;height:auto}
 .rk .me.nm{color:var(--ink)}
 .rk .me span{opacity:1}
 .rk .vl.me{color:var(--ink)}
+.rk .pe{font:500 10.5px var(--f-mono);color:var(--dim);white-space:nowrap}
+.rk .pe.me{color:var(--muted)}
+.rk .pe.old{color:var(--warn,#E0A84A)}
+.rk .hd{font:500 10px var(--f-body);color:var(--dim);text-transform:uppercase;letter-spacing:.06em}
+.per{display:inline-block;margin-left:4px;padding:0 5px;border-radius:4px;background:#262A4D;font:500 10px var(--f-mono);color:var(--muted);vertical-align:1px}
+.per.old{color:#E0A84A}
+.mc[data-click]{cursor:pointer;transition:box-shadow .15s}
+.mc[data-click]:hover{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
+.mc.on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
+@media (max-width:480px){.rk{grid-template-columns:minmax(0,8.5em) minmax(0,1fr) auto auto;gap:4px 6px}}
 .rksum{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
 .rksum span{font-size:11.5px;color:var(--muted);background:var(--bg);border-radius:6px;padding:3px 8px}
 .rksum b{color:var(--ink);font:600 12px var(--f-mono)}
+.rksum .on{box-shadow:inset 0 0 0 1px var(--c,#5A5F8C)}
+.ctl{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:2px 0 10px}
+.ctl .rksum{margin:0}
+.seg.sm button{font-size:11.5px;padding:3px 9px}
+.hleg .lg{background:none;border:0;padding:0;font:inherit;color:var(--muted);cursor:pointer}
+.hleg .lg:hover{color:var(--ink)}
+.hleg .lg.me{color:var(--ink);font-weight:600}
 /* ---- views, ficha tabs, gaps, treemap, comparator ---- */
 .hright{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .views{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px}
@@ -298,10 +319,10 @@ table.ct td.hi{color:var(--up)} table.ct td.lo{color:var(--down)}
 <details class="sources" id="sources">
   <summary><span>Fuentes y notas</span><em>Foto fija al 3 nov 2026, no se actualiza sola · tocá para ver el detalle</em></summary>
   <dl class="srcgrid">
-    <div><dt>Mercados</dt><dd>Precios de ETF y acciones: Equibles (cierres diarios). La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares. Índices locales: cierres publicados (Rava, Trading Economics, prensa financiera), con su fecha en cada campo.</dd></div>
+    <div><dt>Mercados</dt><dd>Precios de ETF y acciones: Equibles (cierres diarios). La bolsa de cada país se aproxima con un ETF que cotiza en EE. UU. en dólares; Rusia usa el índice MOEX en rublos (API ISS de la Bolsa de Moscú). Índices locales: cierres publicados (Rava, Trading Economics, prensa financiera), con su fecha en cada campo.</dd></div>
     <div><dt>Tasas y monedas</dt><dd>Tasas, inflación de EE. UU. y tipos de cambio: Fed de St. Louis (FRED) vía Equibles; bono de Canadá, Banco de Canadá; USD/ARS, Alpha Vantage. Riesgo país: EMBI de JP Morgan según Bloomberg Línea.</dd></div>
     <div><dt>Argentina</dt><dd>API del BCRA (tasas, reservas) y API del INDEC (inflación, EMAE, desempleo).</dd></div>
-    <div><dt>Macro y demografía</dt><dd>PIB nominal, PIB per cápita y deuda pública: estimaciones 2025 del FMI (WEO, oct-2025), redondeadas. Demografía: ONU (World Population Prospects 2024), estimaciones 2025. Datos coyunturales de los institutos de estadística y bancos centrales de cada país, citados en cada campo.</dd></div>
+    <div><dt>Macro y demografía</dt><dd>PIB nominal, PIB per cápita y deuda pública: datos 2025 del FMI (WEO, oct-2026). Series 2015–2027 de los gráficos: FMI (WEO, oct-2026). Reservas de Australia y Emiratos y desempleo de Emiratos: Banco Mundial. Demografía: ONU (World Population Prospects 2024), estimaciones 2025. Datos coyunturales de los institutos de estadística y bancos centrales de cada país, citados en cada campo.</dd></div>
     <div><dt>Comercio</dt><dd>Bienes 2025: INDEC, Secex/MDIC, Aduanas de China, Destatis, Ministerio de Finanzas de Japón y BEA/Census; Alemania y Japón convertidos a dólares con el tipo de cambio promedio de 2025. La composición por producto aproxima la estructura del OEC aplicada al total 2025: sirve para ver el peso relativo, no como cifra exacta.</dd></div>
     <div><dt>Noticias</dt><dd>Cada nota enlaza a su fuente. Cuando dos fuentes no coinciden, se usa la oficial o la más citada y se aclara en el campo.</dd></div>
   </dl>
@@ -379,7 +400,7 @@ Object.assign(C,{
  in:{id:"356",name:"India",etf:"INDA",etfName:"India (ETF INDA, en USD)",closes:[47.34,48.33,49.58,49.56,49.56,49.30,48.91,48.02,49.80,50.37,49.78,49.64,49.56,49.91,48.57,48.02,47.86,46.52,46.03,47.66,46.46,47.72,48.70],
   m:{inflation:5.54,gdp:7.8,rate:5.5},fx:{label:"USD/INR",val:"94,94",chg:-0.9,chgNote:"la rupia se fortaleció",d:"30 oct · cambio en un mes"},
   stocks:[["XNSE:RELIANCE","Reliance Industries",1307.90,"INR",0.61,-17.86],["HDB","HDFC Bank (ADR)",23.05,"USD",1.54,-37.92],["IBN","ICICI Bank (ADR)",30.13,"USD",0.23,-3.98],["INFY","Infosys (ADR)",11.93,"USD",-4.79,-41.00]],news:[]},
- ru:{id:"643",name:"Rusia",etf:null,etfName:"Rusia (sin ETF operable en EE. UU.)",closes:null,
+ ru:{id:"643",name:"Rusia",etf:"IMOEX",cur:"RUB",etfName:"Índice MOEX (en rublos, no hay ETF de Rusia en EE. UU.)",closes:[2561.04, 2515.33, 2441.24, 2285.61, 2256.06, 2145.65, 1958.43, 2165.54, 2226.36, 2281.31, 2136.35, 2134.97, 2114.93, 2253.41, 2281.04, 2278.06, 2273.87, 2279.75, 2401.8, 2431.07, 2469.36, 2509.26, 2446.64],
   m:{inflation:6.35,gdp:1.3,rate:14.0},fx:{label:"USD/RUB",val:"81,90",chg:-3.1,chgNote:"el rublo se fortaleció",d:"22 oct · cambio en un mes"},
   stocks:[],news:[]},
  ca:{id:"124",name:"Canadá",etf:"EWC",etfName:"Canadá (ETF EWC, en USD)",closes:[58.03,58.76,57.87,57.80,57.77,58.65,59.45,59.07,59.39,61.30,62.23,62.36,61.73,62.04,60.58,60.22,59.59,58.72,59.03,60.58,60.69,60.62,60.21],
@@ -407,7 +428,7 @@ Object.assign(C,{
   m:{inflation:1.8,gdp:-4.7,rate:null},fx:{label:"USD/SAR",val:"3,75",chg:null,chgNote:"paridad fija",d:"tipo de cambio fijo al dólar"},
   stocks:[],news:[]},
  ae:{id:"784",name:"Emiratos Árabes Unidos",etf:"UAE",etfName:"Emiratos (ETF UAE, en USD)",closes:[18.50,19.62,20.35,19.24,19.02,19.47,18.83,18.86,18.93,19.74,19.62,19.49,19.59,19.47,19.89,19.93,20.24,19.55,19.32,19.52,19.05,19.00,19.22],
-  m:{inflation:null,gdp:null,rate:3.9},fx:{label:"USD/AED",val:"3,6725",chg:null,chgNote:"paridad fija",d:"tipo de cambio fijo al dólar"},
+  m:{inflation:4.5,gdp:-3.9,rate:3.9},fx:{label:"USD/AED",val:"3,6725",chg:null,chgNote:"paridad fija",d:"tipo de cambio fijo al dólar"},
   stocks:[],news:[]},
  za:{id:"710",name:"Sudáfrica",etf:"EZA",etfName:"Sudáfrica (ETF EZA, en USD)",closes:[64.37,66.87,66.74,63.01,64.00,63.82,62.36,61.07,63.62,69.65,67.53,72.51,70.72,71.64,70.10,68.49,66.48,63.19,63.80,65.28,63.14,61.78,62.98],
   m:{inflation:4.4,gdp:0.9,rate:7.25},fx:{label:"USD/ZAR",val:"16,7055",chg:1.7,chgNote:"el rand se debilitó",d:"30 oct · cambio en un mes"},
@@ -440,7 +461,7 @@ const css=getComputedStyle(document.documentElement);
 const COL={}; ORDER.forEach(k=>COL[k]=css.getPropertyValue("--"+k).trim());
 
 const METRICS={
- ret:{btn:"Bolsa 1 mes",title:"Rendimiento de la bolsa en un mes",def:"ETF del país en dólares, 2 oct → 3 nov",fmt:v=>(v>0?"+":"")+v.toFixed(1).replace(".",",")+"%"},
+ ret:{btn:"Bolsa 1 mes",title:"Rendimiento de la bolsa en un mes",def:"ETF del país en dólares (Rusia: índice MOEX en rublos), 2 oct → 3 nov",fmt:v=>(v>0?"+":"")+v.toFixed(1).replace(".",",")+"%"},
  inflation:{btn:"Inflación",title:"Inflación interanual",def:"Último dato publicado de cada país",fmt:v=>v.toFixed(1).replace(".",",")+"%"},
  rate:{btn:"Tasa de interés",title:"Tasa de política monetaria",def:"Banco central; EE. UU. con el techo del rango; Argentina: TAMAR (tasa de mercado); zona euro: BCE",fmt:v=>v.toFixed(2).replace(".",",")+"%"},
  gdp:{btn:"Crecimiento PIB",title:"Crecimiento del PIB",def:"Último dato interanual; EE. UU. y Japón: trimestral anualizado; Argentina: EMAE mensual",fmt:v=>v.toFixed(1).replace(".",",")+"%"}
@@ -583,11 +604,11 @@ function renderGlobeText(){
 /* ---------- homogeneous fields per country ----------
    Each value is [value, note, display?]. value null = sin dato (gap); "na" = no aplica. */
 const SD="Sin dato en las fuentes consultadas";
-const IMF="FMI, estimación 2025";
+const IMF="FMI, WEO oct-2026, dato 2025";
 const UN="ONU, estimación 2025";
 const D={
  us:{
-  eco:{pib:[30616,IMF],pibpc:[89599,IMF],crec:[3.4,"3T, trimestral anualizado"],inf:[3.7,"IPC sep, interanual"],des:[4.2,"Septiembre"],deuda:[125,"Gobierno general, "+IMF]},
+  eco:{pib:[30861,IMF],pibpc:[90267,IMF],crec:[3.4,"3T, trimestral anualizado"],inf:[3.7,"IPC sep, interanual"],des:[4.2,"Septiembre"],deuda:[124,"Gobierno general, "+IMF]},
   pol:{forma:"República federal presidencialista",estado:"Donald Trump, presidente",gob:"Donald Trump (en el presidencialismo el presidente encabeza el gobierno)",partido:"Partido Republicano",legis:"Congreso: Senado (100) y Cámara de Representantes (435)",ult:"Legislativas de medio término, 3 nov 2026 (escrutinio en curso)",prox:"Presidenciales, nov 2028",capital:"Washington D. C.",moneda:"Dólar (USD)",bc:"Reserva Federal"},
   dem:{pob:[347.3,UN],edad:[38.5,UN],vida:[79.4,UN],urb:[83,"ONU"],sup:[9833520,"Total, incluye aguas interiores"]},
   com:{exp:[2198,"Bienes 2025, base balanza de pagos (BEA)"],imp:[3438,"Bienes 2025 (BEA)"],
@@ -597,7 +618,7 @@ const D={
   fin:{tasa:[4.0,"Fed, sin cambios el 28 oct","3,75–4,00%"],bono:[4.91,"Treasury, 2 nov"],dep:["na","Es la moneda de referencia"],res:["na","Emisor de la moneda de reserva; no se compara"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[7720,"S&P 500, cierre 29 oct"]},
   nota:"El PIB es trimestral anualizado; los demás países que publican interanual no son directamente comparables."},
  br:{
-  eco:{pib:[2256,IMF],pibpc:[10578,IMF],crec:[2.0,"2T, interanual"],inf:[4.62,"IPCA-15 oct, 12 meses"],des:[5.2,"Trimestre a sep (PNAD Contínua, IBGE)"],deuda:[91,"Gobierno general (criterio FMI), "+IMF]},
+  eco:{pib:[2280,IMF],pibpc:[10683,IMF],crec:[2.0,"2T, interanual"],inf:[4.62,"IPCA-15 oct, 12 meses"],des:[5.2,"Trimestre a sep (PNAD Contínua, IBGE)"],deuda:[93,"Gobierno general (criterio FMI), "+IMF]},
   pol:{forma:"República federal presidencialista",estado:"Luiz Inácio Lula da Silva, presidente",gob:"Luiz Inácio Lula da Silva (presidencialismo)",partido:"Partido de los Trabajadores (PT), en coalición",legis:"Congreso Nacional: Senado (81) y Cámara de Diputados (513)",ult:"Generales, oct 2026: Lula reelecto en el balotaje",prox:"Asume el nuevo mandato el 1 ene 2027; municipales en 2028",capital:"Brasilia",moneda:"Real (BRL)",bc:"Banco Central do Brasil"},
   dem:{pob:[212.8,UN],edad:[34.8,UN],vida:[76.4,UN],urb:[88,"ONU"],sup:[8515767,"Total"]},
   com:{exp:[348.7,"Bienes 2025 (Secex/MDIC), récord"],imp:[280.4,"Bienes 2025 (Secex/MDIC)"],
@@ -607,7 +628,7 @@ const D={
   fin:{tasa:[13.75,"Selic vigente al 3 nov; el Copom decide el 4 nov"],bono:[null,"Sin dato. Referencia: DI ene-2028 en 12,88% (22 oct)"],dep:[3.7,"USD/BRL 5,4252 el 30 oct; el real se debilitó en el mes"],res:[358.2,"Fin de 2025 (BCB, concepto caja)"],riesgo:[194,"EMBI, cierre de octubre; subió desde 171 tras el balotaje"],idx:[167922,"Ibovespa, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWZ en dólares y acciones vía ADR en Nueva York."},
  cn:{
-  eco:{pib:[19399,IMF],pibpc:[13806,IMF],crec:[4.5,"3T, interanual"],inf:[0.9,"IPC sep, interanual"],des:[5.2,"Septiembre, urbano"],deuda:[96,"Gobierno general, "+IMF]},
+  eco:{pib:[19626,IMF],pibpc:[13970,IMF],crec:[4.5,"3T, interanual"],inf:[0.9,"IPC sep, interanual"],des:[5.2,"Septiembre, urbano"],deuda:[99,"Gobierno general, "+IMF]},
   pol:{forma:"República socialista de partido único",estado:"Xi Jinping, presidente y secretario general del PCCh",gob:"Li Qiang, primer ministro",partido:"Partido Comunista de China (PCCh)",legis:"Asamblea Popular Nacional, unicameral (cerca de 2.900 diputados)",ult:"XX Congreso del PCCh, oct 2022",prox:"XXI Congreso del PCCh, previsto para 2027",capital:"Pekín",moneda:"Yuan renminbi (CNY)",bc:"Banco Popular de China"},
   dem:{pob:[1416.1,UN],edad:[40.1,UN],vida:[78.6,UN],urb:[66,"ONU"],sup:[9596961,"Total"]},
   com:{exp:[3770,"Bienes 2025 (Aduanas de China)"],imp:[2580,"Bienes 2025 (Aduanas de China)"],
@@ -617,7 +638,7 @@ const D={
   fin:{tasa:[3.0,"LPR 1 año, sin cambios por 17.º mes (20 oct)"],bono:[1.63,"3 nov, mínimo desde feb-2025"],dep:[-0.7,"USD/CNY 6,6538 el 30 oct; el yuan se fortaleció"],res:[3400,"Fin de sep 2026 (SAFE), solo divisas"],riesgo:[null,SD],idx:[null,"Sin dato del CSI 300 ni de Shanghái; se usa el ETF MCHI"]},
   nota:"Bolsa vía ETF MCHI en dólares y acciones vía ADR."},
  de:{
-  eco:{pib:[5014,IMF],pibpc:[59925,IMF],crec:[1.2,"3T, interanual (+0,2% trimestral)"],inf:[2.8,"IPC oct (preliminar), interanual"],des:[6.4,"Oct, desestacionalizado (Agencia Federal de Empleo)"],deuda:[64,"Gobierno general, "+IMF]},
+  eco:{pib:[5116,IMF],pibpc:[61255,IMF],crec:[1.2,"3T, interanual (+0,2% trimestral)"],inf:[2.8,"IPC oct (preliminar), interanual"],des:[6.4,"Oct, desestacionalizado (Agencia Federal de Empleo)"],deuda:[63,"Gobierno general, "+IMF]},
   pol:{forma:"República federal parlamentaria",estado:"Frank-Walter Steinmeier, presidente federal",gob:"Friedrich Merz, canciller",partido:"CDU/CSU en coalición con el SPD",legis:"Bundestag (630) y Bundesrat (69, representa a los estados)",ult:"Federales, feb 2025",prox:"Presidente federal, feb 2027; federales, previstas para 2029",capital:"Berlín",moneda:"Euro (EUR)",bc:"Bundesbank, dentro del BCE"},
   dem:{pob:[84.1,UN],edad:[45.5,UN],vida:[81.6,UN],urb:[78,"ONU"],sup:[357592,"Total"]},
   com:{exp:[1774,"Bienes 2025: €1.569,6 mil M (Destatis)"],imp:[1545,"Bienes 2025: €1.366,9 mil M (Destatis)"],
@@ -627,7 +648,7 @@ const D={
   fin:{tasa:[2.5,"BCE, tasa de depósito; sin cambios el 29 oct"],bono:[3.31,"Bund, 30 oct, mínimo desde agosto"],dep:[0.6,"EUR/USD 1,1163 el 30 oct; el euro se debilitó"],res:["na","Las reservas se gestionan en el Eurosistema"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[25818,"DAX, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWG en dólares; Siemens y Allianz cotizan en Xetra en euros. El desempleo es el registrado por la Agencia Federal de Empleo, más alto que la medición OIT."},
  jp:{
-  eco:{pib:[4280,IMF],pibpc:[34713,IMF],crec:[1.4,"2T, trimestral anualizado"],inf:[2.1,"IPC sep, interanual"],des:[2.4,"Septiembre"],deuda:[230,"Gobierno general, "+IMF]},
+  eco:{pib:[4453,IMF],pibpc:[36119,IMF],crec:[1.4,"2T, trimestral anualizado"],inf:[2.1,"IPC sep, interanual"],des:[2.4,"Septiembre"],deuda:[205,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía constitucional parlamentaria",estado:"Emperador Naruhito",gob:"Sanae Takaichi, primera ministra",partido:"Partido Liberal Democrático (PLD)",legis:"Dieta: Cámara de Representantes (465) y Cámara de Consejeros (248)",ult:"Cámara baja, feb 2026 (anticipada; amplia victoria del PLD)",prox:"Cámara de Consejeros, jul 2028",capital:"Tokio",moneda:"Yen (JPY)",bc:"Banco de Japón"},
   dem:{pob:[123.1,UN],edad:[49.9,UN],vida:[85.0,UN],urb:[92,"ONU"],sup:[377975,"Total"]},
   com:{exp:[736,"Bienes 2025: ¥110,4 bill. (Ministerio de Finanzas)"],imp:[754,"Bienes 2025: ¥113,1 bill. (Ministerio de Finanzas)"],
@@ -637,7 +658,7 @@ const D={
   fin:{tasa:[1.25,"Banco de Japón, sin cambios el 30 oct (8-1)"],bono:[2.77,"JGB, 4 nov"],dep:[-0.1,"USD/JPY 157,47 el 30 oct; yen casi sin cambios"],res:[1178.4,"Fin de sep 2026 (Ministerio de Finanzas)"],riesgo:["na","Mercado desarrollado, sin índice EMBI"],idx:[63290,"Nikkei 225, cierre 30 oct (-2,1% en el día)"]},
   nota:"El PIB es trimestral anualizado, no interanual. Bolsa vía ETF EWJ en dólares y acciones vía ADR."},
  ar:{
-  eco:{pib:[683,IMF],pibpc:[14362,IMF],crec:[-1.7,"EMAE ago, interanual (API INDEC); no hay PIB trimestral más reciente"],inf:[33.4,"IPC sep, interanual; 1,9% mensual (API INDEC)"],des:[7.9,"2T 2026, EPH (API INDEC)"],deuda:[75,"Gobierno general, "+IMF]},
+  eco:{pib:[684,IMF],pibpc:[14399,IMF],crec:[-1.7,"EMAE ago, interanual (API INDEC); no hay PIB trimestral más reciente"],inf:[33.4,"IPC sep, interanual; 1,9% mensual (API INDEC)"],des:[7.9,"2T 2026, EPH (API INDEC)"],deuda:[80,"Gobierno general, "+IMF]},
   pol:{forma:"República federal presidencialista",estado:"Javier Milei, presidente",gob:"Javier Milei (presidencialismo)",partido:"La Libertad Avanza",legis:"Congreso: Senado (72) y Cámara de Diputados (257)",ult:"Legislativas, oct 2025",prox:"Generales, oct 2027",capital:"Buenos Aires",moneda:"Peso (ARS)",bc:"Banco Central de la República Argentina"},
   dem:{pob:[45.9,UN],edad:[32.9,UN],vida:[77.7,UN],urb:[92,"ONU"],sup:[2780400,"Parte continental americana"]},
   com:{exp:[87.1,"Bienes 2025 (INDEC), +9,3%"],imp:[75.8,"Bienes 2025 (INDEC)"],
@@ -651,7 +672,7 @@ const D={
 const ECB=[2.5,"BCE, tasa de depósito; sin cambios el 29 oct"], EURDEP=[0.6,"EUR/USD 1,1163 el 30 oct; el euro se debilitó"];
 const EURRES=["na","Las reservas se gestionan en el Eurosistema"], DEV=["na","Mercado desarrollado, sin índice EMBI"];
 Object.assign(D,{
- in:{eco:{pib:[4125,IMF],pibpc:[2818,IMF],crec:[7.8,"Abr-jun 2026 (1T del año fiscal), interanual"],inf:[5.54,"IPC sep, interanual; máximo en casi dos años"],des:[5.0,"Sep, 15 años y más (PLFS mensual, MoSPI)"],deuda:[81,"Gobierno general, "+IMF]},
+ in:{eco:{pib:[3909,IMF],pibpc:[2670,IMF],crec:[7.8,"Abr-jun 2026 (1T del año fiscal), interanual"],inf:[5.54,"IPC sep, interanual; máximo en casi dos años"],des:[5.0,"Sep, 15 años y más (PLFS mensual, MoSPI)"],deuda:[84,"Gobierno general, "+IMF]},
   pol:{forma:"República federal parlamentaria",estado:"Droupadi Murmu, presidenta",gob:"Narendra Modi, primer ministro",partido:"BJP, al frente de la coalición NDA",legis:"Parlamento: Lok Sabha (543) y Rajya Sabha (245)",ult:"Generales, abr-jun 2024",prox:"Generales, 2029",capital:"Nueva Delhi",moneda:"Rupia (INR)",bc:"Reserve Bank of India"},
   dem:{pob:[1463.9,UN],edad:[29.8,UN],vida:[72.5,UN],urb:[37,"ONU"],sup:[3287263,"Total"]},
   com:{exp:[440,"Bienes 2025, aprox. (Ministerio de Comercio)"],imp:[720,"Bienes 2025, aprox. (Ministerio de Comercio)"],dest:["Estados Unidos","Emiratos Árabes Unidos","Países Bajos"],orig:["China","Rusia","Emiratos Árabes Unidos"],
@@ -659,15 +680,15 @@ Object.assign(D,{
    m:[["MIN",33,[["Petróleo crudo",21],["Carbón",4],["Gas natural",3]]],["MAQ",20,[["Circuitos integrados",3]]],["PRE",12,[["Oro",9]]],["QUI",9],["MET",7],["PLA",4],["VEG",3,[["Aceites vegetales",2]]],["OTR",12]]},
   fin:{tasa:[5.5,"RBI, repo; subió 25 pb el 7 oct"],bono:[7.25,"Oct, tras la suba del RBI"],dep:[-0.9,"USD/INR 94,94 el 30 oct; la rupia se fortaleció"],res:[721.0,"Semana al 16 oct (RBI); récord de 785,7 el 4 sep"],riesgo:["na","India no tiene deuda soberana en dólares en el EMBI de JP Morgan"],idx:[23053,"Nifty 50, cierre 30 oct"]},
   nota:"El crecimiento corresponde al trimestre abril-junio. Bolsa vía ETF INDA en dólares; Reliance cotiza en rupias en Bombay."},
- ru:{eco:{pib:[2541,IMF],pibpc:[17470,IMF],crec:[1.3,"2T, interanual (Rosstat); el 1T cayó 0,2%"],inf:[6.35,"IPC sep, interanual (Rosstat)"],des:[2.2,"Agosto (Rosstat)"],deuda:[23,"Gobierno general, "+IMF]},
+ ru:{eco:{pib:[2572,IMF],pibpc:[17864,IMF],crec:[1.3,"2T, interanual (Rosstat); el 1T cayó 0,2%"],inf:[6.35,"IPC sep, interanual (Rosstat)"],des:[2.2,"Agosto (Rosstat)"],deuda:[17,"Gobierno general, "+IMF]},
   pol:{forma:"República federal semipresidencialista",estado:"Vladímir Putin, presidente",gob:"Mijaíl Mishustin, primer ministro",partido:"Rusia Unida",legis:"Asamblea Federal: Duma Estatal (450) y Consejo de la Federación (170)",ult:"Duma Estatal, sep 2026: Rusia Unida obtuvo 349 de 450 bancas",prox:"Presidenciales, 2030",capital:"Moscú",moneda:"Rublo (RUB)",bc:"Banco de Rusia"},
   dem:{pob:[143.9,UN],edad:[40.3,UN],vida:[73.2,UN],urb:[75,"ONU"],sup:[17098246,"Total"]},
   com:{exp:[420,"Bienes 2025, aprox. (Banco de Rusia)"],imp:[290,"Bienes 2025, aprox. (Banco de Rusia)"],dest:["China","India","Turquía"],orig:["China","Bielorrusia","Turquía"],
    x:[["MIN",55,[["Petróleo crudo",25],["Petróleo refinado",14],["Gas natural",8],["Carbón",5]]],["MET",12],["QUI",6,[["Fertilizantes",3]]],["VEG",6,[["Trigo",3]]],["PRE",5],["PAP",3],["MAQ",3],["OTR",10]],
    m:[["MAQ",35],["TRA",15,[["Autos",8]]],["QUI",12],["MET",6],["TEX",5],["PLA",5],["ALI",5],["OTR",17]]},
-  fin:{tasa:[14.0,"Banco de Rusia, sin cambios el 23 oct"],bono:[null,"Sin dato reciente; superaba 16% a fines de junio"],dep:[-3.1,"USD/RUB 81,90 el 22 oct; el rublo se fortaleció"],res:[729.6,"23 oct (Banco de Rusia)"],riesgo:["na","Rusia quedó fuera de los índices EMBI por las sanciones"],idx:[null,"Sin dato del índice MOEX; no hay ETF de Rusia operable en EE. UU."]},
+  fin:{tasa:[14.0,"Banco de Rusia, sin cambios el 23 oct"],bono:[16.46,"OFZ, curva cupón cero a 10 años, 3 nov (MOEX ISS)"],dep:[-3.1,"USD/RUB 81,90 el 22 oct; el rublo se fortaleció"],res:[729.6,"23 oct (Banco de Rusia)"],riesgo:["na","Rusia quedó fuera de los índices EMBI por las sanciones"],idx:[2447,"Índice MOEX, cierre 3 nov (MOEX ISS)"]},
   nota:"Es el país con menos datos de mercado: por las sanciones no hay ETF ni ADR operables en EE. UU., así que no tiene gráfico de bolsa ni acciones."},
- ca:{eco:{pib:[2284,IMF],pibpc:[54340,IMF],crec:[3.3,"2T, trimestral anualizado (Statistics Canada)"],inf:[3.1,"IPC sep, interanual (Statistics Canada)"],des:[6.5,"Septiembre (Statistics Canada)"],deuda:[111,"Gobierno general, "+IMF]},
+ ca:{eco:{pib:[2321,IMF],pibpc:[55796,IMF],crec:[3.3,"2T, trimestral anualizado (Statistics Canada)"],inf:[3.1,"IPC sep, interanual (Statistics Canada)"],des:[6.5,"Septiembre (Statistics Canada)"],deuda:[114,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía constitucional parlamentaria (federal)",estado:"Rey Carlos III, representado por la gobernadora general",gob:"Mark Carney, primer ministro",partido:"Partido Liberal",legis:"Parlamento: Cámara de los Comunes (343) y Senado (105)",ult:"Federales, abr 2025",prox:"Federales, a más tardar oct 2029",capital:"Ottawa",moneda:"Dólar canadiense (CAD)",bc:"Banco de Canadá"},
   dem:{pob:[40.1,UN],edad:[41.0,UN],vida:[82.6,UN],urb:[82,"ONU"],sup:[9984670,"Total"]},
   com:{exp:[560,"Bienes 2025, aprox. (Statistics Canada)"],imp:[565,"Bienes 2025, aprox. (Statistics Canada)"],dest:["Estados Unidos","China","Reino Unido"],orig:["Estados Unidos","China","México"],
@@ -675,7 +696,7 @@ Object.assign(D,{
    m:[["MAQ",22],["TRA",17,[["Autos",7],["Autopartes",4]]],["QUI",9],["MIN",8],["MET",6],["PLA",4],["ALI",4],["TEX",4],["INS",3],["OTR",13]]},
   fin:{tasa:[2.5,"Banco de Canadá, subió 25 pb el 28 oct"],bono:[3.78,"30 oct (Banco de Canadá)"],dep:[-1.8,"USD/CAD 1,3957 el 30 oct; el dólar canadiense se fortaleció"],res:[125.3,"29 sep (Ministerio de Finanzas de Canadá)"],riesgo:DEV,idx:[35620,"S&P/TSX, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWC en dólares."},
- mx:{eco:{pib:[1862,IMF],pibpc:[14000,IMF],crec:[3.2,"3T, interanual, estimación oportuna (INEGI); +0,9% trimestral"],inf:[3.45,"IPC sep, interanual (INEGI)"],des:[2.8,"Septiembre (ENOE, INEGI)"],deuda:[59,"Gobierno general, "+IMF]},
+ mx:{eco:{pib:[1835,IMF],pibpc:[13759,IMF],crec:[3.2,"3T, interanual, estimación oportuna (INEGI); +0,9% trimestral"],inf:[3.45,"IPC sep, interanual (INEGI)"],des:[2.8,"Septiembre (ENOE, INEGI)"],deuda:[62,"Gobierno general, "+IMF]},
   pol:{forma:"República federal presidencialista",estado:"Claudia Sheinbaum, presidenta",gob:"Claudia Sheinbaum (presidencialismo)",partido:"Morena, con PT y PVEM",legis:"Congreso de la Unión: Senado (128) y Cámara de Diputados (500)",ult:"Generales, jun 2024",prox:"Intermedias, jun 2027",capital:"Ciudad de México",moneda:"Peso mexicano (MXN)",bc:"Banco de México"},
   dem:{pob:[131.9,UN],edad:[30.0,UN],vida:[75.3,UN],urb:[82,"ONU"],sup:[1964375,"Total"]},
   com:{exp:[665,"Bienes 2025, aprox. (INEGI)"],imp:[664,"Bienes 2025, aprox. (INEGI)"],dest:["Estados Unidos","Canadá","China"],orig:["Estados Unidos","China","Corea del Sur"],
@@ -683,7 +704,7 @@ Object.assign(D,{
    m:[["MAQ",40,[["Circuitos integrados",6]]],["TRA",10,[["Autopartes",6]]],["MIN",10,[["Petróleo refinado",6],["Gas natural",2]]],["QUI",7],["PLA",7],["MET",7],["INS",3],["OTR",16]]},
   fin:{tasa:[6.5,"Banxico, sin cambios; decide el 5 nov"],bono:[null,"Sin dato reciente del Mbono a 10 años"],dep:[4.1,"USD/MXN 18,79 el 30 oct; el peso se debilitó"],res:[256.0,"2 oct, saldo preliminar (Banxico)"],riesgo:[228,"EMBI, cierre de octubre; subió desde 213"],idx:[68930,"S&P/BMV IPC, 16 oct (último cierre encontrado)"]},
   nota:"Bolsa vía ETF EWW en dólares y acciones vía ADR."},
- gb:{eco:{pib:[3959,IMF],pibpc:[56660,IMF],crec:[1.2,"2T, interanual (ONS)"],inf:[3.5,"IPC sep, interanual (ONS)"],des:[4.7,"Jun-ago, desestacionalizado (ONS)"],deuda:[103,"Gobierno general, "+IMF]},
+ gb:{eco:{pib:[4012,IMF],pibpc:[57741,IMF],crec:[1.2,"2T, interanual (ONS)"],inf:[3.5,"IPC sep, interanual (ONS)"],des:[4.7,"Jun-ago, desestacionalizado (ONS)"],deuda:[102,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía constitucional parlamentaria",estado:"Rey Carlos III",gob:"Andy Burnham, primer ministro (desde jul 2026)",partido:"Partido Laborista",legis:"Parlamento: Cámara de los Comunes (650) y Cámara de los Lores",ult:"Generales, jul 2024",prox:"Generales, a más tardar ago 2029",capital:"Londres",moneda:"Libra esterlina (GBP)",bc:"Banco de Inglaterra"},
   dem:{pob:[69.6,UN],edad:[40.6,UN],vida:[81.6,UN],urb:[85,"ONU"],sup:[243610,"Total"]},
   com:{exp:[520,"Bienes 2025, aprox. (ONS)"],imp:[835,"Bienes 2025, aprox. (ONS)"],dest:["Estados Unidos","Alemania","Países Bajos"],orig:["China","Estados Unidos","Alemania"],
@@ -691,7 +712,7 @@ Object.assign(D,{
    m:[["MAQ",23],["TRA",13,[["Autos",7]]],["MIN",13,[["Gas natural",4],["Petróleo crudo",4]]],["QUI",11],["PRE",10,[["Oro",7]]],["ALI",6],["TEX",5],["MET",5],["OTR",14]]},
   fin:{tasa:[3.75,"Banco de Inglaterra, sin cambios en todo 2026; decide el 5 nov"],bono:[5.44,"Gilt, 21 oct; cerca del máximo en 19 años"],dep:[-1.0,"GBP/USD 1,3398 el 30 oct; la libra se fortaleció"],res:[110.7,"Netas, fin de sep (Tesoro británico)"],riesgo:DEV,idx:[10730,"FTSE 100, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWU en dólares."},
- fr:{eco:{pib:[3361,IMF],pibpc:[48980,IMF],crec:[0.5,"3T, interanual (preliminar); -0,1% trimestral"],inf:[3.4,"IPC oct (preliminar), interanual (Insee)"],des:[8.5,"Septiembre (Eurostat)"],deuda:[116,"Gobierno general, "+IMF]},
+ fr:{eco:{pib:[3383,IMF],pibpc:[49128,IMF],crec:[0.5,"3T, interanual (preliminar); -0,1% trimestral"],inf:[3.4,"IPC oct (preliminar), interanual (Insee)"],des:[8.5,"Septiembre (Eurostat)"],deuda:[116,"Gobierno general, "+IMF]},
   pol:{forma:"República semipresidencialista",estado:"Emmanuel Macron, presidente",gob:"Sébastien Lecornu, primer ministro (último nombramiento confirmado)",partido:"Coalición de centro y centroderecha, en minoría",legis:"Parlamento: Asamblea Nacional (577) y Senado (348)",ult:"Legislativas anticipadas, jul 2024",prox:"Presidenciales, abr 2027",capital:"París",moneda:"Euro (EUR)",bc:"Banque de France, dentro del BCE"},
   dem:{pob:[66.7,UN],edad:[42.4,UN],vida:[83.3,UN],urb:[82,"ONU"],sup:[551695,"Francia metropolitana"]},
   com:{exp:[680,"Bienes 2025, aprox. (Aduanas de Francia)"],imp:[750,"Bienes 2025, aprox. (Aduanas de Francia)"],dest:["Alemania","Italia","Bélgica"],orig:["Alemania","Bélgica","Países Bajos"],
@@ -699,7 +720,7 @@ Object.assign(D,{
    m:[["MAQ",22],["TRA",14,[["Autos",6]]],["QUI",14],["MIN",12,[["Petróleo crudo",4],["Gas natural",3],["Petróleo refinado",3]]],["MET",6],["TEX",6],["ALI",5],["PLA",4],["OTR",17]]},
   fin:{tasa:ECB,bono:[4.48,"OAT, promedio de septiembre"],dep:EURDEP,res:EURRES,riesgo:DEV,idx:[7969,"CAC 40, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWQ en dólares; LVMH y Airbus cotizan en París en euros."},
- it:{eco:{pib:[2544,IMF],pibpc:[43100,IMF],crec:[1.0,"3T, interanual (preliminar); 0,0% trimestral"],inf:[5.4,"IPC oct (preliminar), interanual (Istat)"],des:[5.8,"Julio (Istat)"],deuda:[137,"Gobierno general, "+IMF]},
+ it:{eco:{pib:[2550,IMF],pibpc:[43270,IMF],crec:[1.0,"3T, interanual (preliminar); 0,0% trimestral"],inf:[5.4,"IPC oct (preliminar), interanual (Istat)"],des:[5.8,"Julio (Istat)"],deuda:[137,"Gobierno general, "+IMF]},
   pol:{forma:"República parlamentaria",estado:"Sergio Mattarella, presidente",gob:"Giorgia Meloni, presidenta del Consejo de Ministros",partido:"Hermanos de Italia, en coalición de centroderecha",legis:"Parlamento: Cámara de Diputados (400) y Senado (200 electos)",ult:"Generales, sep 2022",prox:"Generales, a más tardar 2027",capital:"Roma",moneda:"Euro (EUR)",bc:"Banca d'Italia, dentro del BCE"},
   dem:{pob:[59.1,UN],edad:[48.4,UN],vida:[84.0,UN],urb:[72,"ONU"],sup:[301340,"Total"]},
   com:{exp:[705,"Bienes 2025, aprox. (Istat)"],imp:[645,"Bienes 2025, aprox. (Istat)"],dest:["Alemania","Estados Unidos","Francia"],orig:["Alemania","China","Francia"],
@@ -707,7 +728,7 @@ Object.assign(D,{
    m:[["MAQ",18],["MIN",15,[["Petróleo crudo",6],["Gas natural",5]]],["QUI",15,[["Medicamentos",5]]],["TRA",11,[["Autos",6]]],["MET",10],["ALI",6],["TEX",6],["OTR",19]]},
   fin:{tasa:ECB,bono:[4.43,"BTP, 14 sep"],dep:EURDEP,res:EURRES,riesgo:DEV,idx:[49824,"FTSE MIB, 28 oct"]},
   nota:"Bolsa vía ETF EWI en dólares."},
- es:{eco:{pib:[1891,IMF],pibpc:[38600,IMF],crec:[2.7,"3T, interanual (preliminar); +0,6% trimestral"],inf:[4.9,"IPC oct (preliminar), interanual (INE)"],des:[10.3,"Septiembre (Eurostat)"],deuda:[101,"Gobierno general, "+IMF]},
+ es:{eco:{pib:[1909,IMF],pibpc:[38595,IMF],crec:[2.7,"3T, interanual (preliminar); +0,6% trimestral"],inf:[4.9,"IPC oct (preliminar), interanual (INE)"],des:[10.3,"Septiembre (Eurostat)"],deuda:[100,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía parlamentaria",estado:"Rey Felipe VI",gob:"Pedro Sánchez, presidente del Gobierno",partido:"PSOE, en coalición con Sumar",legis:"Cortes Generales: Congreso (350) y Senado (266)",ult:"Generales, jul 2023",prox:"Generales, a más tardar 2027",capital:"Madrid",moneda:"Euro (EUR)",bc:"Banco de España, dentro del BCE"},
   dem:{pob:[47.9,UN],edad:[45.4,UN],vida:[84.0,UN],urb:[82,"ONU"],sup:[505990,"Total"]},
   com:{exp:[440,"Bienes 2025, aprox. (Ministerio de Economía)"],imp:[490,"Bienes 2025, aprox. (Ministerio de Economía)"],dest:["Francia","Alemania","Portugal"],orig:["China","Alemania","Francia"],
@@ -715,15 +736,15 @@ Object.assign(D,{
    m:[["MAQ",19],["MIN",17,[["Petróleo crudo",8],["Gas natural",4]]],["QUI",14],["TRA",12],["TEX",7],["MET",6],["ALI",5],["VEG",3],["OTR",17]]},
   fin:{tasa:ECB,bono:[null,"Sin dato reciente; 3,40% en la subasta a 10 años del 2 jul"],dep:EURDEP,res:EURRES,riesgo:DEV,idx:[18653,"IBEX 35, cierre de octubre (-3,9% en el mes)"]},
   nota:"Bolsa vía ETF EWP en dólares; Inditex cotiza en Madrid en euros."},
- au:{eco:{pib:[1949,IMF],pibpc:[70800,IMF],crec:[2.1,"2T, interanual (ABS); +0,4% trimestral"],inf:[4.3,"IPC sep, interanual (ABS)"],des:[4.7,"Septiembre (ABS)"],deuda:[50,"Gobierno general, "+IMF]},
+ au:{eco:{pib:[1841,IMF],pibpc:[66379,IMF],crec:[2.1,"2T, interanual (ABS); +0,4% trimestral"],inf:[4.3,"IPC sep, interanual (ABS)"],des:[4.7,"Septiembre (ABS)"],deuda:[52,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía constitucional parlamentaria (federal)",estado:"Rey Carlos III, representado por la gobernadora general",gob:"Anthony Albanese, primer ministro",partido:"Partido Laborista",legis:"Parlamento: Cámara de Representantes (150) y Senado (76)",ult:"Federales, may 2025",prox:"Federales, a más tardar 2028",capital:"Canberra",moneda:"Dólar australiano (AUD)",bc:"Reserve Bank of Australia"},
   dem:{pob:[27.0,UN],edad:[37.9,UN],vida:[84.0,UN],urb:[87,"ONU"],sup:[7692024,"Total"]},
   com:{exp:[330,"Bienes 2025, aprox. (ABS)"],imp:[270,"Bienes 2025, aprox. (ABS)"],dest:["China","Japón","Corea del Sur"],orig:["China","Estados Unidos","Japón"],
    x:[["MIN",63,[["Mineral de hierro",24],["Carbón",16],["Gas natural (GNL)",13]]],["PRE",9,[["Oro",8]]],["VEG",5,[["Trigo",3]]],["ANI",5,[["Carne bovina",3]]],["MET",4],["QUI",3],["ALI",2],["OTR",9]],
    m:[["MAQ",26],["TRA",17,[["Autos",9]]],["MIN",15,[["Petróleo refinado",12]]],["QUI",10],["MET",5],["TEX",5],["PLA",4],["OTR",18]]},
-  fin:{tasa:[4.6,"RBA, subió 25 pb el 29 sep; decide el 3 nov"],bono:[null,"Sin dato reciente"],dep:[-1.2,"AUD/USD 0,7038 el 30 oct; el dólar australiano se fortaleció"],res:[null,"Sin dato reciente publicado por el RBA"],riesgo:DEV,idx:[8908,"S&P/ASX 200, cierre 30 oct"]},
+  fin:{tasa:[4.6,"RBA, subió 25 pb el 29 sep; decide el 3 nov"],bono:[null,"Sin dato reciente"],dep:[-1.2,"AUD/USD 0,7038 el 30 oct; el dólar australiano se fortaleció"],res:[72.6,"Fin de 2025, incluye oro (Banco Mundial)"],riesgo:DEV,idx:[8908,"S&P/ASX 200, cierre 30 oct"]},
   nota:"Bolsa vía ETF EWA en dólares y acciones vía ADR."},
- sa:{eco:{pib:[1268,IMF],pibpc:[35900,IMF],crec:[-4.7,"2T, interanual; la actividad petrolera cayó 24,8%"],inf:[1.8,"IPC ago, interanual (GASTAT)"],des:[3.0,"2T, población total (GASTAT); 6,5% entre los saudíes"],deuda:[30,"Gobierno general, "+IMF]},
+ sa:{eco:{pib:[1274,IMF],pibpc:[35370,IMF],crec:[-4.7,"2T, interanual; la actividad petrolera cayó 24,8%"],inf:[1.8,"IPC ago, interanual (GASTAT)"],des:[3.0,"2T, población total (GASTAT); 6,5% entre los saudíes"],deuda:[32,"Gobierno general, "+IMF]},
   pol:{forma:"Monarquía absoluta",estado:"Rey Salmán bin Abdulaziz",gob:"Mohammed bin Salmán, príncipe heredero y primer ministro",partido:"No hay partidos políticos",legis:"Consejo de la Shura (150 miembros designados por el rey)",ult:"No hay elecciones nacionales",prox:"No hay elecciones nacionales",capital:"Riad",moneda:"Riyal saudí (SAR)",bc:"Banco Central Saudí (SAMA)"},
   dem:{pob:[34.6,UN],edad:[30.2,UN],vida:[78.7,UN],urb:[85,"ONU"],sup:[2149690,"Total"]},
   com:{exp:[280,"Bienes 2025, aprox. (GASTAT)"],imp:[230,"Bienes 2025, aprox. (GASTAT)"],dest:["China","India","Japón"],orig:["China","Estados Unidos","Emiratos Árabes Unidos"],
@@ -731,15 +752,15 @@ Object.assign(D,{
    m:[["MAQ",26],["TRA",15,[["Autos",8]]],["QUI",9],["MET",8],["ALI",7],["MIN",5],["TEX",5],["PRE",4],["OTR",21]]},
   fin:{tasa:[null,"Sin dato confirmado; el SAMA sigue a la Fed por la paridad con el dólar"],bono:[null,"Sin dato reciente"],dep:[0,"Paridad fija: 3,75 riyales por dólar"],res:[494.6,"Fin de jun (SAMA), +8% interanual"],riesgo:[null,"Sin dato: Arabia Saudita no publica un EMBI propio de acceso libre"],idx:[null,"Sin dato del Tadawul (TASI); se usa el ETF KSA"]},
   nota:"Bolsa vía ETF KSA en dólares. Las fuentes conectadas no traen acciones del Tadawul."},
- ae:{eco:{pib:[569,IMF],pibpc:[50300,IMF],crec:[null,"Sin dato trimestral; el banco central proyecta 1,6% para 2026"],inf:[null,"Sin dato mensual; el banco central proyecta 2,4% para 2026"],des:[null,NOP],deuda:[33,"Gobierno general, "+IMF]},
+ ae:{eco:{pib:[614,IMF],pibpc:[54151,IMF],crec:[-3.9,"Proyección 2026 del FMI (WEO oct-2026), no es un dato trimestral; el banco central proyecta +1,6%"],inf:[4.5,"Promedio 2026 proyectado por el FMI (WEO oct-2026); no hay IPC mensual publicado"],des:[2.2,"2025, estimación modelada de la OIT (Banco Mundial)"],deuda:[34,"Gobierno general, "+IMF]},
   pol:{forma:"Federación de siete monarquías (emiratos)",estado:"Mohamed bin Zayed, presidente",gob:"Mohammed bin Rashid Al Maktoum, vicepresidente y primer ministro",partido:"No hay partidos políticos",legis:"Consejo Nacional Federal (40; la mitad se elige de forma indirecta)",ult:"Consejo Nacional Federal, oct 2023",prox:"Consejo Nacional Federal, 2027",capital:"Abu Dabi",moneda:"Dírham (AED)",bc:"Banco Central de los EAU"},
   dem:{pob:[11.3,UN],edad:[32.3,UN],vida:[82.9,UN],urb:[88,"ONU"],sup:[83600,"Total"]},
   com:{exp:[600,"Bienes 2025 con reexportaciones y petróleo, aprox."],imp:[480,"Bienes 2025, aprox."],dest:["India","Arabia Saudita","Irak"],orig:["China","India","Estados Unidos"],
    x:[["MIN",35,[["Petróleo crudo",22],["Petróleo refinado",8]]],["PRE",25,[["Oro",15],["Diamantes",5],["Joyería",4]]],["MAQ",15,[["Teléfonos",6]]],["TRA",6],["MET",5],["PLA",4],["OTR",10]],
    m:[["MAQ",26,[["Teléfonos",8]]],["PRE",25,[["Oro",15],["Diamantes",5]]],["TRA",10,[["Autos",6]]],["MIN",6],["QUI",5],["MET",5],["ALI",5],["TEX",4],["OTR",14]]},
-  fin:{tasa:[3.9,"Tasa base; subió 25 pb en sep siguiendo a la Fed (Trading Economics). Otra fuente la da en 3,65%"],bono:[null,"Sin dato: no hay curva soberana federal líquida"],dep:[0,"Paridad fija: 3,6725 dírhams por dólar"],res:[null,"Sin dato reciente"],riesgo:[null,"Sin dato reciente"],idx:[null,"Sin dato del ADX ni del DFM; se usa el ETF UAE"]},
+  fin:{tasa:[3.9,"Tasa base; subió 25 pb en sep siguiendo a la Fed (Trading Economics). Otra fuente la da en 3,65%"],bono:[null,"Sin dato: no hay curva soberana federal líquida"],dep:[0,"Paridad fija: 3,6725 dírhams por dólar"],res:[292.3,"Fin de 2025, incluye oro (Banco Mundial)"],riesgo:[null,"Sin dato reciente"],idx:[null,"Sin dato del ADX ni del DFM; se usa el ETF UAE"]},
   nota:"Bolsa vía ETF UAE en dólares. Buena parte del comercio son reexportaciones (Dubái funciona como centro de distribución). Las fuentes conectadas no traen acciones locales."},
- za:{eco:{pib:[427,IMF],pibpc:[6600,IMF],crec:[0.9,"2T, interanual (fuente secundaria); -0,2% trimestral (Stats SA)"],inf:[4.4,"IPC ago, interanual (Stats SA)"],des:[33.6,"2T 2026 (Stats SA)"],deuda:[77,"Gobierno general, "+IMF]},
+ za:{eco:{pib:[427,IMF],pibpc:[6769,IMF],crec:[0.9,"2T, interanual (fuente secundaria); -0,2% trimestral (Stats SA)"],inf:[4.4,"IPC ago, interanual (Stats SA)"],des:[33.6,"2T 2026 (Stats SA)"],deuda:[78,"Gobierno general, "+IMF]},
   pol:{forma:"República parlamentaria (el Parlamento elige al presidente)",estado:"Cyril Ramaphosa, presidente",gob:"Cyril Ramaphosa (jefe de Estado y de Gobierno)",partido:"Gobierno de Unidad Nacional: ANC, Alianza Democrática y otros",legis:"Parlamento: Asamblea Nacional (400) y Consejo Nacional de Provincias (90)",ult:"Generales, may 2024",prox:"Generales, 2029",capital:"Pretoria (ejecutiva), Ciudad del Cabo y Bloemfontein",moneda:"Rand (ZAR)",bc:"South African Reserve Bank"},
   dem:{pob:[64.7,UN],edad:[28.6,UN],vida:[66.3,UN],urb:[69,"ONU"],sup:[1221037,"Total"]},
   com:{exp:[110,"Bienes 2025, aprox. (SARS)"],imp:[105,"Bienes 2025, aprox. (SARS)"],dest:["China","Estados Unidos","Alemania"],orig:["China","Alemania","India"],
@@ -778,7 +799,7 @@ const F={
   {k:"saldo",l:"Saldo comercial",u:"bn",signed:true},
   {k:"aper",l:"Apertura comercial",u:"pctpib",cn:"Exportaciones más importaciones de bienes sobre el PIB."}],
  fin:[
-  {k:"ret",l:"Bolsa en un mes",u:"spct",cn:"ETF del país en dólares, 2 oct → 3 nov."},
+  {k:"ret",l:"Bolsa en un mes",u:"spct",cn:"ETF del país en dólares, 2 oct → 3 nov. Rusia: índice MOEX en rublos."},
   {k:"tasa",l:"Tasa de referencia",u:"pct2",cn:"EE. UU. con el techo del rango; Argentina con la TAMAR, tasa de mercado."},
   {k:"bono",l:"Bono a 10 años",u:"pct2"},
   {k:"dep",l:"Depreciación vs. el dólar (1 mes)",u:"spct",neutral:true,cn:"Positivo = la moneda local perdió valor frente al dólar."},
@@ -792,7 +813,7 @@ ORDER.forEach(k=>{const d=D[k];
   d.dem.dens=[d.dem.pob[0]*1e6/d.dem.sup[0],"Población sobre superficie"];
   d.com.saldo=[d.com.exp[0]-d.com.imp[0],"Exportaciones menos importaciones, 2025"];
   d.com.aper=[(d.com.exp[0]+d.com.imp[0])/d.eco.pib[0]*100,"Comercio de bienes 2025 sobre el PIB"];
-  d.fin.ret=C[k].etf?[C[k].m.ret,"ETF "+C[k].etf+" en dólares"]:[null,"No hay ETF del país operable en EE. UU."];
+  d.fin.ret=C[k].etf?[C[k].m.ret,C[k].cur==="RUB"?"Índice MOEX en rublos (MOEX ISS)":"ETF "+C[k].etf+" en dólares"]:[null,"No hay ETF del país operable en EE. UU."];
 });
 const GROUP={eco:"eco",dem:"dem",com:"com",fin:"fin"};
 const val=(k,g,f)=>D[k][g][f]||[null,SD];
@@ -814,7 +835,7 @@ function kpis(){
   const inf=d.eco.inf, rate=d.fin.tasa;
   let bolsa;
   if(c.closes){const n=c.closes.length,last=c.closes[n-1],ch=(last/c.closes[0]-1)*100;
-    bolsa=tile(`Bolsa · ${c.etf}`,`US$ ${fmtN(last)}`,pct(c.m.ret)+" 1 mes",`${ch>=0?"+":""}${fmtN(ch,1)}% desde junio · cierre 3 nov`,COL[sel]);}
+    bolsa=tile(`Bolsa · ${c.etf}`,c.cur==="RUB"?`${fmtN(last)} pts`:`US$ ${fmtN(last)}`,pct(c.m.ret)+" 1 mes",`${ch>=0?"+":""}${fmtN(ch,1)}% desde junio · cierre 3 nov`,COL[sel]);}
   else bolsa=tile("Bolsa",null,"","No hay ETF del país operable en EE. UU.",COL[sel]);
   document.getElementById("kpis").innerHTML=bolsa+
     tile("Inflación interanual",isNum(inf[0])?U.pct(inf[0]):null,"",inf[1],"var(--cn)")+
@@ -834,7 +855,8 @@ function mtile(f,x){
   if(v==="na") return `<div class="mc isna"><div class="k">${f.l}</div><div class="v na"><span class="pill na">No aplica</span></div><div class="d">${d}</div></div>`;
   if(v==null) return `<div class="mc gap"><div class="k">${f.l}</div><div class="v na"><span class="pill">Sin dato</span></div><div class="d">${d}</div></div>`;
   const s=show(f,x), cls=f.neutral?"":f.signed||f.u==="spct"?(v>0?"up":v<0?"down":""):"";
-  return `<div class="mc"><div class="k">${f.l}</div><div class="v ${cls}">${s}</div><div class="d">${d}</div></div>`;
+  const pe=(PER[f.k]||{})[sel], click=HIST[f.k]?` data-click="${f.k}" role="button" tabindex="0" title="Ver la evolución de este dato"`:"";
+  return `<div class="mc${click&&f.k===rkField?" on":""}"${click}><div class="k">${f.l}${pe?`<span class="per${perOld(f.k,sel)?" old":""}">${pe}</span>`:""}</div><div class="v ${cls}">${s}</div><div class="d">${d}</div></div>`;
 }
 function gapsLine(groups){
   const miss=[], na=[];
@@ -856,13 +878,21 @@ function ficha(){
     body.innerHTML=`<p class="sect"><span>Indicadores macro</span><em>mismos campos para todos los países</em></p>${grid("eco")}
      <div class="gaps">${gapsLine(["eco"])}${d.nota?`<br>${d.nota}`:""}</div>
      <div class="box" style="margin-top:12px">
-      <div class="sect" style="align-items:center"><span>Cómo se ubica frente a los otros países</span>
+      <div class="sect" style="align-items:center;flex-wrap:wrap;gap:8px"><span>Gráficos</span>
        <div class="seg" id="rkseg">${F.eco.map(f=>`<button type="button" data-f="${f.k}" aria-pressed="${f.k===rkField}">${RKLBL[f.k]||f.l}</button>`).join("")}</div></div>
-      <div class="rksum" id="rksum"></div>
-      <div id="rkchart"></div>
+      <div class="ctl"><div class="seg sm" id="spanseg" aria-label="Período">${SPANS.map(([y,l])=>`<button type="button" data-y="${y}" aria-pressed="${y===hFrom}">${l}</button>`).join("")}</div>
+       <div class="rksum" id="rksum"></div></div>
+      <div class="charts2">
+       <div><p class="sect"><span>Evolución de ${c.name}</span><em id="hnote"></em></p><div id="hchart"></div></div>
+       <div><div class="sect" style="align-items:center"><span>Frente a otros países</span><div class="seg sm" id="peerseg">${Object.entries(PEERS).map(([k,l])=>`<button type="button" data-p="${k}" aria-pressed="${k===peerSet}">${l}</button>`).join("")}</div></div><p class="sect" style="margin-top:-4px"><span></span><em id="pnote"></em></p><div id="pchart"></div></div>
+      </div>
      </div>`;
-    body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>{rkField=b.dataset.f;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));rankChart()});
-    rankChart();
+    const setF=fk=>{rkField=fk;body.querySelectorAll("#rkseg button").forEach(x=>x.setAttribute("aria-pressed",x.dataset.f===fk));body.querySelectorAll(".mc[data-click]").forEach(x=>x.classList.toggle("on",x.dataset.click===fk));ecoCharts()};
+    body.querySelectorAll("#rkseg button").forEach(b=>b.onclick=()=>setF(b.dataset.f));
+    body.querySelectorAll("#spanseg button").forEach(b=>b.onclick=()=>{hFrom=+b.dataset.y;body.querySelectorAll("#spanseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));ecoCharts()});
+    body.querySelectorAll("#peerseg button").forEach(b=>b.onclick=()=>{peerSet=b.dataset.p;body.querySelectorAll("#peerseg button").forEach(x=>x.setAttribute("aria-pressed",x===b));peerChart()});
+    body.querySelectorAll(".mc[data-click]").forEach(t=>{const go=()=>{setF(t.dataset.click);document.getElementById("hchart").closest(".box").scrollIntoView({behavior:"smooth",block:"nearest"})};t.onclick=go;t.onkeydown=e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}}});
+    ecoCharts();
   } else if(tab==="pol"){
     const pnews=c.news.filter(n=>n[1]==="pol");
     body.innerHTML=`<div class="two">
@@ -899,32 +929,90 @@ function ficha(){
   }
 }
 
+/* yearly series 2015-2027 (IMF WEO oct-2026; 2026-27 are projections). Keys match F.eco. */
+const HY0=2000, HYP=2026;
+const HIST={"pib":{"us":[10251,10582,10929,11456,12217,13039,13816,14474,14770,14478,15049,15600,16254,16881,17608,18295,18805,19612,20657,21540,21375,23746,26060,27826,29381,30861,32642,34442],"ca":[745,739,760,896,1026,1174,1319,1469,1553,1377,1617,1793,1828,1847,1806,1557,1528,1649,1725,1744,1656,2022,2201,2197,2270,2321,2490,2625],"mx":[742,796,811,766,819,918,1020,1102,1162,943,1105,1229,1255,1327,1365,1213,1112,1191,1256,1304,1121,1317,1467,1795,1835,1835,2176,2315],"br":[655,560,510,558,669,892,1108,1397,1696,1669,2209,2614,2464,2472,2456,1800,1797,2064,1917,1873,1476,1671,1952,2191,2186,2280,2655,2796],"ar":[318,300,112,142,165,199,233,288,364,335,425,528,580,611,564,642,557,644,524,447,385,486,634,654,638,684,768,762],"gb":[1668,1650,1786,2055,2421,2544,2713,3095,2968,2434,2498,2678,2723,2804,3090,2948,2718,2708,2909,2891,2735,3209,3205,3440,3714,4012,4268,4489],"de":[1968,1966,2101,2534,2851,2895,3046,3484,3808,3475,3470,3823,3601,3811,3971,3433,3547,3778,4077,3983,3969,4395,4227,4602,4747,5116,5471,5661],"fr":[1362,1370,1491,1835,2109,2193,2318,2656,2926,2697,2648,2870,2685,2816,2862,2443,2470,2588,2783,2723,2646,2968,2797,3065,3178,3383,3554,3649],"it":[1150,1172,1281,1583,1812,1866,1959,2223,2417,2207,2147,2307,2099,2153,2174,1846,1887,1970,2100,2020,1906,2181,2106,2318,2383,2550,2702,2772],"es":[598,628,708,908,1069,1155,1262,1477,1636,1495,1429,1487,1332,1362,1381,1206,1243,1321,1432,1404,1289,1462,1450,1618,1730,1909,2085,2193],"ru":[278,328,370,462,633,818,1061,1393,1779,1308,1633,2047,2191,2288,2049,1357,1281,1575,1653,1696,1488,1829,2296,2035,2186,2572,2861,2675],"sa":[190,184,190,216,259,328,376,416,520,429,528,681,752,770,787,693,689,741,887,889,767,983,1239,1219,1254,1274,1343,1428],"ae":[103,103,110,124,148,181,222,258,315,254,308,369,393,410,425,382,382,403,441,434,357,422,511,523,581,614,661,699],"za":[152,136,129,197,256,289,304,333,316,331,417,459,434,401,381,347,323,381,405,389,338,420,407,381,401,427,489,518],"in":[468,485,515,608,709,820,940,1217,1199,1342,1676,1823,1823,1848,2024,2083,2267,2613,2657,2781,2617,3091,3257,3512,3760,3909,4060,4521],"cn":[1224,1355,1490,1684,1984,2318,2792,3606,4670,5190,6193,7675,8673,9747,10676,11279,11460,12550,14145,14581,15003,18195,18347,18367,18929,19626,21546,22939],"jp":[5042,4439,4246,4573,4942,4876,4648,4625,5160,5337,5812,6279,6334,5272,4986,4534,5110,5038,5154,5246,5189,5227,4445,4389,4208,4453,4342,4468],"au":[401,379,426,542,660,738,785,952,1060,1004,1258,1520,1576,1527,1463,1239,1268,1386,1423,1392,1367,1660,1731,1748,1799,1841,2111,2217]},"pibpc":{"us":[36312.8,37101.5,37945.8,39405.4,41641.6,44034.3,46216.9,47943.4,48470.6,47102.4,48586.3,50008.1,51736.7,53363.9,55263.8,57006.9,58179.7,60293.0,63165.3,65561.3,64518.0,71426.5,77964.3,82578.8,86417.5,90266.8,95212.1,100207.5],"ca":[24296.7,23859.8,24279.8,28340.1,32178.5,36441.0,40559.0,44717.1,46773.7,40989.3,47625.7,52285.8,52745.1,52711.3,51025.4,43628.4,42382.5,45192.4,46618.0,46431.0,43573.2,52907.5,56608.8,55002.4,55209.1,55795.5,60105.3,63353.9],"mx":[7467.7,7902.1,7934.7,7390.3,7806.6,8626.2,9456.9,10063.6,10438.5,8346.8,9632.8,10554.4,10631.1,11099.2,11272.4,9915.1,8999.6,9542.8,9971.0,10251.1,8744.0,10207.3,11287.5,13685.7,13870.0,13759.3,16191.4,17095.0],"br":[3752.0,3163.7,2844.4,3077.7,3648.0,4806.2,5906.2,7374.2,8863.3,8640.9,11341.3,13326.1,12465.5,12406.6,12230.7,8893.3,8812.5,10055.6,9281.7,9010.5,7057.1,7951.6,9256.5,10350.4,10282.2,10682.7,12397.2,13016.4],"ar":[8638.5,8085.4,2997.6,3761.1,4314.1,5163.6,5976.1,7315.7,9146.8,8337.8,10413.0,12787.8,13889.8,14488.8,13208.8,14895.3,12772.9,14618.3,11786.4,9941.6,8489.3,10610.2,13702.2,14019.7,13549.5,14399.3,16021.5,15740.7],"gb":[28327.7,27910.5,30082.7,34454.5,40387.8,42110.2,44596.5,50477.2,48009.9,39093.2,39808.2,42308.9,42733.0,43721.7,47821.6,45287.3,41427.7,41053.5,43892.3,43386.7,40979.0,47916.5,47385.8,50197.4,53602.3,57740.6,61108.4,64030.4],"de":[24158.2,24122.4,25752.7,31074.3,35000.6,35592.5,37530.2,43021.8,47146.7,43173.7,43220.1,47627.3,44790.9,47332.0,49173.9,42207.0,43320.2,46056.8,49622.5,48454.9,48328.5,53595.4,51215.0,55255.6,56837.8,61255.2,65699.2,68093.4],"fr":[22502.1,22486.9,24295.4,29675.1,33876.3,34964.8,36685.0,41762.6,45753.6,41943.3,40988.6,44197.6,41150.5,42951.7,43277.4,36775.7,37081.5,38756.7,41539.8,40487.3,39230.9,43848.3,41095.8,44806.9,46298.3,49128.5,51448.4,52681.2],"it":[20205.5,20576.5,22473.5,27673.3,31451.6,32148.0,33602.7,37989.4,40969.0,37143.4,35963.7,38475.8,34926.4,35722.5,36022.6,30609.5,31357.6,32797.3,35042.8,33767.0,31956.9,36812.9,35672.0,39282.4,40404.7,43270.4,45886.4,47145.3],"es":[14714.4,15299.1,16937.0,21334.7,24698.3,26251.0,28177.4,32339.7,35379.8,32159.0,30624.4,31767.7,28511.3,29297.5,29737.8,25987.0,26725.6,28326.4,30526.9,29664.2,27188.4,30792.1,30154.5,33285.8,35209.0,38594.7,41755.8,43508.4],"ru":[1896.6,2248.0,2535.7,3165.5,4362.1,5655.1,7362.1,9685.9,12371.1,9091.1,11346.2,14208.3,15188.0,15825.5,14137.2,9336.8,8784.9,10774.8,11288.7,11572.3,10166.7,12541.0,15774.2,13989.8,15093.5,17863.6,19953.0,18700.8],"sa":[10448.6,9898.3,9937.4,11027.9,12891.3,15943.4,17827.4,19196.1,23403.7,18837.0,22028.4,27126.8,28733.4,27865.5,27805.5,23256.2,22267.7,23929.3,29360.0,29566.7,24318.3,31920.8,38510.2,36156.8,35527.8,35370.3,36577.1,38111.4],"ae":[32495.9,30877.7,30969.0,32166.9,34944.8,39389.2,45239.6,46090.4,48548.6,37428.4,44180.2,50925.2,52099.4,52204.1,51369.6,43712.3,41800.7,43304.5,46974.1,45615.1,38448.8,42839.6,49704.2,48941.3,51438.5,54151.1,57109.0,59498.7],"za":[3376.8,2974.0,2778.1,4191.4,5392.9,6008.0,6250.9,6752.3,6337.9,6538.2,8118.2,8784.6,8185.7,7431.9,6952.3,6222.5,5721.2,6647.1,6956.4,6582.8,5631.0,6923.9,6640.4,6132.7,6364.7,6769.2,7658.9,8009.0],"in":[442.8,450.4,469.1,544.1,624.3,710.5,801.7,1021.9,992.5,1095.0,1347.5,1445.5,1425.9,1425.9,1542.6,1568.7,1686.9,1921.9,1933.1,2002.0,1865.6,2185.6,2285.2,2442.0,2591.3,2670.3,2749.7,3036.1],"cn":[965.6,1061.7,1159.8,1303.1,1526.4,1773.0,2124.1,2728.9,3516.3,3889.0,4618.7,5688.7,6381.2,7129.0,7755.9,8154.0,8230.7,8963.9,10064.5,10340.6,10624.7,12880.2,12995.8,13029.3,13441.2,13969.9,15371.3,16402.4],"jp":[39756.6,34914.7,33327.6,35832.1,38685.8,38165.0,36385.1,36198.8,40411.2,41840.4,45547.3,49122.9,49656.7,41405.7,39221.1,35710.6,40251.7,39750.6,40746.9,41560.2,41233.6,41652.2,35541.7,35260.5,33962.5,36118.6,35399.6,36620.2],"au":[20952.5,19538.7,21740.2,27336.9,32914.6,36320.0,38048.4,45294.9,49335.1,45926.2,56757.2,67509.6,68732.8,65524.9,61889.8,51651.6,51984.6,55995.8,56575.3,54544.4,53318.6,64410.7,65777.9,64848.6,65684.9,66379.2,75172.5,78039.0]},"crec":{"us":[4.1,1,1.7,2.8,3.8,3.5,2.8,2,0.1,-2.6,2.7,1.6,2.3,2.1,2.5,2.9,1.8,2.5,3,2.6,-2.1,6.3,2.4,2.9,3,2.3,2.3,2.3],"ca":[5.1,1.9,3,1.8,3.1,3.2,2.6,2,1,-2.9,3.1,3.1,1.8,2.3,2.9,0.6,1,3,2.7,1.9,-5,6,4.7,2,2,1.9,1.1,1.7],"mx":[5,-0.5,-0.2,1.2,3.6,2.1,4.8,2.1,0.9,-6.3,5,3.4,3.6,0.9,2.5,2.7,1.8,1.9,2,-0.4,-8.4,6,3.7,3.1,1.5,0.5,1.5,1.8],"br":[4.4,1.4,3.1,1.1,5.8,3.2,4,6.1,5.1,-0.1,7.5,4,1.9,3,0.5,-3.5,-3.3,1.3,1.8,1.2,-3.3,4.8,3,3.2,3.4,2.3,2.2,1.9],"ar":[-0.8,-4.4,-10.9,9,8.9,8.9,8,9,4.1,-5.9,10.1,6,-1,2.4,-2.5,2.7,-2.1,2.8,-2.6,-2,-9.9,10.4,6,-1.9,-1.4,4.5,2.1,3.5],"gb":[4.5,2.4,1.7,3.2,2.3,2.7,2.2,3,0,-4.5,2.4,1.1,1.7,1.9,3.2,2.2,2.2,3.3,1.6,1.4,-10,8.5,5,0.4,1.1,1.2,1.3,1.2],"de":[2.9,1.6,-0.2,-0.5,1.2,0.9,3.9,2.9,0.9,-5.5,4.1,3.8,0.5,0.5,2.2,1.8,2.3,2.9,1.2,1.1,-4,4,1.9,-1,0,0.2,1.3,1.1],"fr":[4.4,1.8,1.1,1,2.5,2,2.9,2.5,0.3,-2.7,1.8,2.5,0.2,0.9,1,1,0.7,2.3,1.6,2.1,-7.6,6.8,2.8,1.8,1.4,0.9,0.4,0.7],"it":[3.9,2,0.3,0.1,1.5,0.8,1.8,1.5,-1,-5.3,1.5,0.7,-3.1,-1.8,0,0.9,1.2,1.6,0.8,0.4,-8.9,8.9,4.8,0.9,0.8,0.5,0.8,0.6],"es":[5.1,3.9,2.8,2.9,3.1,3.6,4,3.5,0.8,-3.8,0.1,-0.6,-2.9,-1.4,1.5,4.1,2.9,2.9,2.4,2,-10.9,6.7,6.4,2.4,3.7,2.6,2.5,1.8],"ru":[10.1,5.1,4.7,7.4,7.1,6.4,8.2,8.6,5.2,-7.8,4.5,4,4,1.8,0.7,-2,0.2,1.8,2.8,2.2,-2.7,5.9,-1.4,4.1,4.9,1,0.9,0.9],"sa":[4.7,0.3,-0.7,8.8,8.6,5.9,3.3,2.2,6.2,-1.1,5,11.8,5.8,2.9,4,4.7,1.7,1.2,3.2,1.7,-3.8,6.5,12,0.5,2.6,4.6,-3.3,7.9],"ae":[12.3,1.4,2.4,8.8,9.6,4.9,9.8,3.2,3.2,-5.2,7.9,6.7,4.7,4.9,4.6,7.1,5.7,-1.1,1.5,1.3,-8.7,4.6,7.5,4.3,6.6,6.2,-3.9,7.7],"za":[4.2,2.7,3.7,2.9,4.6,5.3,5.6,5.4,3.2,-1.5,3,3.2,2.4,2.5,1.4,1.3,0.7,1.2,1.6,0.3,-6.2,4.9,2.1,0.8,0.5,1.1,1,1.3],"in":[3.8,4.8,3.8,7.9,7.9,7.9,8.1,7.7,3.1,7.9,8.5,5.2,5.5,6.4,7.4,8,8.3,6.8,6.5,3.9,-5.8,9.7,7.6,7.3,7.2,7.8,7,7],"cn":[8.6,8.3,9.2,10.1,10.1,11.4,12.7,14.2,9.6,9.4,10.6,9.5,7.8,7.8,7.5,7,6.8,6.9,6.8,6.1,2.3,8.6,3.1,5.4,5,5,4.5,4],"jp":[3,0.3,0.1,1.4,2.1,1.8,1.5,1.7,-1.2,-5.9,4.1,-0.2,1.6,2,0.9,1.8,0.7,1.6,0.8,-0.3,-4.3,3.6,1.2,0.9,0.1,1.2,0.7,0.7],"au":[3.1,2.6,4.1,3,4.1,3,2.6,4.4,2.7,2,2.4,2.8,3.9,2.2,2.6,2.3,2.7,2.4,2.8,2,-2,5.4,4.2,2.1,1,2,1.9,1.6]},"inf":{"us":[3.4,2.8,1.6,2.3,2.7,3.4,3.2,2.9,3.8,-0.3,1.6,3.1,2.1,1.5,1.6,0.1,1.3,2.1,2.4,1.8,1.3,4.7,8,4.1,3,2.7,3.6,2.8],"ca":[2.7,2.5,2.3,2.8,1.9,2.2,2,2.1,2.4,0.3,1.8,2.9,1.5,0.9,1.9,1.1,1.4,1.6,2.3,1.9,0.7,3.4,6.8,3.9,2.4,2.1,2.8,2.4],"mx":[9.5,6.4,5,4.6,4.7,4,3.6,4,5.1,5.3,4.2,3.4,4.1,3.8,4,2.7,2.8,6,4.9,3.6,3.4,5.7,7.9,5.5,4.7,3.8,3.8,3.6],"br":[7,6.8,8.4,14.7,6.6,6.9,4.2,3.6,5.7,4.9,5,6.6,5.4,6.2,6.3,9,8.7,3.4,3.7,3.7,3.2,8.3,9.3,4.6,4.4,5,4.4,4.1],"ar":[-0.9,-1.1,25.9,13.4,4.4,9.6,10.9,8.8,8.6,6.3,10.5,9.8,10,10.6,null,null,null,25.7,34.3,53.5,42,48.4,72.4,133.5,219.9,41.9,32.5,21.2],"gb":[0.8,1.2,1.3,1.4,1.3,2.1,2.3,2.3,3.6,2.2,3.3,4.5,2.8,2.6,1.5,0,0.7,2.7,2.5,1.8,0.9,2.6,9.1,7.3,2.5,3.4,3.3,2.8],"de":[1.4,1.9,1.3,1.1,1.8,1.9,1.8,2.3,2.8,0.2,1.1,2.5,2.1,1.6,0.8,0.7,0.4,1.7,1.9,1.4,0.4,3.2,8.7,6,2.5,2.3,2.7,3.1],"fr":[1.8,1.8,1.9,2.2,2.3,1.9,1.9,1.6,3.2,0.1,1.7,2.3,2.2,1,0.6,0.1,0.3,1.2,2.1,1.3,0.5,2.1,5.9,5.7,2.3,0.9,2.4,2.2],"it":[2.6,2.3,2.6,2.8,2.3,2.2,2.2,2,3.5,0.8,1.6,2.9,3.3,1.3,0.2,0.2,-0.1,1.3,1.2,0.7,-0.2,2,8.7,5.9,1.1,1.6,3.3,2.8],"es":[3.5,2.8,3.6,3.1,3.1,3.4,3.6,2.8,4.1,-0.2,2,3.1,2.4,1.5,-0.2,-0.6,-0.3,2,1.7,0.8,-0.3,3,8.3,3.4,2.9,2.7,3.7,2.7],"ru":[20.8,21.5,15.8,13.7,10.9,12.7,9.7,9,14.1,11.6,6.8,8.4,5.1,6.8,7.8,15.5,7,3.7,2.9,4.5,3.4,6.7,13.7,5.9,8.4,8.7,6.1,4.8],"sa":[-1,-1.1,0.1,0.5,0.3,0.6,1.9,5,6.1,4.3,3.7,3.7,2.9,3.1,1.8,1.2,2.9,-0.9,2.5,-2,3.2,3.1,2.5,2.5,1.5,2,1.9,2.2],"ae":[1.3,2.8,2.9,3.1,5,6.2,9.3,11.1,12.3,-4.7,0.9,0.9,0.7,1.1,2.3,4.1,1.6,2,3.1,-1.9,-2.1,-0.1,4.8,1.6,1.7,1.3,4.5,2.5],"za":[5.3,5.7,9.1,5.9,1.4,3.4,4.7,7.1,10.9,7.2,4.2,5,5.7,5.7,6.1,4.6,6.3,5.3,4.6,4.1,3.3,4.6,6.9,5.9,4.4,3.2,4.4,3.9],"in":[3.8,4.4,5,4.1,4,3.7,6.7,5.9,9.2,10.6,9.4,8.1,10,9.8,5.9,4.9,4.5,3.6,3.4,4.8,6.2,5.5,6.6,5.4,4.6,2,5,4.4],"cn":[0.3,0.7,-0.7,1.2,3.9,1.8,1.5,4.8,5.8,-0.7,3.3,5.4,2.6,2.6,2,1.5,2,1.6,2.1,2.9,2.5,0.9,2,0.2,0.2,0,1,1.4],"jp":[-0.7,-0.7,-0.9,-0.3,0,-0.2,0.2,0.1,1.4,-1.3,-0.7,-0.3,-0.1,0.3,2.8,0.8,-0.1,0.5,1,0.5,0,-0.2,2.5,3.3,2.7,3.2,2,2.6],"au":[4.5,4.4,3,2.7,2.3,2.7,3.6,2.4,4.3,1.8,2.9,3.4,1.7,2.5,2.5,1.5,1.3,2,1.9,1.6,0.9,2.8,6.6,5.6,3.2,2.8,3.9,3.1]},"des":{"us":[4,4.7,5.8,6,5.5,5.1,4.6,4.6,5.8,9.3,9.6,8.9,8.1,7.4,6.2,5.3,4.9,4.4,3.9,3.7,8.1,5.4,3.7,3.6,4,4.3,4.2,4],"ca":[6.8,7.2,7.7,7.6,7.2,6.8,6.5,6.2,6.3,8.5,8.2,7.6,7.4,7.2,7.1,7,7.1,6.4,5.8,5.7,9.7,7.5,5.3,5.4,6.4,6.9,6.5,6.3],"mx":[2.2,2.8,3,3.4,3.9,3.5,3.6,3.7,3.9,5.4,5.3,5.2,4.9,4.9,4.8,4.3,3.9,3.4,3.3,3.5,4.4,4.1,3.3,2.8,2.7,2.6,2.8,2.8],"br":[10.5,10.6,10.6,11.2,10.1,10.6,9.7,9.3,8.3,9.4,8,7.6,6.9,7.2,6.9,8.6,11.6,12.9,12.4,12,13.8,13.2,9.3,8,6.9,6,6.2,6.8],"ar":[17.1,19.2,22.5,17.3,13.6,11.6,10.2,8.5,7.9,8.7,7.8,7.2,7.2,7.1,7.3,6.5,8.5,8.4,9.2,9.8,11.6,8.8,6.8,6.1,7.2,7.4,7.6,7.1],"gb":[5.5,5.1,5.2,5,4.8,4.8,5.4,5.4,5.7,7.6,7.9,8.1,8,7.6,6.2,5.4,4.9,4.4,4.1,3.8,4.6,4.6,3.8,4.1,4.3,4.9,5.3,5.3],"de":[8,7.8,8.6,9.7,10.3,11,10,8.5,7.4,7.3,6.6,5.5,5.1,4.9,4.7,4.4,3.9,3.5,3.2,3,3.6,3.6,3.1,3.1,3.4,3.8,4,3.7],"fr":[9.2,8.5,8.3,8.5,8.9,8.9,8.9,8,7.4,9.1,9.3,9.2,9.8,10.3,10.3,10.3,10.1,9.4,9,8.4,8,7.9,7.3,7.3,7.4,7.7,8.4,8.3],"it":[10.1,9.1,8.6,8.5,8,7.8,6.9,6.2,6.8,7.9,8.5,8.6,10.9,12.4,12.8,12,11.7,11.3,10.6,9.9,9.3,9.6,8.1,7.7,6.6,6.1,5.6,5.8],"es":[13.9,10.5,11.5,11.5,11,9.2,8.5,8.2,11.2,17.9,19.9,21.4,24.8,26.1,24.4,22.1,19.6,17.2,15.3,14.1,15.5,14.9,13,12.2,11.3,10.5,9.8,9.8],"ru":[10.6,8.9,8,8.2,7.7,7.2,7.1,6,6.2,8.2,7.4,6.5,5.5,5.5,5.2,5.6,5.5,5.2,4.8,4.6,5.8,4.8,4,3.2,2.5,2.2,2.2,2.4],"sa":[4.6,4.6,5.3,5.6,5.8,6.1,6.3,5.6,5.2,5.4,5.5,5.8,5.5,5.6,5.7,5.6,5.6,5.9,6,5.6,7.7,6.1,4.9,4,3.5,3.2,null,null],"ae":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],"za":[23,26,27.8,27.7,25.2,24.7,23.6,23,22.5,23.7,24.9,24.8,24.9,24.7,25.1,25.4,26.7,27.5,27.1,28.7,29.2,34.3,33.5,32.4,32.6,32.4,33.2,33],"in":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,8.9,7.5,8.7,7.4,5.3,4.9,5,5,5,5],"cn":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,5,4.9,5.2,5.6,5.1,5.6,5.2,5.1,5.1,5.1,5.1],"jp":[4.7,5,5.4,5.2,4.7,4.4,4.1,3.8,4,5.1,5.1,4.6,4.3,4,3.6,3.4,3.1,2.8,2.4,2.4,2.8,2.8,2.6,2.6,2.5,2.5,2.5,2.5],"au":[6.3,6.8,6.4,5.9,5.4,5,4.8,4.4,4.3,5.6,5.2,5.1,5.2,5.7,6.1,6.1,5.7,5.6,5.3,5.2,6.5,5.1,3.7,3.7,4,4.2,4.4,4.7]},"deuda":{"us":[null,53.5,55.9,59,66.4,65.8,64.5,65,73.9,87.1,95.7,100,103.7,105,105,105.5,107.5,106.5,107.7,108.8,132.6,125,119.2,120,122.3,124.4,126.8,128.7],"ca":[80.4,81.5,79.6,75.9,71.9,70.6,69.9,67.2,70.4,81.8,84,84.3,87,87.7,85.8,92.3,92.5,91,90.8,90.1,118.1,112.6,103.5,105.1,110,113.6,115.6,113.4],"mx":[38.5,37.3,39.9,42.1,38.9,36.8,35.8,35.5,40.6,41.7,40.2,41.2,40.8,44.1,47.1,51,55,52.5,52.2,51.9,58.5,56.7,53.8,52.7,59,61.7,62.1,62.9],"br":[62.2,67.3,76.1,71.5,68,67,64.6,63,61.4,64.7,62.4,60.6,61.6,59.6,61.6,71.7,77.4,82.7,84.8,87.1,96,88.9,83.9,84,87,93.3,97,99.3],"ar":[40.8,48,147.2,125.2,117.9,80.3,70.8,62.1,53.8,55.4,43.5,38.9,40.4,43.5,44.7,52.6,53.1,57,85.2,89.8,103.8,81,84.3,153.4,84.6,80.1,69.3,70.4],"gb":[37.7,35,35.5,36.8,39.8,41,42.1,43.1,50.7,64.6,75.5,81,84,84.8,86.4,87.3,87.2,85.9,85.3,84.5,104.4,103,97.1,98.3,99.4,102.1,102,102.5],"de":[59.2,58.1,59.8,63.3,65,67.1,66.4,63.7,65.2,72.4,81,78.5,79.8,77.4,74.4,71,68.1,63.7,60.5,58.3,67.5,67.4,64.1,61.8,61.4,62.7,64.6,66.9],"fr":[59.7,59.3,61.3,65.4,66.9,68.2,65.4,65.5,69.8,84.1,86.3,88.7,91.7,94.6,96.2,97,98.1,98.8,98.5,98.2,114.9,112.8,111.4,109.5,112.6,115.5,118.5,120.4],"it":[108.7,108.5,105.9,105.1,104.7,106.2,106.3,103.5,105.8,116.1,118.8,119.1,125.9,131.9,134.8,134.8,134.2,133.7,134.2,133.9,154.4,145.8,138.4,133.9,134.7,137.1,137.9,137.6],"es":[57.8,54.1,51.2,47.7,45.3,42.4,39,35.7,39.6,53.1,60.3,69.5,89.6,100,104.4,102.4,102,101.1,99.7,97.6,119.2,115.6,109.2,105.2,101.4,100.5,97.6,95.2],"ru":[55.9,44.4,37.6,28.3,20.8,14.9,9.8,8,7.4,9.9,10.1,10.3,11.2,12.3,15.1,15.3,14.8,14.3,13.6,13.7,19.2,16.5,15.1,15.2,14.8,16.6,19.3,22.2],"sa":[86.7,93.1,96.4,81.6,62.9,37.3,25.8,17.1,12.1,14,8.4,5.3,3,2.1,1.5,5.5,12.2,15.9,16.8,20.3,29.7,25.5,21.3,23,25.9,31.8,35.4,37.3],"ae":[3.1,2.7,3.4,3.3,4.1,4.5,5.1,8.9,8.9,21.1,18.3,20.4,20.2,15.3,13.5,15.6,18.6,21.2,20.7,25.8,30.1,35.7,31.5,31.9,33.2,33.9,32.8,30.8],"za":[37.9,38,31.8,31.5,30.7,29.6,28,24.3,24,27,31.2,34.7,37.4,40.4,43.3,45.2,47.1,48.6,51.5,56.1,68.9,68.8,70.7,73.2,76,78.4,78,78.1],"in":[74.9,80.1,84.3,85.9,84.9,82.4,77.9,75.4,74.3,72.7,67.7,68.7,68.1,68,67.6,69.7,69.7,70.7,71.6,76.5,90.4,85.5,84.4,84.7,84.8,84.3,83.1,81.3],"cn":[22.6,24.2,25.5,26.4,25.9,26,25.2,28.8,26.6,33.9,33.1,33,33.9,36.6,39.4,40.9,50,53.7,55.7,59.9,70.6,72.1,77.3,84.1,90.5,98.6,104.4,109.1],"jp":[118.5,126.8,134.6,140.2,148.8,153.4,152.1,150.4,153.6,172.9,178.6,190.6,197.1,201.2,203.6,200.1,202.1,203.1,203.7,206.3,228.8,222.6,228,220.1,213.6,204.8,199.4,196.4],"au":[19.5,17.1,15,13.2,11.9,10.8,9.9,9.6,11.7,16.6,20.3,24,27.4,30.3,33.9,37.6,40.5,41,41.6,46.5,56.9,55.4,50,49.4,50.9,51.9,52.6,53.2]}};
 /* ---------- economy: where the country sits among the 18 ---------- */
-let rkField="inf";
+/* period each macro value refers to (short label). Growth is year-on-year unless marked "anualiz."; "proy." = IMF projection */
+const Y25=Object.fromEntries(["us","ca","mx","br","ar","gb","de","fr","it","es","ru","sa","ae","za","in","cn","jp","au"].map(k=>[k,"2025"]));
+const PER={pib:Y25,pibpc:Y25,deuda:Y25,
+ crec:{us:"3T-26*",ca:"2T-26*",mx:"3T-26",br:"2T-26",ar:"ago-26",gb:"2T-26",de:"3T-26",fr:"3T-26",it:"3T-26",es:"3T-26",ru:"2T-26",sa:"2T-26",ae:"2026p",za:"2T-26",in:"2T-26",cn:"3T-26",jp:"2T-26*",au:"2T-26"},
+ inf:{us:"sep-26",ca:"sep-26",mx:"sep-26",br:"oct-26",ar:"sep-26",gb:"sep-26",de:"oct-26",fr:"oct-26",it:"oct-26",es:"oct-26",ru:"sep-26",sa:"ago-26",ae:"2026p",za:"ago-26",in:"sep-26",cn:"sep-26",jp:"sep-26",au:"sep-26"},
+ des:{us:"sep-26",ca:"sep-26",mx:"sep-26",br:"3T-26",ar:"2T-26",gb:"ago-26",de:"oct-26",fr:"sep-26",it:"jul-26",es:"sep-26",ru:"ago-26",sa:"2T-26",ae:"2025",za:"2T-26",in:"sep-26",cn:"sep-26",jp:"sep-26",au:"sep-26"}};
+const PERHD={pib:"año",pibpc:"año",deuda:"año",crec:"período",inf:"mes",des:"período"};
+/* a period is "old" when it is a different vintage than most countries (annual stand-ins or lagging months) */
+function perOld(fk,k){const p=(PER[fk]||{})[k]; if(!p) return false; if(/p$|^2025$/.test(p)&&fk!=="pib"&&fk!=="pibpc"&&fk!=="deuda") return true; return /^(jul|ago)-26$/.test(p)&&fk!=="crec"}
+/* ---------- economy charts: own history + peers, over a chosen span ---------- */
+let rkField="inf", hFrom=2016, peerSet="reg";
 const RKLBL={pib:"PIB",pibpc:"PIB per cápita",crec:"Crecimiento",inf:"Inflación",des:"Desempleo",deuda:"Deuda"};
+const SPANS=[[2021,"5 años"],[2016,"10 años"],[2000,"Desde 2000"]];
+const PEERS={reg:"Su región",des:"Desarrollados",eme:"Emergentes"};
+const DEVD=["us","ca","gb","de","fr","it","es","jp","au"];
+function peersOf(k){
+  if(peerSet==="reg") return REGION.find(r=>r[1].includes(k))[1];
+  const g=peerSet==="des"?DEVD:ORDER.filter(c=>!DEVD.includes(c));
+  return g.includes(k)?g:[k,...g];
+}
 function rankOf(fk,k){
   const rows=ORDER.map(c=>[c,val(c,"eco",fk)[0]]).filter(r=>isNum(r[1])).sort((a,b)=>b[1]-a[1]);
   const i=rows.findIndex(r=>r[0]===k); return i<0?null:[i+1,rows.length];
 }
-function rankChart(){
-  const el=document.getElementById("rkchart"); if(!el) return;
-  const f=F.eco.find(x=>x.k===rkField);
-  const rows=ORDER.map(k=>({k,x:val(k,"eco",f.k)})).filter(r=>isNum(r.x[0])).sort((a,b)=>b.x[0]-a.x[0]);
-  const miss=ORDER.filter(k=>!isNum(val(k,"eco",f.k)[0]));
-  const nums=rows.map(r=>r.x[0]), mn=Math.min(0,...nums), mx=Math.max(0,...nums), span=(mx-mn)||1, z=-mn/span*100;
-  const sortedV=nums.slice().sort((a,b)=>a-b), med=sortedV.length%2?sortedV[(sortedV.length-1)/2]:(sortedV[sortedV.length/2-1]+sortedV[sortedV.length/2])/2;
-  const mdPos=(med-mn)/span*100;
-  el.innerHTML=`<div class="rk">${rows.map(({k,x},i)=>{const v=x[0],me=k===sel?" me":"";
-    const w=Math.abs(v)/span*100, left=v<0?z-w:z;
-    return `<button type="button" class="nm${me}" data-k="${k}" title="Ver ${C[k].name}"><small>${i+1}.º</small><i style="background:${COL[k]}"></i>${SHORT[k]}</button>
-     <div class="tr${me}" title="${C[k].name}: ${x[1]}"><span style="left:${left}%;width:${Math.max(.6,w)}%;background:${COL[k]}${me?";opacity:1;box-shadow:0 0 10px "+COL[k]+"88":""}"></span>${mn<0?`<i class="z" style="left:${z}%"></i>`:""}<i class="md" style="left:${mdPos}%"></i></div>
-     <div class="vl${me}">${show(f,x)}</div>`}).join("")}</div>
-   <p class="cnote">Línea punteada = mediana de los ${rows.length} países con dato (${U[f.u](med)}).${f.cn?" "+f.cn:""}${miss.length?` <span class="pill" style="margin-left:4px">Sin dato</span>${miss.map(k=>SHORT[k]).join(", ")}.`:""}</p>`;
-  el.querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>select(b.dataset.k,true));
-  // summary chips: rank of the selected country in every macro field
-  document.getElementById("rksum").innerHTML=F.eco.map(g=>{const r=rankOf(g.k,sel);
-    return `<span>${RKLBL[g.k]} <b>${r?`${r[0]}.º/${r[1]}`:"s/d"}</b></span>`}).join("")+`<span style="background:none;padding-left:0;color:var(--dim)">posición de mayor a menor</span>`;
+function rankSum(){
+  const el=document.getElementById("rksum"); if(!el) return;
+  el.innerHTML=`<span style="background:none;padding-left:0;color:var(--dim)">Puesto entre los 18 (último dato):</span>`+F.eco.map(g=>{const r=rankOf(g.k,sel);
+    return `<span${g.k===rkField?' class="on"':""}>${RKLBL[g.k]} <b>${r?`${r[0]}.º/${r[1]}`:"s/d"}</b></span>`}).join("");
 }
+/* shared svg line chart. series: [{k,vals,col,w,dash,main}] over years i0..n-1 of HIST */
+function lineSVG({series,i0,fmt,fmtT,label,base0=true,proj=true}){
+  const n=HIST.pib.us.length, cnt=n-i0, ip=HYP-HY0;
+  const all=[]; series.forEach(s=>s.vals.forEach((v,i)=>{if(i>=i0&&v!=null) all.push(v)}));
+  if(!all.length) return "";
+  let lo=base0?Math.min(0,...all):Math.min(...all),hi=Math.max(...all); const pad=(hi-lo)*.08||1; hi+=pad; if(lo<0||!base0) lo-=pad;
+  const step=niceStep((hi-lo)/4), tl=[];for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step) tl.push(fmtT(t,step));
+  const W=420,H=260,L=Math.max(30,8+6.4*Math.max(...tl.map(x=>x.length))),R=14,T=12,B=24, X=i=>L+(W-L-R)*(i-i0)/(cnt-1), Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
+  let g=""; for(let t=Math.ceil(lo/step)*step;t<=hi;t+=step) g+=`<line x1="${L}" x2="${W-R}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}" stroke="${Math.abs(t)<1e-9&&lo<0?"#5A5F8C":"#262A4D"}"/><text x="${L-6}" y="${(Y(t)+4).toFixed(1)}" font-size="10.5" text-anchor="end" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${fmtT(t,step)}</text>`;
+  const every=cnt>14?5:cnt>8?2:1;
+  const xl=Array.from({length:cnt},(_,j)=>i0+j).filter(i=>(HY0+i)%every===0||i===n-1&&every===1).map(i=>`<text x="${X(i).toFixed(1)}" y="${H-6}" font-size="10.5" text-anchor="middle" fill="#8E93BE" font-family="IBM Plex Mono,monospace">${cnt>8?"’"+String(HY0+i).slice(2):HY0+i}</text>`).join("");
+  const path=arr=>{let d="",pen=false;arr.forEach(p=>{if(p[1]==null){pen=false;return}d+=(pen?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1);pen=true});return d};
+  const lines=series.map(s=>{const pts=s.vals.map((v,i)=>[i,v]).filter(p=>p[0]>=i0);
+    const act=pts.filter(p=>p[0]<ip), pr=pts.filter(p=>p[0]>=ip-1);
+    let o=`<path d="${path(act)}" fill="none" stroke="${s.col}" stroke-width="${s.w}" stroke-linejoin="round" ${s.dash?`stroke-dasharray="${s.dash}"`:""} opacity="${s.op??1}"/>`;
+    if(proj&&pr.filter(p=>p[1]!=null).length>1) o+=`<path d="${path(pr)}" fill="none" stroke="${s.col}" stroke-width="${s.w}" stroke-dasharray="${s.dash||"5 4"}" opacity="${(s.op??1)*.75}"/>`;
+    if(s.main){o+=act.filter(p=>p[1]!=null).map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="${cnt>14?2:2.6}" fill="${s.col}"><title>${HY0+p[0]}: ${fmt(p[1])}</title></circle>`).join("");
+      const last=act.filter(p=>p[1]!=null).pop(); if(last) o+=`<text x="${Math.min(X(last[0]),W-R-20).toFixed(1)}" y="${(Y(last[1])-8).toFixed(1)}" font-size="11" text-anchor="middle" fill="#ECEEFF" font-family="IBM Plex Mono,monospace">${fmt(last[1])}</text>`}
+    else o+=pts.filter(p=>p[1]!=null).map(p=>`<circle cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="5" fill="transparent"><title>${SHORT[s.k]} ${HY0+p[0]}: ${fmt(p[1])}</title></circle>`).join("");
+    return o}).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}">
+    <rect x="${X(ip-.5).toFixed(1)}" y="${T}" width="${(X(n-1)-X(ip-.5)+R/2).toFixed(1)}" height="${H-T-B}" fill="#171A35"/>
+    <text x="${(X(ip-.5)-4).toFixed(1)}" y="${T+11}" font-size="10" text-anchor="end" fill="#8E93BE" font-family="Public Sans,sans-serif">proyección →</text>
+    ${g}${lines}${xl}</svg>`;
+}
+const tickFmt=f=>(t,step)=>f.u==="bn"?(t>=1000?fmtN(t/1000,step<1000?1:0)+" bill.":fmtN(t,0)):f.u==="usd"?(t>=1000?fmtN(t/1000,0)+" mil":fmtN(t,0)):fmtN(t,step<1?1:0);
+function histChart(){
+  const el=document.getElementById("hchart"); if(!el) return;
+  const f=F.eco.find(x=>x.k===rkField), ser=(HIST[f.k]||{})[sel]||[], col=COL[sel], i0=hFrom-HY0;
+  document.getElementById("hnote").textContent=`${hFrom}–2027`;
+  if(ser.slice(i0).filter(v=>v!=null).length<2){el.innerHTML=`<p class="empty"><span class="pill">Sin dato</span>El FMI no publica esta serie para ${C[sel].name}.</p>`;return}
+  const med=f.k==="pib"?null:ser.map((_,i)=>{const xs=ORDER.map(k=>(HIST[f.k][k]||[])[i]).filter(v=>v!=null).sort((a,b)=>a-b);if(!xs.length)return null;const m=xs.length>>1;return xs.length%2?xs[m]:(xs[m-1]+xs[m])/2});
+  const series=[]; if(med) series.push({k:"md",vals:med,col:"#8E93BE",w:1.4,dash:"3 4"}); series.push({k:sel,vals:ser,col,w:2.4,main:true});
+  // Argentina's inflation explodes the scale when the whole span is shown; keep the axis honest but readable
+  el.innerHTML=lineSVG({series,i0,fmt:U[f.u],fmtT:tickFmt(f),label:`${f.l} de ${C[sel].name}, ${hFrom} a 2027`})+
+   `<div class="hleg"><span><i style="border-color:${col}"></i>${SHORT[sel]}</span>${med?`<span><i style="border-color:#8E93BE;border-top-style:dashed"></i>mediana de los 18</span>`:""}<span>Datos anuales del FMI (WEO oct-2026); 2026-27 proyectados.${f.k==="inf"?" Inflación promedio del año.":""}${f.k==="inf"&&sel==="ar"&&hFrom<2016?" 2007-2015: IPC oficial cuestionado; el FMI no publica 2014-2016.":""}</span></div>`;
+}
+function peerChart(){
+  const el=document.getElementById("pchart"); if(!el) return;
+  const f=F.eco.find(x=>x.k===rkField), i0=hFrom-HY0, idx=f.k==="pib"||f.k==="pibpc";
+  const ks=peersOf(sel).filter(k=>(HIST[f.k][k]||[]).slice(i0).some(v=>v!=null));
+  // levels in dollars differ by orders of magnitude, so GDP is shown as an index (first year of the span = 100)
+  const prep=k=>{const v=HIST[f.k][k]; if(!idx) return v; const b=v.slice(i0).find(x=>x!=null); return v.map(x=>x==null||b==null?null:x/b*100)};
+  const series=ks.filter(k=>k!==sel).map(k=>({k,vals:prep(k),col:COL[k],w:1.5,op:.7})).concat([{k:sel,vals:prep(sel),col:COL[sel],w:2.8,main:true}]);
+  const fmt=idx?v=>fmtN(v,0):U[f.u];
+  document.getElementById("pnote").textContent=idx?`índice, ${hFrom} = 100`:"";
+  el.innerHTML=lineSVG({series,i0,fmt,fmtT:idx?(t=>fmtN(t,0)):tickFmt(f),base0:!idx,label:`${f.l}: ${C[sel].name} frente a ${PEERS[peerSet].toLowerCase()}`})+
+   `<div class="hleg">${ks.map(k=>`<button type="button" class="lg${k===sel?" me":""}" data-k="${k}" title="Ver ${C[k].name}"><i style="border-color:${COL[k]}"></i>${SHORT[k]}</button>`).join("")}<span>${idx?`Crecimiento acumulado en dólares corrientes desde ${hFrom}.`:"FMI, anual."}</span></div>`;
+  el.querySelectorAll("button[data-k]").forEach(b=>b.onclick=()=>select(b.dataset.k,true));
+}
+function ecoCharts(){histChart();peerChart();rankSum()}
 
 /* ---------- trade treemap ---------- */
 let flow="x";
@@ -959,7 +1047,7 @@ function trend(){
   document.getElementById("tname").textContent=c.etfName;
   if(!xs){document.getElementById("tval").textContent="";document.getElementById("tchart").innerHTML=`<p class="empty"><span class="pill">Sin dato</span>No hay un ETF de este país que cotice en EE. UU., así que no hay serie de precios.</p>`;return}
   const n=xs.length;
-  document.getElementById("tval").innerHTML=`US$ ${fmtN(xs[n-1])} ${pct(c.m.ret)}`;
+  document.getElementById("tval").innerHTML=`${c.cur==="RUB"?"":"US$ "}${fmtN(xs[n-1])}${c.cur==="RUB"?" pts":""} ${pct(c.m.ret)}`;
   const W=520,H=230,L=46,R=14,T=14,B=26;
   const lo=Math.min(...xs),hi=Math.max(...xs),pad=(hi-lo)*.12,y0=lo-pad,y1=hi+pad;
   const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-B)*(1-(v-y0)/(y1-y0));
